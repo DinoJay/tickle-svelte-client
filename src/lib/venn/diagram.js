@@ -30,7 +30,7 @@ export function points({ data, width = 600, height = 315, padding = 15, orientat
     }
 
     const circles = scaleSolution(solution, width, height, padding);
-    console.log('circles', circles)
+    // console.log('circles', circles)
     const textCentres = computeTextCentres(circles, data);
     return { circles, textCentres }
 }
