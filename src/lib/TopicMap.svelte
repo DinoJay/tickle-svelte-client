@@ -53,6 +53,12 @@
 	// console.log('circleDict', circleDict);
 	const circleVals = Object.values(circleDict);
 
+	const colors = [
+		'rgb(44, 160, 44)',
+		'rgb(31, 119, 180)',
+		'rgb(255, 127, 14)',
+		'rgb(227, 119, 194)'
+	];
 	const nodes = data.map((d) => ({
 		...d,
 		...circleDict[d.set],
@@ -107,10 +113,11 @@
 </svg> -->
 
 <div class="relative" style="width:{width}px; height: {height}px">
-	{#each circleVals as c}
+	{#each circleVals as c, i}
 		<div
-			class="absolute border border-sky-500 rounded-full center"
-			style="left:{c.x}px;top:{c.y}px;width:{c.radius * 2}px;height:{c.radius * 2}px;"
+			class="absolute border border-sky-500 rounded-full center opacity-20"
+			style="left:{c.x}px;top:{c.y}px;width:{c.radius * 2}px;height:{c.radius *
+				2}px;background:{colors[i]}"
 		/>
 	{/each}
 	{#each labels as l, i}

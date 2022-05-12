@@ -7,3 +7,5 @@
 		<slot />
 	</div>
 </div>
+
+<div id="modals" />
