@@ -4,7 +4,9 @@
 	import tickleData from '../data';
 </script>
 
-<div>
+<div class="flex flex-col">
 	<Slider cards={tickleData} />
-	<TopicMap />
+	<div class="mx-auto">
+		<TopicMap />
+	</div>
 </div>

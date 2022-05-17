@@ -19,11 +19,11 @@ export function intersectionArea(circles, stats) {
         // sort the points by angle from the center of the polygon, which lets
         // us just iterate over points to get the edges
         var center = getCenter(innerPoints);
-        for (i = 0; i < innerPoints.length; ++i ) {
+        for (i = 0; i < innerPoints.length; ++i) {
             var p = innerPoints[i];
             p.angle = Math.atan2(p.x - center.x, p.y - center.y);
         }
-        innerPoints.sort(function(a,b) { return b.angle - a.angle;});
+        innerPoints.sort(function (a, b) { return b.angle - a.angle; });
 
         // iterate over all points, get arc between the points
         // and update the areas
@@ -35,8 +35,10 @@ export function intersectionArea(circles, stats) {
             polygonArea += (p2.x + p1.x) * (p1.y - p2.y);
 
             // updating the arc area is a little more involved
-            var midPoint = {x : (p1.x + p2.x) / 2,
-                            y : (p1.y + p2.y) / 2},
+            var midPoint = {
+                x: (p1.x + p2.x) / 2,
+                y: (p1.y + p2.y) / 2
+            },
                 arc = null;
 
             for (var j = 0; j < p1.parentIndex.length; ++j) {
@@ -49,15 +51,15 @@ export function intersectionArea(circles, stats) {
 
                     var angleDiff = (a2 - a1);
                     if (angleDiff < 0) {
-                        angleDiff += 2*Math.PI;
+                        angleDiff += 2 * Math.PI;
                     }
 
                     // and use that angle to figure out the width of the
                     // arc
-                    var a = a2 - angleDiff/2,
+                    var a = a2 - angleDiff / 2,
                         width = distance(midPoint, {
-                            x : circle.x + circle.radius * Math.sin(a),
-                            y : circle.y + circle.radius * Math.cos(a)
+                            x: circle.x + circle.radius * Math.sin(a),
+                            y: circle.y + circle.radius * Math.cos(a)
                         });
 
                     // clamp the width to the largest is can actually be
@@ -68,10 +70,12 @@ export function intersectionArea(circles, stats) {
 
                     // pick the circle whose arc has the smallest width
                     if ((arc === null) || (arc.width > width)) {
-                        arc = { circle : circle,
-                                width : width,
-                                p1 : p1,
-                                p2 : p2};
+                        arc = {
+                            circle: circle,
+                            width: width,
+                            p1: p1,
+                            p2: p2
+                        };
                     }
                 }
             }
@@ -107,10 +111,12 @@ export function intersectionArea(circles, stats) {
 
         } else {
             arcArea = smallest.radius * smallest.radius * Math.PI;
-            arcs.push({circle : smallest,
-                       p1: { x: smallest.x,        y : smallest.y + smallest.radius},
-                       p2: { x: smallest.x - SMALL, y : smallest.y + smallest.radius},
-                       width : smallest.radius * 2 });
+            arcs.push({
+                circle: smallest,
+                p1: { x: smallest.x, y: smallest.y + smallest.radius },
+                p2: { x: smallest.x - SMALL, y: smallest.y + smallest.radius },
+                width: smallest.radius * 2
+            });
         }
     }
 
@@ -138,15 +144,15 @@ export function containedInCircles(point, circles) {
 }
 
 /** Gets all intersection points between a bunch of circles */
-function getIntersectionPoints(circles) {
+export function getIntersectionPoints(circles) {
     var ret = [];
     for (var i = 0; i < circles.length; ++i) {
         for (var j = i + 1; j < circles.length; ++j) {
             var intersect = circleCircleIntersection(circles[i],
-                                                          circles[j]);
+                circles[j]);
             for (var k = 0; k < intersect.length; ++k) {
                 var p = intersect[k];
-                p.parentIndex = [i,j];
+                p.parentIndex = [i, j];
                 ret.push(p);
             }
         }
@@ -156,13 +162,13 @@ function getIntersectionPoints(circles) {
 
 /** Circular segment area calculation. See http://mathworld.wolfram.com/CircularSegment.html */
 export function circleArea(r, width) {
-    return r * r * Math.acos(1 - width/r) - (r - width) * Math.sqrt(width * (2 * r - width));
+    return r * r * Math.acos(1 - width / r) - (r - width) * Math.sqrt(width * (2 * r - width));
 }
 
 /** euclidean distance between two points */
 export function distance(p1, p2) {
     return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) +
-                     (p1.y - p2.y) * (p1.y - p2.y));
+        (p1.y - p2.y) * (p1.y - p2.y));
 }
 
 
@@ -206,14 +212,14 @@ export function circleCircleIntersection(p1, p2) {
         rx = -(p2.y - p1.y) * (h / d),
         ry = -(p2.x - p1.x) * (h / d);
 
-    return [{x: x0 + rx, y : y0 - ry },
-            {x: x0 - rx, y : y0 + ry }];
+    return [{ x: x0 + rx, y: y0 - ry },
+    { x: x0 - rx, y: y0 + ry }];
 }
 
 /** Returns the center of a bunch of points */
 export function getCenter(points) {
-    var center = {x: 0, y: 0};
-    for (var i =0; i < points.length; ++i ) {
+    var center = { x: 0, y: 0 };
+    for (var i = 0; i < points.length; ++i) {
         center.x += points[i].x;
         center.y += points[i].y;
     }

@@ -1,12 +1,50 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import * as d3 from 'd3';
 	import { VennDiagram, points } from '../lib/venn/diagram';
 
 	// import { forceSimulation } from 'd3-force';
 	import { uid } from 'uid';
+	import group from '$lib/group';
 	import tickleData from '../data';
+	import { current_component } from 'svelte/internal';
+	import PreviewCard from './PreviewCard.svelte';
 	console.log('tickleData', tickleData);
+	const sort = (ar) => {
+		ar.sort((a, b) => a.title.localeCompare(b.title));
+		return ar;
+	};
+	const nodeData = tickleData.map((d) => {
+		const set = sort(d.topics?.value)?.reduce(
+			(acc, cur) => (acc.length ? `${acc},${cur.title}` : cur.title),
+			''
+		);
+
+		return { ...d, set };
+	});
+
+	const unique = (a) => [...new Set(a)];
+
+	const spreadData = nodeData.flatMap(
+		(d) => {
+			return {
+				...d,
+				sets: d.set
+			};
+		}
+		// d.topics?.value?.map((s) => ({ ...d, set: s.title }))
+	);
+
+	const grData = [...group(spreadData, (d) => d.sets).entries()].map(([key, values]) => ({
+		key,
+		values
+	}));
+
+	console.log('grData', grData);
+
+	// flatMap((d) => d.topics?.value?.map((e) => e.title)).filter((d) => d);
+
+	// console.log('tags', tags);
 
 	const createDummyNodes = (n) => {
 		var data = [];
@@ -18,18 +56,38 @@
 		return data;
 	};
 
+	const sets0 = grData
+		.map((d) => ({ sets: d.key.split(',') }))
+		.map((d) => ({ ...d, size: d.sets.length }));
+	console.log('sets', sets0);
 	var sets = [
-		{ sets: ['Computer Science'], size: 30 },
-		{ sets: ['Semantic Web'], size: 6 },
-		{ sets: ['Information Visualization'], size: 6 },
-		{ sets: ['Computer Science', 'Semantic Web'], size: 6 },
+		{ sets: ['Computer Science'], size: 5 },
+
+		{ sets: ['Semantic Web'], size: 1 },
+
+		{ sets: ['Information Visualization'], size: 1 },
 		{
-			sets: ['Computer Science', 'Information Visualization'],
-			size: 6
+			sets: ['Toxicology'],
+			size: 5
 		},
-		{ sets: ['Toxicology'], size: 2 }
-		// { sets: ['Computer Science', 'Toxicology'], size: 1 }
+		{ sets: ['Computer Science', 'Semantic Web'], size: 2 },
+		{ sets: ['Computer Science', 'Information Visualization'], size: 2 },
+		{ sets: ['Computer Science', 'Toxicology'], size: 1 },
+		{ sets: ['Computer Science', 'Information Visualization', 'Semantic Web'], size: 1 }
 	];
+
+	// [
+	// 	{ sets: ['Computer Science'], size: 30 },
+	// 	{ sets: ['Semantic Web'], size: 6 },
+	// 	{ sets: ['Information Visualization'], size: 6 },
+	// 	{ sets: ['Computer Science', 'Semantic Web'], size: 6 },
+	// 	{
+	// 		sets: ['Computer Science', 'Information Visualization'],
+	// 		size: 6
+	// 	},
+	// 	{ sets: ['Toxicology'], size: 2 }
+	// 	// { sets: ['Computer Science', 'Toxicology'], size: 1 }
+	// ];
 
 	const data = [
 		...createDummyNodes(5).map((d) => ({ ...d, set: 'Semantic Web' })),
@@ -46,7 +104,7 @@
 	// 	d3.select('#venn').datum(sets).call(chart);
 	// });
 
-	const width = 700;
+	const width = 650;
 	const height = 500;
 	const res = points({ data: sets, width, height });
 	const circleDict = res.circles;
@@ -59,17 +117,27 @@
 		'rgb(255, 127, 14)',
 		'rgb(227, 119, 194)'
 	];
-	const nodes = data.map((d) => ({
+	const nodes = nodeData.map((d) => ({
 		...d,
 		...circleDict[d.set],
-		sx: circleDict[d.set].x,
-		sy: circleDict[d.set].y
+		x: res.textCentres[d.set].x,
+		y: res.textCentres[d.set].y,
+		sx: res.textCentres[d.set].x,
+		sy: res.textCentres[d.set].y
 	}));
 
+	console.log('nodes', nodes);
+	// const node2 = nodeData.map((d) => ({
+	// 	...d,
+	// 	...circleDict[d.set],
+	// 	sx: circleDict[d.set].x,
+	// 	sy: circleDict[d.set].y
+	// }));
+
 	// console.log('nodes', nodes);
-	const labels = Object.entries(res.textCentres)
-		.map(([l, pos]) => ({ text: l, ...pos }))
-		.filter((d, i) => sets[i].sets.length === 1);
+	const labelPoints = Object.entries(res.textCentres).map(([l, pos]) => ({ text: l, ...pos }));
+
+	const labels = labelPoints.filter((d, i) => sets[i].sets.length === 1);
 	// console.log('circleVals', circleVals);
 	// console.log('labels', labels);
 
@@ -94,9 +162,9 @@
 	{/each}
 </div> -->
 
-<!-- <div id="venn" />
+<!-- <div id="venn" /> -->
 
-<svg width="600" height="400">
+<!-- <svg width="600" height="400">
 	{#each circleVals as c}
 		<circle cx={c.x} cy={c.y} r={c.radius} stroke="black" stroke-width="2" fill="none" />
 	{/each}
@@ -117,6 +185,13 @@
 		<div
 			class="absolute border border-sky-500 rounded-full center opacity-20"
 			style="left:{c.x}px;top:{c.y}px;width:{c.radius * 2}px;height:{c.radius *
+				2}px;background:{colors[i]}"
+		/>
+	{/each}
+	{#each res.rs as c, i}
+		<div
+			class="absolute border border-sky-500 rounded-full center opacity-20"
+			style="left:{c.center.x}px;top:{c.center.y}px;width:{c.r * 2}px;height:{c.r *
 				2}px;background:{colors[i]}"
 		/>
 	{/each}

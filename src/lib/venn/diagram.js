@@ -2,8 +2,9 @@ import { select, selectAll } from "d3-selection";
 import { transition } from "d3-transition";
 
 import { venn, lossFunction, normalizeSolution, scaleSolution } from "./layout";
-import { intersectionArea, distance, getCenter } from "./circleintersection";
+import { intersectionArea, distance, getCenter, getIntersectionPoints } from "./circleintersection";
 import { nelderMead } from "fmin";
+import { text } from "svelte/internal";
 
 /*global console:true*/
 
@@ -29,10 +30,66 @@ export function points({ data, width = 600, height = 315, padding = 15, orientat
             orientationOrder);
     }
 
+
     const circles = scaleSolution(solution, width, height, padding);
-    // console.log('circles', circles)
+    const circleVals = Object.values(circles);
+    console.log('circleVals', circleVals)
+    const intersections = getIntersectionPoints(circleVals)
+    console.log('intersections', intersections);
+
+
     const textCentres = computeTextCentres(circles, data);
-    return { circles, textCentres }
+
+    function checkOverlapp(sets, circle) {
+        var i = 0,
+            l = sets.length,
+            c;
+        for (i; i < l; i++) {
+            c = circles[sets[i]];
+            if (distance(c, circle) < c.radius) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function computeDistanceToCircles(set) {
+        var sets = set.sets,
+            center = set.center,
+            // hasOneSet = set.length ==1,
+            k, circle, dist, isInside, isOverlapp,
+            candidate = Infinity;
+        // if(sets.length ==1)  {
+        for (k in circles) {
+            circle = circles[k];
+            isInside = sets.indexOf(k) > -1;
+            isOverlapp = sets.indexOf(k) < -1 && checkOverlapp(sets, circle);
+            dist = distance(center, circle);
+            dist = isInside ? circle.radius - dist : isOverlapp ? dist - circle.radius : dist + circle.radius;
+            if (dist < candidate) {
+                candidate = dist;
+            }
+
+        }
+        return candidate;
+    }
+
+
+    console.log('circles', circles, 'textCentres', textCentres)
+    const ts = Object.entries(textCentres).map(([k, o]) => ({ sets: k.split(','), center: { ...o } }))
+
+    const rs = ts.map(d => ({ ...d, r: computeDistanceToCircles(d) }))
+    console.log('rs', rs);
+
+
+    // const ts  = textCentres.map(d=> ({
+    //     ...d, r
+
+
+    // }))
+
+
+    return { circles, textCentres, rs }
 }
 
 export function VennDiagram() {
@@ -421,6 +478,7 @@ export function computeTextCentre(interior, exterior) {
         points.push({ x: c.x, y: c.y - c.radius / 2 });
     }
     var initial = points[0], margin = circleMargin(points[0], interior, exterior);
+    // return initial
     for (i = 1; i < points.length; ++i) {
         var m = circleMargin(points[i], interior, exterior);
         if (m >= margin) {
@@ -525,6 +583,7 @@ export function computeTextCentres(circles, areas) {
                 exclude[overlaps[k]] = true;
             }
         }
+
 
         var interior = [], exterior = [];
         for (var setid in circles) {
