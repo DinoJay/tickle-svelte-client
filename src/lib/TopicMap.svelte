@@ -59,41 +59,38 @@
 	const sets0 = grData
 		.map((d) => ({ sets: d.key.split(',') }))
 		.map((d) => ({ ...d, size: d.sets.length }));
-	console.log('sets', sets0);
-	var sets = [
-		{ sets: ['Computer Science'], size: 5 },
 
-		{ sets: ['Semantic Web'], size: 1 },
+	var sets = [
+		{ sets: ['Computer Science'], size: 14 },
+
+		{ sets: ['Semantic Web'], size: 7 },
 
 		{ sets: ['Information Visualization'], size: 1 },
 		{
 			sets: ['Toxicology'],
-			size: 5
+			size: 14
 		},
-		{ sets: ['Computer Science', 'Semantic Web'], size: 2 },
-		{ sets: ['Computer Science', 'Information Visualization'], size: 2 },
-		{ sets: ['Computer Science', 'Toxicology'], size: 1 },
+		{ sets: ['Computer Science', 'Semantic Web'], size: 7 },
+		{ sets: ['Computer Science', 'Information Visualization'], size: 1 },
+		{ sets: ['Computer Science', 'Toxicology'], size: 2 },
 		{ sets: ['Computer Science', 'Information Visualization', 'Semantic Web'], size: 1 }
 	];
 
-	// [
-	// 	{ sets: ['Computer Science'], size: 30 },
-	// 	{ sets: ['Semantic Web'], size: 6 },
-	// 	{ sets: ['Information Visualization'], size: 6 },
-	// 	{ sets: ['Computer Science', 'Semantic Web'], size: 6 },
-	// 	{
-	// 		sets: ['Computer Science', 'Information Visualization'],
-	// 		size: 6
-	// 	},
-	// 	{ sets: ['Toxicology'], size: 2 }
-	// 	// { sets: ['Computer Science', 'Toxicology'], size: 1 }
-	// ];
+	// var sets = [
+	// 	{ sets: ['Computer Science'], size: 5 },
 
-	const data = [
-		...createDummyNodes(5).map((d) => ({ ...d, set: 'Semantic Web' })),
-		...createDummyNodes(5).map((d) => ({ ...d, set: 'Information Visualization' })),
-		...createDummyNodes(5).map((d) => ({ ...d, set: 'Toxicology' }))
-	];
+	// 	{ sets: ['Semantic Web'], size: 1 },
+
+	// 	{ sets: ['Information Visualization'], size: 1 },
+	// 	{
+	// 		sets: ['Toxicology'],
+	// 		size: 5
+	// 	},
+	// 	{ sets: ['Computer Science', 'Semantic Web'], size: 2 },
+	// 	{ sets: ['Computer Science', 'Information Visualization'], size: 2 },
+	// 	{ sets: ['Computer Science', 'Toxicology'], size: 1 },
+	// 	{ sets: ['Computer Science', 'Information Visualization', 'Semantic Web'], size: 1 }
+	// ];
 
 	// var chart = VennDiagram();
 
@@ -151,6 +148,34 @@
 		.force('collide', d3.forceCollide(10));
 
 	simulation.on('tick', () => (ns = simulation.nodes()));
+	console.log('rs', res.rs);
+	const rsNodes = res.rs.map((d) => {
+		console.log('d', d, nodes);
+		return { ...d, nodes: nodes.filter((n) => n.set === d.setsStr) };
+	});
+
+	// var valueFn = layout.value();
+
+	const NODERAD = 15;
+
+	const setNodes = rsNodes.map((set) => {
+		// function pack(set, valueFn) {
+		var innerRadius = set.r,
+			center = set.center,
+			nodes = set.nodes,
+			x = center.x,
+			y = center.y;
+
+		const p = d3.packSiblings(nodes.map((d) => ({ ...d, r: NODERAD + 2 })));
+		console.log('p', p);
+		p.forEach(function (n) {
+			n.x += x;
+			n.y += y;
+		});
+		return { ...set, nodes: p };
+	});
+
+	const newNodes = setNodes.flatMap((d) => d.nodes);
 </script>
 
 <!-- <div>
@@ -188,13 +213,13 @@
 				2}px;background:{colors[i]}"
 		/>
 	{/each}
-	{#each res.rs as c, i}
+	<!-- {#each res.rs as c, i}
 		<div
 			class="absolute border border-sky-500 rounded-full center opacity-20"
 			style="left:{c.center.x}px;top:{c.center.y}px;width:{c.r * 2}px;height:{c.r *
 				2}px;background:{colors[i]}"
 		/>
-	{/each}
+	{/each} -->
 	{#each labels as l, i}
 		<div
 			class="absolute center text-center"
@@ -203,10 +228,10 @@
 			{l.text}
 		</div>
 	{/each}
-	{#each ns as n}
+	{#each newNodes as n}
 		<div
 			class="absolute center bg-blue-500 rounded-full opacity-40"
-			style="width:20px;height:20px;left:{n.x}px;top:{n.y}px"
+			style="width:{NODERAD * 2}px;height:{NODERAD * 2}px;left:{n.x}px;top:{n.y}px"
 		/>
 	{/each}
 </div>

@@ -76,10 +76,9 @@ export function points({ data, width = 600, height = 315, padding = 15, orientat
 
 
     console.log('circles', circles, 'textCentres', textCentres)
-    const ts = Object.entries(textCentres).map(([k, o]) => ({ sets: k.split(','), center: { ...o } }))
+    const ts = Object.entries(textCentres).map(([k, o]) => ({ sets: k.split(','), setsStr: k, center: { ...o } }))
 
     const rs = ts.map(d => ({ ...d, r: computeDistanceToCircles(d) }))
-    console.log('rs', rs);
 
 
     // const ts  = textCentres.map(d=> ({
