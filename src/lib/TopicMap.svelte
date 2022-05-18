@@ -72,8 +72,11 @@
 			sets: a,
 			values: nodeData.filter((d) => isSubset(a, d.sets))
 		}))
-		.filter((d) => d.values.length > 0)
-		.map((d) => ({ ...d, size: d.values.length / d.sets.length }));
+		.filter((d) => d.values.length > 0);
+
+	allSets.forEach((d) => {
+		d.size = d.values.length / d.sets.length;
+	});
 
 	console.log('allSets', allSets);
 
