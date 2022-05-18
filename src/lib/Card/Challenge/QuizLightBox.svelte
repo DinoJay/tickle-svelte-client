@@ -1,7 +1,7 @@
 <script>
-	import { portal } from './portalAction';
+	import { portal } from '$lib/portalAction';
 	import { fade, slide, fly, blur } from 'svelte/transition';
-	import Card from '$lib/Card/index.svelte';
+	import Quiz from './Quiz.svelte';
 	export let cards;
 	export let start;
 	export let style;
@@ -9,29 +9,28 @@
 	export let alt;
 	export let open = false;
 	export let close;
-	export let card;
+	export let activity;
 
-	const getCardProps = (c) => ({
-		title: c.title?.value,
-		img: c.img?.value?.url,
-		description: c.description?.value,
-		activity: c.activity
+	const getQuizProps = () => ({
+		datum: activity,
+		width: $$props.width,
+		height: $$props.height
 	});
 </script>
 
 {#if open}
 	<div
 		transition:blur
-		use:portal={'modals'}
+		use:portal={'quizModal'}
 		class="fixed modal cont w-full h-full flex "
 		on:click={(e) => {
-			console.log('e', e);
+			console.log('click', e);
 			e.stopPropagation();
 			close();
 		}}
 	>
-		<div class="m-auto" on:click={(e) => e.stopPropagation()}>
-			<Card {...getCardProps(card)} />
+		<div class="m-auto overflow-hidden" on:click={(e) => e.stopPropagation()}>
+			<Quiz {...getQuizProps()} />
 		</div>
 	</div>
 {/if}

@@ -1171,7 +1171,7 @@ export default
                     "seconds": 1633517742,
                     "nanoseconds": 904000000
                 },
-                "id": "4b84c7f0-d5db-11ec-9e91-1bfe39df30b2",
+                "id": "efec66b0-d683-11ec-95c1-cdb8ccbe4ba0",
                 "succeeded": true,
                 "uid": "YEEqNJDsE6VY1BmQ6FYl1iDrWJV2",
                 "username": "jan"
@@ -1292,9 +1292,127 @@ export default
             },
             "activity": {
                 "key": "activity",
-                "label": null,
-                "type": null,
-                "value": null
+                "label": "Activity",
+                "type": "Quiz",
+                "value": {
+                    "questions": [
+                        {
+                            "answers": [
+                                {
+                                    "correct": false,
+                                    "id": "8ded1ef0-d683-11ec-9e91-1bfe39df30b2",
+                                    "order": 183,
+                                    "text": "child classes"
+                                },
+                                {
+                                    "correct": false,
+                                    "id": "876202d0-d683-11ec-9e91-1bfe39df30b2",
+                                    "order": 205,
+                                    "text": "extended classes"
+                                },
+                                {
+                                    "correct": true,
+                                    "id": "7fce5050-d683-11ec-9e91-1bfe39df30b2",
+                                    "order": 493,
+                                    "text": "abstract classes"
+                                },
+                                {
+                                    "correct": false,
+                                    "id": "fe5d10c0-d681-11ec-9e91-1bfe39df30b2",
+                                    "order": 828,
+                                    "text": "inherited classes"
+                                }
+                            ],
+                            "id": "7a252530-d682-11ec-9e91-1bfe39df30b2",
+                            "img": {
+                                "contain": true,
+                                "id": "dac116f0-d683-11ec-9e91-1bfe39df30b2",
+                                "name": "atmosphere-love-color-blue-freedom-circle-globe-world-son-family-children-colors-future-earth-hands-fingers-sphere-planet-shape-union-map-of-the-world-continents-astronomical-object-confidence-brotherhood-atmosphere-of-earth-1290949.jpeg",
+                                "url": "https://firebasestorage.googleapis.com/v0/b/tickle-194510.appspot.com/o/img%2Fdac116f0-d683-11ec-9e91-1bfe39df30b2?alt=media&token=5300ce58-1e3a-4ece-ae0a-416c15a38bc9"
+                            },
+                            "order": 499,
+                            "text": "Ontological obligation comprises the particular objects that made a world. In which ways can these objects be assembled?",
+                            "wellFormatted": true
+                        },
+                        {
+                            "answers": [
+                                {
+                                    "correct": true,
+                                    "id": "960d2860-d682-11ec-9e91-1bfe39df30b2",
+                                    "order": 318,
+                                    "text": "RDF Schema"
+                                },
+                                {
+                                    "correct": false,
+                                    "id": "7a29e020-d682-11ec-9e91-1bfe39df30b2",
+                                    "order": 530,
+                                    "text": "HTML"
+                                },
+                                {
+                                    "correct": false,
+                                    "id": "9afa4bf0-d682-11ec-9e91-1bfe39df30b2",
+                                    "order": 583,
+                                    "text": "OWL"
+                                },
+                                {
+                                    "correct": false,
+                                    "id": "905eb0a0-d682-11ec-9e91-1bfe39df30b2",
+                                    "order": 786,
+                                    "text": "XML"
+                                }
+                            ],
+                            "id": "b0e844e0-d681-11ec-9e91-1bfe39df30b2",
+                            "img": {
+                                "contain": true,
+                                "id": "fe692940-d682-11ec-9e91-1bfe39df30b2",
+                                "name": "blueprint.jpeg",
+                                "url": "https://firebasestorage.googleapis.com/v0/b/tickle-194510.appspot.com/o/img%2Ffe692940-d682-11ec-9e91-1bfe39df30b2?alt=media&token=aaf34349-52d9-4762-8a51-b0b9e3c15768"
+                            },
+                            "order": 878,
+                            "text": "What is the language defined for ontologies development that provides description for classes and properties of RDF resources called?",
+                            "wellFormatted": true
+                        },
+                        {
+                            "answers": [
+                                {
+                                    "correct": false,
+                                    "id": "f2b05390-d681-11ec-9e91-1bfe39df30b2",
+                                    "order": 241,
+                                    "text": "meta data"
+                                },
+                                {
+                                    "correct": false,
+                                    "id": "ed1033b0-d681-11ec-9e91-1bfe39df30b2",
+                                    "order": 803,
+                                    "text": "logic"
+                                },
+                                {
+                                    "correct": true,
+                                    "id": "f86c86f0-d681-11ec-9e91-1bfe39df30b2",
+                                    "order": 863,
+                                    "text": "ontology"
+                                },
+                                {
+                                    "correct": false,
+                                    "id": "b0ed4df0-d681-11ec-9e91-1bfe39df30b2",
+                                    "order": 911,
+                                    "text": "agents"
+                                }
+                            ],
+                            "id": "a9b9bcd0-d681-11ec-9e91-1bfe39df30b2",
+                            "img": {
+                                "contain": true,
+                                "id": "757a88e0-d682-11ec-9e91-1bfe39df30b2",
+                                "name": "ontology-dimensions-map_20070423b.png",
+                                "url": "https://firebasestorage.googleapis.com/v0/b/tickle-194510.appspot.com/o/img%2F757a88e0-d682-11ec-9e91-1bfe39df30b2?alt=media&token=988ca0e1-58f4-4af3-970a-3446bfb0bd7f"
+                            },
+                            "order": 829,
+                            "text": "What is the Semantic Web Technology that will be responsible for assisting retrieved information interpretation, Web searches and to communicate among agents called?",
+                            "wellFormatted": true
+                        }
+                    ],
+                    "title": "Semantic Web"
+                }
             },
             "description": {
                 "key": "description",

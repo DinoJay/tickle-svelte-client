@@ -7,16 +7,13 @@
 	import { uid } from 'uid';
 	import group from '$lib/group';
 	import tickleData from '../data';
-	import { current_component } from 'svelte/internal';
-	import PreviewCard from './PreviewCard.svelte';
-	console.log('tickleData', tickleData);
 	const sort = (ar) => {
 		ar.sort((a, b) => a.title.localeCompare(b.title));
 		return ar;
 	};
 	const nodeData = tickleData.map((d) => {
 		const set = sort(d.topics?.value)?.reduce(
-			(acc, cur) => (acc.length ? `${acc},${cur.title}` : cur.title),
+			(acc, cur) => (acc.length > 0 ? `${acc},${cur.title}` : cur.title),
 			''
 		);
 
@@ -37,38 +34,42 @@
 
 	const grData = [...group(spreadData, (d) => d.sets).entries()].map(([key, values]) => ({
 		key,
+		sets: key.split(','),
 		values
 	}));
-
 	console.log('grData', grData);
 
-	// flatMap((d) => d.topics?.value?.map((e) => e.title)).filter((d) => d);
+	const oneSets = unique(grData.flatMap((d) => d.sets)).map((key) => ({
+		key,
+		sets: [key],
+		values: grData.filter((d) => d.sets.includes(key)).flatMap((d) => d.values)
+	}));
 
-	// console.log('tags', tags);
+	let sets = [
+		...grData.map((d) => ({ ...d, size: d.values.length })),
+		...oneSets.map((d) => ({
+			...d,
+			size: d.values.length + Math.pow(grData.filter((e) => e.sets.includes(d.key)).length, 2)
+		}))
+		// { sets: ['Computer Science', 'Information Visualization'], size: 1, radius: 10 }
+	];
 
-	const createDummyNodes = (n) => {
-		var data = [];
+	console.log('oneSets', oneSets);
 
-		for (var i = 0; i < n; i++) {
-			data.push({ id: uid() });
-		}
+	console.log('sets', sets);
+	// const sets0 = grData
+	// 	.map((d) => ({ sets: d.key.split(',') }))
+	// 	.map((d) => ({ ...d, size: d.sets.length }));
 
-		return data;
-	};
+	sets = [
+		{ sets: ['Computer Science'], size: 13 },
 
-	const sets0 = grData
-		.map((d) => ({ sets: d.key.split(',') }))
-		.map((d) => ({ ...d, size: d.sets.length }));
+		{ sets: ['Semantic Web'], size: 5 },
 
-	var sets = [
-		{ sets: ['Computer Science'], size: 14 },
-
-		{ sets: ['Semantic Web'], size: 7 },
-
-		{ sets: ['Information Visualization'], size: 1 },
+		{ sets: ['Information Visualization'], size: 2 },
 		{
 			sets: ['Toxicology'],
-			size: 14
+			size: 15
 		},
 		{ sets: ['Computer Science', 'Semantic Web'], size: 7 },
 		{ sets: ['Computer Science', 'Information Visualization'], size: 1 },
@@ -103,8 +104,7 @@
 
 	const width = 650;
 	const height = 500;
-	const res = points({ data: sets, width, height });
-	const circleDict = res.circles;
+	const { textCentres, circles: circleDict, rs } = points({ data: sets, width, height });
 	// console.log('circleDict', circleDict);
 	const circleVals = Object.values(circleDict);
 
@@ -117,10 +117,10 @@
 	const nodes = nodeData.map((d) => ({
 		...d,
 		...circleDict[d.set],
-		x: res.textCentres[d.set].x,
-		y: res.textCentres[d.set].y,
-		sx: res.textCentres[d.set].x,
-		sy: res.textCentres[d.set].y
+		x: textCentres[d.set].x,
+		y: textCentres[d.set].y,
+		sx: textCentres[d.set].x,
+		sy: textCentres[d.set].y
 	}));
 
 	console.log('nodes', nodes);
@@ -132,31 +132,19 @@
 	// }));
 
 	// console.log('nodes', nodes);
-	const labelPoints = Object.entries(res.textCentres).map(([l, pos]) => ({ text: l, ...pos }));
+	const labelPoints = Object.entries(textCentres).map(([l, pos]) => ({ text: l, ...pos }));
 
 	const labels = labelPoints.filter((d, i) => sets[i].sets.length === 1);
 	// console.log('circleVals', circleVals);
 	// console.log('labels', labels);
 
-	let ns = nodes;
-	const simulation = d3
-		.forceSimulation(nodes)
-		// .force(
-		// 	'center',
-		// 	d3.forceCenter((d) => [d.sx, d.sy])
-		// )
-		.force('collide', d3.forceCollide(10));
-
-	simulation.on('tick', () => (ns = simulation.nodes()));
-	console.log('rs', res.rs);
-	const rsNodes = res.rs.map((d) => {
-		console.log('d', d, nodes);
+	const rsNodes = rs.map((d) => {
 		return { ...d, nodes: nodes.filter((n) => n.set === d.setsStr) };
 	});
 
 	// var valueFn = layout.value();
 
-	const NODERAD = 15;
+	const NODERAD = 12;
 
 	const setNodes = rsNodes.map((set) => {
 		// function pack(set, valueFn) {
@@ -230,7 +218,7 @@
 	{/each}
 	{#each newNodes as n}
 		<div
-			class="absolute center bg-blue-500 rounded-full opacity-40"
+			class="absolute center bg-gray-700 rounded-full opacity-40"
 			style="width:{NODERAD * 2}px;height:{NODERAD * 2}px;left:{n.x}px;top:{n.y}px"
 		/>
 	{/each}

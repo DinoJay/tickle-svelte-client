@@ -18,6 +18,7 @@ export function points({ data, width = 600, height = 315, padding = 15, orientat
             toremove[datum.sets[0]] = 1;
         }
     });
+    console.log('dta', data)
     data = data.filter(function (datum) {
         return !datum.sets.some(function (set) { return set in toremove; });
     });
@@ -75,7 +76,6 @@ export function points({ data, width = 600, height = 315, padding = 15, orientat
     }
 
 
-    console.log('circles', circles, 'textCentres', textCentres)
     const ts = Object.entries(textCentres).map(([k, o]) => ({ sets: k.split(','), setsStr: k, center: { ...o } }))
 
     const rs = ts.map(d => ({ ...d, r: computeDistanceToCircles(d) }))
