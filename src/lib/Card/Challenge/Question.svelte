@@ -6,8 +6,7 @@
 	export let text;
 	export let height;
 	export let addResponse;
-
-	let response = answers.map(() => false);
+	export let response;
 
 	// $: addResponse(response);
 </script>
@@ -20,7 +19,13 @@
 		<div class="mt-2">
 			{#each answers as a, i}
 				<div class="text-lg text-gray-600">
-					<input type="checkbox" bind:checked={response[i]} on:click={(e) => {}} />
+					<input
+						type="checkbox"
+						bind:checked={response[i]}
+						on:change={(e) => {
+							addResponse(response.map((a, j) => (i === j ? e.target.checked : a)));
+						}}
+					/>
 					<label for="vehicle1"> {a.text}</label><br />
 				</div>
 			{/each}
