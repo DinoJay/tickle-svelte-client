@@ -8,6 +8,8 @@
 	let open = false;
 	const width = 400;
 	const height = 600;
+
+	$: console.log('activity', activity);
 </script>
 
 <div class="border-2 p-3 bg-white flex flex-col" style="width:{400}px;height:{600}px">
@@ -19,4 +21,6 @@
 	>
 </div>
 
-<QuizLightBox {open} {activity} {width} {height} close={() => (open = false)} />
+{#if activity.value}
+	<QuizLightBox {open} {activity} {width} {height} close={() => (open = false)} />
+{/if}

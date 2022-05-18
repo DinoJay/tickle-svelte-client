@@ -7,104 +7,79 @@
 	import { uid } from 'uid';
 	import group from '$lib/group';
 	import tickleData from '../data';
-	const sort = (ar) => {
-		ar.sort((a, b) => a.title.localeCompare(b.title));
+	const sort = (ar, acc = (a) => a.title) => {
+		ar.sort((a, b) => acc(a).localeCompare(b.title));
 		return ar;
 	};
-	const nodeData = tickleData.map((d) => {
-		const set = sort(d.topics?.value)?.reduce(
-			(acc, cur) => (acc.length > 0 ? `${acc},${cur.title}` : cur.title),
+
+	const findAllSubsets = (arr = []) => {
+		arr.sort();
+		const res = [[]];
+		let count, subRes, preLength;
+		for (let i = 0; i < arr.length; i++) {
+			count = 1;
+			while (arr[i + 1] && arr[i + 1] == arr[i]) {
+				count += 1;
+				i++;
+			}
+			preLength = res.length;
+			for (let j = 0; j < preLength; j++) {
+				subRes = res[j].slice();
+				for (let x = 1; x <= count; x++) {
+					if (x > 0) subRes.push(arr[i]);
+					res.push(subRes.slice());
+				}
+			}
+		}
+		return res;
+	};
+
+	const isSubset = (a, b) => {
+		// console.log('a', a, 'b', b);
+		const len = a.filter((d) => b.includes(d)).length;
+		// console.log(
+		// 	'yes',
+		// 	a.filter((d) => b.includes(d))
+		// );
+		return a.length === len;
+	};
+
+	const getSetsStr = (d, accessor = (e) => e.title) => {
+		const ret = sort(d, accessor).reduce(
+			(acc, cur) => (acc.length > 0 ? `${acc},${accessor(cur)}` : accessor(cur)),
 			''
 		);
+		return ret;
+	};
 
-		return { ...d, set };
+	const nodeData = tickleData.map((d) => {
+		const sets = sort(d.topics?.value).map((d) => d.title);
+		const setsStr = getSetsStr(d.topics?.value);
+		return { ...d, sets, setsStr };
 	});
 
 	const unique = (a) => [...new Set(a)];
 
-	const spreadData = nodeData.flatMap(
-		(d) => {
-			return {
-				...d,
-				sets: d.set
-			};
-		}
-		// d.topics?.value?.map((s) => ({ ...d, set: s.title }))
-	);
+	const setKeys = unique(nodeData.flatMap((d) => d.sets));
 
-	const grData = [...group(spreadData, (d) => d.sets).entries()].map(([key, values]) => ({
-		key,
-		sets: key.split(','),
-		values
-	}));
-	console.log('grData', grData);
+	const allSetKeys = findAllSubsets(setKeys).map((d) => sort(d, (d) => d));
+	console.log('allSetKeys', allSetKeys);
 
-	const oneSets = unique(grData.flatMap((d) => d.sets)).map((key) => ({
-		key,
-		sets: [key],
-		values: grData.filter((d) => d.sets.includes(key)).flatMap((d) => d.values)
-	}));
-
-	let sets = [
-		...grData.map((d) => ({ ...d, size: d.values.length })),
-		...oneSets.map((d) => ({
-			...d,
-			size: d.values.length + Math.pow(grData.filter((e) => e.sets.includes(d.key)).length, 2)
+	const allSets = allSetKeys
+		.filter((d) => d.length > 0)
+		.map((a) => ({
+			key: getSetsStr(a, (d) => d),
+			sets: a,
+			values: nodeData.filter((d) => isSubset(a, d.sets))
 		}))
-		// { sets: ['Computer Science', 'Information Visualization'], size: 1, radius: 10 }
-	];
+		.filter((d) => d.values.length > 0)
+		.map((d) => ({ ...d, size: d.values.length / d.sets.length }));
 
-	console.log('oneSets', oneSets);
-
-	console.log('sets', sets);
-	// const sets0 = grData
-	// 	.map((d) => ({ sets: d.key.split(',') }))
-	// 	.map((d) => ({ ...d, size: d.sets.length }));
-
-	sets = [
-		{ sets: ['Computer Science'], size: 13 },
-
-		{ sets: ['Semantic Web'], size: 5 },
-
-		{ sets: ['Information Visualization'], size: 2 },
-		{
-			sets: ['Toxicology'],
-			size: 15
-		},
-		{ sets: ['Computer Science', 'Semantic Web'], size: 7 },
-		{ sets: ['Computer Science', 'Information Visualization'], size: 1 },
-		{ sets: ['Computer Science', 'Toxicology'], size: 2 },
-		{ sets: ['Computer Science', 'Information Visualization', 'Semantic Web'], size: 1 }
-	];
-
-	// var sets = [
-	// 	{ sets: ['Computer Science'], size: 5 },
-
-	// 	{ sets: ['Semantic Web'], size: 1 },
-
-	// 	{ sets: ['Information Visualization'], size: 1 },
-	// 	{
-	// 		sets: ['Toxicology'],
-	// 		size: 5
-	// 	},
-	// 	{ sets: ['Computer Science', 'Semantic Web'], size: 2 },
-	// 	{ sets: ['Computer Science', 'Information Visualization'], size: 2 },
-	// 	{ sets: ['Computer Science', 'Toxicology'], size: 1 },
-	// 	{ sets: ['Computer Science', 'Information Visualization', 'Semantic Web'], size: 1 }
-	// ];
-
-	// var chart = VennDiagram();
-
-	// onMount(() => {
-	// 	console.log('chart', chart);
-	// 	// const res = points({ data: sets });
-	// 	// console.log('res', res);
-	// 	d3.select('#venn').datum(sets).call(chart);
-	// });
+	console.log('allSets', allSets);
 
 	const width = 650;
 	const height = 500;
-	const { textCentres, circles: circleDict, rs } = points({ data: sets, width, height });
+	const { textCentres, circles: circleDict, rs } = points({ data: allSets, width, height });
 	// console.log('circleDict', circleDict);
 	const circleVals = Object.values(circleDict);
 
@@ -116,30 +91,23 @@
 	];
 	const nodes = nodeData.map((d) => ({
 		...d,
-		...circleDict[d.set],
-		x: textCentres[d.set].x,
-		y: textCentres[d.set].y,
-		sx: textCentres[d.set].x,
-		sy: textCentres[d.set].y
+		...circleDict[d.setsStr],
+		x: textCentres[d.setsStr].x,
+		y: textCentres[d.setsStr].y,
+		sx: textCentres[d.setsStr].x,
+		sy: textCentres[d.setsStr].y
 	}));
 
-	console.log('nodes', nodes);
-	// const node2 = nodeData.map((d) => ({
-	// 	...d,
-	// 	...circleDict[d.set],
-	// 	sx: circleDict[d.set].x,
-	// 	sy: circleDict[d.set].y
-	// }));
-
-	// console.log('nodes', nodes);
+	console.log(
+		'nodes',
+		nodes.map((d) => d.sets)
+	);
 	const labelPoints = Object.entries(textCentres).map(([l, pos]) => ({ text: l, ...pos }));
 
 	const labels = labelPoints.filter((d, i) => sets[i].sets.length === 1);
-	// console.log('circleVals', circleVals);
-	// console.log('labels', labels);
 
 	const rsNodes = rs.map((d) => {
-		return { ...d, nodes: nodes.filter((n) => n.set === d.setsStr) };
+		return { ...d, nodes: nodes.filter((n) => n.setsStr === d.setsStr) };
 	});
 
 	// var valueFn = layout.value();
@@ -155,8 +123,7 @@
 			y = center.y;
 
 		const p = d3.packSiblings(nodes.map((d) => ({ ...d, r: NODERAD + 2 })));
-		console.log('p', p);
-		p.forEach(function (n) {
+		p.forEach((n) => {
 			n.x += x;
 			n.y += y;
 		});

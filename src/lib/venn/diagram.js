@@ -18,7 +18,6 @@ export function points({ data, width = 600, height = 315, padding = 15, orientat
             toremove[datum.sets[0]] = 1;
         }
     });
-    console.log('dta', data)
     data = data.filter(function (datum) {
         return !datum.sets.some(function (set) { return set in toremove; });
     });
