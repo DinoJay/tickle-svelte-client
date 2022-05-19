@@ -8,4 +8,4 @@
 	</div>
 </div>
 
-<div id="modals" />
+<div class="" id="modals" />

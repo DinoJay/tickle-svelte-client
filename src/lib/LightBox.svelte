@@ -42,6 +42,7 @@
 		top: 50%;
 
 		transform: translate(-50%, -50%);
+		@apply z-50;
 	}
 	.cont {
 		background: rgba(240, 248, 255, 0.86);

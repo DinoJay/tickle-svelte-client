@@ -7,6 +7,10 @@
 	import { uid } from 'uid';
 	import group from '$lib/group';
 	import tickleData from '../data';
+
+	export let onClick;
+	export let selectedId;
+
 	const sort = (ar, acc = (a) => a.title) => {
 		ar.sort((a, b) => acc(a).localeCompare(b.title));
 		return ar;
@@ -49,6 +53,9 @@
 			(acc, cur) => (acc.length > 0 ? `${acc},${accessor(cur)}` : accessor(cur)),
 			''
 		);
+
+		// const altret = sort(d, accessor); //.join(',');
+		// console.log({ ret, altret });
 		return ret;
 	};
 
@@ -76,6 +83,7 @@
 
 	allSets.forEach((d) => {
 		d.size = d.values.length / d.sets.length;
+		// d.size = d.values.length / d.sets.length;
 	});
 
 	console.log('allSets', allSets);
@@ -107,7 +115,7 @@
 	);
 	const labelPoints = Object.entries(textCentres).map(([l, pos]) => ({ text: l, ...pos }));
 
-	const labels = labelPoints.filter((d, i) => sets[i].sets.length === 1);
+	const labels = labelPoints.filter((d, i) => allSets[i].sets.length === 1);
 
 	const rsNodes = rs.map((d) => {
 		return { ...d, nodes: nodes.filter((n) => n.setsStr === d.setsStr) };
@@ -188,13 +196,23 @@
 	{/each}
 	{#each newNodes as n}
 		<div
-			class="absolute center bg-gray-700 rounded-full opacity-40"
+			on:click={() => {
+				console.log('click');
+				onClick(n.id);
+			}}
+			class="absolute z-10 bg-gray-700 rounded-full opacity-40 {n.id === selectedId
+				? 'highlighted_center'
+				: 'center'}"
 			style="width:{NODERAD * 2}px;height:{NODERAD * 2}px;left:{n.x}px;top:{n.y}px"
 		/>
 	{/each}
 </div>
 
 <style>
+	.highlighted_center {
+		transform: translate(-50%, -50%) scale(1.4);
+		@apply border-2 border-black transition;
+	}
 	.center {
 		transform: translate(-50%, -50%);
 	}

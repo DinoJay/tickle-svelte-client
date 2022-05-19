@@ -1,9 +1,12 @@
 <script>
 	import PreviewCard from '$lib/PreviewCard.svelte';
 	import LightBox from './LightBox.svelte';
+	import { afterUpdate } from 'svelte';
+
+	export let selected;
 
 	export let cards;
-	console.log('cards', cards);
+	export let onClick;
 
 	$: previewCardData = cards.map((c) => ({
 		id: c.id,
@@ -12,8 +15,13 @@
 	}));
 
 	const elems = cards.map(() => null);
-	let selected = null;
 	let modalOpen = false;
+
+	afterUpdate(() => {
+		const i = cards.findIndex((c) => c.id === selected);
+
+		elems[i]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'center' });
+	});
 </script>
 
 <div class="flex overflow-x-auto overflow-y-visible py-3 px-6 ">
@@ -23,9 +31,8 @@
 			style="transform:scale({c.id === selected ? '1.10' : '1'})"
 			bind:this={elems[i]}
 			on:click={(e) => {
-				elems[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'center' });
 				if (selected === c.id) modalOpen = true;
-				selected = c.id;
+				onClick(c.id);
 			}}
 		>
 			<PreviewCard {...c} />
