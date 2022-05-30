@@ -1,9 +1,11 @@
 // import adapter from '@sveltejs/adapter-static';
-import firebase from "svelte-adapter-firebase";
+import adapter from '@sveltejs/adapter-static';
 
 
 export default {
 	kit: {
-		adapter: firebase()
+		adapter: adapter({
+			fallback: 'index.html'
+		})
 	}
 };
