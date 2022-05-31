@@ -2,6 +2,7 @@
 	import PreviewCard from '$lib/PreviewCard.svelte';
 	import LightBox from './LightBox.svelte';
 	import { afterUpdate } from 'svelte';
+	import Card from '$lib/Card/index.svelte';
 
 	export let selected;
 
@@ -13,6 +14,13 @@
 		title: c.title?.value,
 		img: c.img?.value?.url
 	}));
+
+	const getCardProps = (c) => ({
+		title: c.title?.value,
+		img: c.img?.value?.url,
+		description: c.description?.value,
+		activity: c.activity
+	});
 
 	const elems = cards.map(() => null);
 	let modalOpen = false;
@@ -38,9 +46,7 @@
 			<PreviewCard {...c} />
 		</div>
 	{/each}
-	<LightBox
-		open={modalOpen}
-		close={() => (modalOpen = false)}
-		card={cards.find((c) => c.id === selected)}
-	/>
+	<LightBox open={modalOpen} close={() => (modalOpen = false)}>
+		<Card {...getCardProps(cards.find((c) => c.id === selected))} />
+	</LightBox>
 </div>

@@ -1,7 +1,6 @@
 <script>
 	import { portal } from './portalAction';
 	import { fade, slide, fly, blur } from 'svelte/transition';
-	import Card from '$lib/Card/index.svelte';
 	export let cards;
 	export let start;
 	export let style;
@@ -31,7 +30,7 @@
 		}}
 	>
 		<div class="m-auto" on:click={(e) => e.stopPropagation()}>
-			<Card {...getCardProps(card)} />
+			<slot />
 		</div>
 	</div>
 {/if}
