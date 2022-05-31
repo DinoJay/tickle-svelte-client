@@ -1,0 +1,8 @@
+npm i
+npm run build
+firebase login
+firebase deploy
+
+To reload :
+npm run build
+firebase deploy
