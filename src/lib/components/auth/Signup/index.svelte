@@ -31,9 +31,8 @@
 
 	const signUpUser = () => {
 		createUserWithEmailAndPassword(auth, email.trim(), pwd)
-			.then((userCredential) => {
-				const user = userCredential.user;
-				// TODO: Redirection
+			.then(() => {
+				window.location.href = '/CardView';
 			})
 			.catch((error) => {
 				createNewNotification(errors[error.code]);

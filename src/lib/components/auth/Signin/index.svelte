@@ -20,10 +20,8 @@
 
 	const signInUser = () => {
 		signInWithEmailAndPassword(auth, email.trim(), pwd)
-			.then((userCredential) => {
-				const user = userCredential.user;
-				// TODO: Redirection
-				window.location.href = '/MapView';
+			.then(() => {
+				window.location.href = '/CardView';
 			})
 			.catch((error) => {
 				createNewNotification(errors[error.code]);

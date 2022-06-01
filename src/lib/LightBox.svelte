@@ -1,14 +1,11 @@
 <script>
 	import { portal } from './portalAction';
 	import { fade, slide, fly, blur } from 'svelte/transition';
-	export let cards;
-	export let start;
 	export let style;
 	export let className;
 	export let alt;
 	export let open = false;
 	export let close;
-	export let card;
 
 	const getCardProps = (c) => ({
 		title: c.title?.value,
@@ -29,7 +26,7 @@
 			close();
 		}}
 	>
-		<div class="m-auto" on:click={(e) => e.stopPropagation()}>
+		<div class="m-auto bg-white" on:click={(e) => e.stopPropagation()}>
 			<slot />
 		</div>
 	</div>
