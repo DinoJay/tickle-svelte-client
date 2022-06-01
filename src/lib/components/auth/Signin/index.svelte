@@ -23,6 +23,7 @@
 			.then((userCredential) => {
 				const user = userCredential.user;
 				// TODO: Redirection
+				window.location.href = '/MapView';
 			})
 			.catch((error) => {
 				createNewNotification(errors[error.code]);
