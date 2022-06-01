@@ -1,25 +1,27 @@
 <script>
 	import { auth } from '$lib/firebaseConfig/firebase';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
+	import { getNotificationsContext } from 'svelte-notifications';
 
+	const { addNotification } = getNotificationsContext();
 	const errors = {
 		'auth/email-already-in-use': 'The email address is already in use by another account.',
 		'auth/admin-restricted-operation': 'This operation is restricted to administrators only.',
 		'auth/invalid-email': 'The email address is badly formatted.',
 		'auth/weak-password': 'Password should be at least 6 characters.',
-		'auth/password-confirmation': 'Passwords do not match.'
+		'auth/password-confirmation': 'Passwords do not match.',
+		'auth/internal-error': 'An internal error has occurred.'
 	};
-	let email = null;
-	let pwd = null;
-	let pwdConfirmation = null;
-	let feedback = '';
+	let email = '';
+	let pwd = '';
+	let pwdConfirmation = '';
 
 	const submit = (e) => {
 		e.preventDefault();
 		if (passwordIsValid()) {
 			signUpUser();
 		} else {
-			feedback = errors['auth/password-confirmation'];
+			createNewNotification(errors['auth/password-confirmation']);
 		}
 	};
 
@@ -28,15 +30,23 @@
 	};
 
 	const signUpUser = () => {
-		createUserWithEmailAndPassword(auth, email, pwd)
+		createUserWithEmailAndPassword(auth, email.trim(), pwd)
 			.then((userCredential) => {
 				const user = userCredential.user;
-				feedback = 'Account created';
+				// TODO: Redirection
 			})
 			.catch((error) => {
-				const errorCode = error.code;
-				feedback = errors[errorCode];
+				createNewNotification(errors[error.code]);
 			});
+	};
+
+	const createNewNotification = (message) => {
+		addNotification({
+			text: message,
+			position: 'top-right',
+			removeAfter: 3000,
+			type: 'warning'
+		});
 	};
 </script>
 
@@ -50,9 +60,6 @@
 
 	<button type="submit">Sign up</button>
 </form>
-<div>
-	<p>{feedback}</p>
-</div>
 
 <style>
 </style>
