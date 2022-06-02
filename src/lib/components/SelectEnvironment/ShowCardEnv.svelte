@@ -16,7 +16,6 @@
 				const envIndex = draft.envs.findIndex((d) => d.id === envId);
 				draft.envs[envIndex].cards = cards;
 			});
-			console.log('nextState', nextState);
 			return nextState;
 		});
 	}
