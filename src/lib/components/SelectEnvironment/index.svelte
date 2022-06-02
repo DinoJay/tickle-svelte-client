@@ -1,6 +1,6 @@
 <script>
 	import LightBox from '$lib/LightBox.svelte';
-	import ShowCardEnv from '$lib/components/SelectEnvironment/ShowCardEnv.svelte';
+	import ShowCardEnv from '$lib/components/SelectEnvironment/ShowEnv.svelte';
 	import { store } from '/src/store';
 
 	let open = true;
