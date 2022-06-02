@@ -1,10 +1,21 @@
 <script>
 	import TopicMap from '$lib/TopicMap.svelte';
 	import Slider from '$lib/Slider.svelte';
-	import SelectEnvironment from '$lib/components/SelectEnvironment/index.svelte';
 	import tickleData from '../data';
+	import SelectEnvironment from '$lib/components/SelectEnvironment/index.svelte';
+	import { db } from '$lib/firebaseConfig/firebase';
+	import { collection, getDocs } from 'firebase/firestore';
+	import { store } from '/src/store';
 
 	let selected = null;
+
+	const loadCardEnvironments = getDocs(collection(db, 'card-environments'))
+		.then((snap) => {
+			store.set({ envs: snap.docs.map((d) => d.data()) });
+		})
+		.catch((error) => {
+			console.log(error);
+		});
 </script>
 
 <div class="flex flex-col">
