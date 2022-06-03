@@ -3,8 +3,9 @@
 	import { collection, getDocs } from 'firebase/firestore';
 	import { store } from '/src/store';
 	import produce from 'immer';
-	let openId = null;
 	import { fade } from 'svelte/transition';
+
+	let openId = null;
 
 	async function loadCards(envId) {
 		const snapRef2 = await getDocs(collection(db, 'card-environments', envId, 'cards'));
@@ -32,14 +33,16 @@
 				<div transition:fade>
 					<p>
 						{env.description}
-						<button
-							on:click={() => {
-								loadCards(env.id);
-								openId = null;
-							}}>Go!</button
-						>
-						<button />
 					</p>
+					<button
+						on:click={() => {
+							loadCards(env.id);
+							store.update((obj) => {
+								return { ...obj, selectedEnvId: env.id };
+							});
+							openId = null;
+						}}>Go!</button
+					>
 				</div>
 				{#if env?.img?.url}
 					<img class="w-full" src={env.img.url} alt={env.name} />

@@ -1,6 +1,7 @@
 <script>
 	import '../app.css';
 	import Notifications from 'svelte-notifications';
+	import Nav from '$lib/components/Nav.svelte';
 </script>
 
 <Notifications>

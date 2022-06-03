@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 
 export const store = writable({
-	envs: []
+	envs: [],
+	selectedEnvId: null
 });
