@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.layout-container {
+	width: 100vw;
+	height: 100vh;
+}
+
+@screen xl {
+	.layout-container {
+		max-width: 700px;
+		max-height: 700px;
+	}
+}
+
+@screen 2xl {
+	.layout-container {
+		max-width: 800px;
+		max-height: 1000px;
+	}
+}

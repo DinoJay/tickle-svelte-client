@@ -6,10 +6,16 @@
 
 <Notifications>
 	<div class="flex">
-		<div class="mx-auto my-6 shadow-md border border-gray-200 p-3" style="max-width:700px">
+		<div
+			class="mx-auto 2xl:my-6 xl:my-4 shadow-md border border-gray-200 p-3 grow layout-container"
+		>
+			<Nav />
 			<slot />
 		</div>
 	</div>
 
 	<div class="" id="modals" />
 </Notifications>
+
+<style>
+</style>

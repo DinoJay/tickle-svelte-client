@@ -3,6 +3,7 @@
 	import Slider from '$lib/Slider.svelte';
 	import tickleData from '../data';
 	import SelectEnvironment from '$lib/components/SelectEnvironment/index.svelte';
+	import Authenticated from '$lib/components/auth/Authenticated.svelte';
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { collection, getDocs } from 'firebase/firestore';
 	import { store } from '/src/store';
@@ -18,10 +19,12 @@
 		});
 </script>
 
-<div class="flex flex-col">
-	<Slider {selected} cards={tickleData} onClick={(id) => (selected = id)} />
-	<div class="mx-auto">
-		<TopicMap selectedId={selected} onClick={(id) => (selected = id)} />
+<Authenticated>
+	<div class="flex flex-col">
+		<Slider {selected} cards={tickleData} onClick={(id) => (selected = id)} />
+		<div class="mx-auto">
+			<TopicMap selectedId={selected} onClick={(id) => (selected = id)} />
+		</div>
+		<SelectEnvironment />
 	</div>
-	<SelectEnvironment />
-</div>
+</Authenticated>
