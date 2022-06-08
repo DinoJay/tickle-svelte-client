@@ -9,7 +9,7 @@
 		console.log(auth);
 		signOut(auth)
 			.then(() => {
-				console.log('ok');
+				window.location.href = '/';
 			})
 			.catch((error) => {
 				// An error happened.
@@ -17,7 +17,7 @@
 	};
 </script>
 
-<nav transition:slide class="bg-teal-500 p-6 grow">
+<nav transition:slide class="bg-teal-500 p-6 grow relative">
 	<div class="flex">
 		<div class="flex items-center flex-shrink-0 text-white mr-6">
 			<span class="font-semibold text-xl tracking-tight">Tickle</span>
@@ -36,7 +36,7 @@
 	</div>
 
 	{#if collapsed}
-		<div class="w-full mt-3" id="menu">
+		<div class="w-full mt-3 px-3 py-2 bg-teal-500 absolute left-0 z-50" id="menu">
 			<div class="text-sm lg:flex-grow" />
 			<div>
 				<button
@@ -49,4 +49,5 @@
 	{/if}
 </nav>
 
-<style></style>
+<style>
+</style>

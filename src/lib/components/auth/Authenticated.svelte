@@ -3,6 +3,8 @@
 	import { onAuthStateChanged } from 'firebase/auth';
 	import Loader from '$lib/components/Loader.svelte';
 
+	export let error;
+
 	let listener = false;
 	let authenticated = false;
 
@@ -20,6 +22,6 @@
 	<Loader />
 {:else if authenticated}
 	<slot />
-{:else}
-	<div>Error message</div>
+{:else if error}
+	<div>{error}</div>
 {/if}

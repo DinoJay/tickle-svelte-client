@@ -19,7 +19,7 @@
 		});
 </script>
 
-<Authenticated>
+<Authenticated error="error message">
 	<div class="flex flex-col">
 		<Slider {selected} cards={tickleData} onClick={(id) => (selected = id)} />
 		<div class="mx-auto">

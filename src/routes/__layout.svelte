@@ -2,6 +2,7 @@
 	import '../app.css';
 	import Notifications from 'svelte-notifications';
 	import Nav from '$lib/components/Nav.svelte';
+	import Authenticated from '$lib/components/auth/Authenticated.svelte';
 </script>
 
 <Notifications>
