@@ -2,8 +2,20 @@
 	import LightBox from '$lib/LightBox.svelte';
 	import { store } from '/src/store';
 	import ShowEnv from './ShowEnv.svelte';
+	import { afterUpdate, tick } from 'svelte';
 
 	let open = true;
+	let openId = null;
+	$: envs = $store.envs;
+	const elems = $store.envs.map(() => null);
+	afterUpdate(async () => {
+		const i = envs.findIndex((c) => c.id === openId);
+		console.log('elems', elems);
+
+		await tick();
+
+		elems[i]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'center' });
+	});
 </script>
 
 <LightBox {open} close={() => (open = false)}>
@@ -14,8 +26,8 @@
 			{#if $store.envs.length === 0}
 				Loading...
 			{:else}
-				{#each $store.envs as env}
-					<ShowEnv {...env} />
+				{#each $store.envs as env, i}
+					<ShowEnv {...env} {openId} bind:el={elems[i]} onClick={(id) => (openId = id)} />
 				{/each}
 			{/if}
 		</div>
@@ -27,6 +39,6 @@
 		width: 98vw;
 		max-width: 500px;
 		height: 98vh;
-		max-height: 500px;
+		max-height: 600px;
 	}
 </style>
