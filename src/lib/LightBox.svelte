@@ -6,20 +6,13 @@
 	export let alt;
 	export let open = false;
 	export let close;
-
-	const getCardProps = (c) => ({
-		title: c.title?.value,
-		img: c.img?.value?.url,
-		description: c.description?.value,
-		activity: c.activity
-	});
 </script>
 
 {#if open}
 	<div
 		transition:blur
 		use:portal={'modals'}
-		class="fixed modal cont w-full h-full flex "
+		class="fixed modal cont w-full h-full flex drop-shadow-2xl"
 		on:click={(e) => {
 			console.log('e', e);
 			e.stopPropagation();

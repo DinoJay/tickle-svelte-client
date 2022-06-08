@@ -1,55 +1,47 @@
 <script>
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { collection, getDocs } from 'firebase/firestore';
-	import { store } from '/src/store';
+	import { store, loadCards } from '/src/store';
 	import produce from 'immer';
 	import { fade } from 'svelte/transition';
 
+	export let id;
+	export let name;
+	export let description;
+	export let img;
+
 	let openId = null;
-
-	async function loadCards(envId) {
-		const snapRef2 = await getDocs(collection(db, 'card-environments', envId, 'cards'));
-		const cards = snapRef2.docs.map((doc) => {
-			return doc.data();
-		});
-
-		store.update((obj) => {
-			const nextState = produce(obj, (draft) => {
-				const envIndex = draft.envs.findIndex((d) => d.id === envId);
-				draft.envs[envIndex].cards = cards;
-			});
-			return nextState;
-		});
-	}
 </script>
 
-<div class="flex flex-col">
-	{#each $store.envs as env}
-		<div class:extended={openId === env.id} class="w-96 max-h-96 min-height overflow-y-auto">
-			<h2>
-				<button on:click={() => (openId = openId === env.id ? null : env.id)}>{env.name}</button>
+<div class:extended={openId === id} class=" min-height overflow-y-auto">
+	<h2>
+		<button on:click={() => (openId = openId === id ? null : id)}>
+			<h2 class="flex items-center text-xl">
+				<span class="mr-1 ">{openId !== null ? '🤯' : '🙂'}</span>
+				<span>{name}</span>
 			</h2>
-			{#if openId === env.id}
-				<div transition:fade>
-					<p>
-						{env.description}
-					</p>
-					<button
-						on:click={() => {
-							loadCards(env.id);
-							store.update((obj) => {
-								return { ...obj, selectedEnvId: env.id };
-							});
-							openId = null;
-						}}>Go!</button
-					>
-				</div>
-				{#if env?.img?.url}
-					<img class="w-full" src={env.img.url} alt={env.name} />
-				{/if}
-			{/if}
+		</button>
+	</h2>
+	{#if openId === id}
+		<div transition:fade class="my-2">
+			<img class="w-full object-contain h-96" src={img?.url || '/tickle.svg'} alt={name} />
+			<div>
+				<p class="mb-3">
+					{description}
+				</p>
+				<button
+					class="border border-gray-300 border-3 w-full p-2 text-xl"
+					on:click={() => {
+						loadCards(id);
+						store.update((obj) => {
+							return { ...obj, selectedEnvId: id };
+						});
+						openId = null;
+					}}>Go!</button
+				>
+			</div>
 		</div>
-	{/each}
+	{/if}
 </div>
 
 <style>
