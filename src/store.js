@@ -2,7 +2,8 @@ import { writable } from 'svelte/store';
 
 export const store = writable({
 	envs: [],
-	selectedEnvId: null
+	selectedEnvId: null,
+	currentUser: null
 });
 
 async function loadCards(envId) {
@@ -20,4 +21,4 @@ async function loadCards(envId) {
 	});
 }
 
-export { loadCards }
+export { loadCards };

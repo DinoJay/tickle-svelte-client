@@ -1,6 +1,5 @@
 <script>
-	import { auth } from '$lib/firebaseConfig/firebase';
-	import { onAuthStateChanged } from 'firebase/auth';
+	import { store } from '/src/store';
 	import Loader from '$lib/components/Loader.svelte';
 
 	export let error;
@@ -8,13 +7,12 @@
 	let listener = false;
 	let authenticated = false;
 
-	onAuthStateChanged(auth, (user) => {
-		if (user) {
-			authenticated = true;
-		} else {
-			authenticated = false;
-		}
-		listener = true;
+	const someFunction = (storeObj) => {
+		console.log(storeObj);
+	};
+
+	store.subscribe((storeObj) => {
+		someFunction(storeObj);
 	});
 </script>
 
