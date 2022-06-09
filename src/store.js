@@ -1,3 +1,6 @@
+import { db } from '$lib/firebaseConfig/firebase';
+import { collection, getDocs } from 'firebase/firestore';
+import produce from 'immer';
 import { writable } from 'svelte/store';
 
 export const store = writable({
@@ -15,6 +18,7 @@ async function loadCards(envId) {
 	store.update((obj) => {
 		const nextState = produce(obj, (draft) => {
 			const envIndex = draft.envs.findIndex((d) => d.id === envId);
+			console.log(cards[0]);
 			draft.envs[envIndex].cards = cards;
 		});
 		return nextState;

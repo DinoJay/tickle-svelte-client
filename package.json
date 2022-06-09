@@ -41,6 +41,7 @@
     "firebase-functions": "^3.21.2",
     "immer": "^9.0.14",
     "mapbox-gl": "^2.8.2",
+    "svelte-material-icons": "^2.0.2",
     "svelte-notifications": "^0.9.95",
     "uid": "^2.0.0",
     "uuidv4": "^6.2.13"
