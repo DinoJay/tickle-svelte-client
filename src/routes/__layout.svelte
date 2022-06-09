@@ -2,20 +2,6 @@
 	import '../app.css';
 	import Notifications from 'svelte-notifications';
 	import Nav from '$lib/components/Nav.svelte';
-	import { onMount } from 'svelte';
-	import { auth } from '$lib/firebaseConfig/firebase';
-	import { onAuthStateChanged } from 'firebase/auth';
-	import { store } from '/src/store';
-
-	onMount(() => {
-		onAuthStateChanged(auth, (currentUser) => {
-			if (currentUser) {
-				store.update((obj) => ({ ...obj, currentUser }));
-			} else {
-				store.update((obj) => ({ ...obj, currentUser: null }));
-			}
-		});
-	});
 </script>
 
 <Notifications>

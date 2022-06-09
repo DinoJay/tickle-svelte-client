@@ -12,7 +12,7 @@
 		const i = envs.findIndex((c) => c.id === openId);
 		console.log('elems', elems);
 
-		await tick();
+		// await tick();
 
 		elems[i]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'center' });
 	});

@@ -1,19 +1,16 @@
 <script>
 	import { getAuth, signOut } from 'firebase/auth';
 	import { slide } from 'svelte/transition';
+	import { store } from '/src/store.js';
 
 	let collapsed = false;
 
 	const logOut = () => {
 		const auth = getAuth();
 		console.log(auth);
-		signOut(auth)
-			.then(() => {
-				window.location.href = '/';
-			})
-			.catch((error) => {
-				// An error happened.
-			});
+		signOut(auth).catch((error) => {
+			// An error happened.
+		});
 	};
 </script>
 
