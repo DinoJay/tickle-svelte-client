@@ -7,15 +7,12 @@
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { collection, getDocs } from 'firebase/firestore';
 	import { store } from '/src/store';
-	import { get } from 'svelte/store';
 
 	let selected = null;
-	let myStore = get(store);
 
 	const loadCardEnvironments = getDocs(collection(db, 'card-environments'))
 		.then((snap) => {
-			myStore.envs = snap.docs.map((d) => d.data());
-			store.update((obj) => myStore);
+			store.update((obj) => ({ ...obj, envs: snap.docs.map((d) => d.data()) }));
 		})
 		.catch((error) => {
 			console.log(error);
