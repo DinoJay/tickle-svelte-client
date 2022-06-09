@@ -4,6 +4,8 @@
 	import tickleData from '../data';
 	import SelectEnvironment from '$lib/components/SelectEnvironment/index.svelte';
 	import Authenticated from '$lib/components/auth/Authenticated.svelte';
+	import Map from '$lib/components/Map/index.svelte';
+	import MapMarker from '$lib/components/Map/MapMarker.svelte';
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { collection, getDocs } from 'firebase/firestore';
 	import { store } from '/src/store';

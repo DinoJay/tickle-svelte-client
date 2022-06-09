@@ -10,7 +10,7 @@
 @screen xl {
 	.layout-container {
 		max-width: 700px;
-		max-height: 700px;
+		max-height: 900px;
 	}
 }
 

@@ -1,7 +1,6 @@
 <script>
 	import { getAuth, signOut } from 'firebase/auth';
 	import { slide } from 'svelte/transition';
-	import { store } from '/src/store.js';
 
 	let collapsed = false;
 
