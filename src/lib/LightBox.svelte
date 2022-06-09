@@ -1,5 +1,6 @@
 <script>
 	import { portal } from './portalAction';
+	import WindowClose from 'svelte-material-icons/WindowClose.svelte';
 	import { fade, slide, fly, blur } from 'svelte/transition';
 	export let style;
 	export let className;
@@ -19,7 +20,8 @@
 			close();
 		}}
 	>
-		<div class="m-auto bg-white" on:click={(e) => e.stopPropagation()}>
+		<div class="m-auto bg-white relative" on:click={(e) => e.stopPropagation()}>
+			<button on:click={close} class="absolute right-0 p-3"><WindowClose size="1.5em" /> </button>
 			<slot />
 		</div>
 	</div>
