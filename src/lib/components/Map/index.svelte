@@ -1,6 +1,7 @@
 <script>
 	import { onDestroy, setContext } from 'svelte';
-	import { mapbox, key } from './mapbox.js';
+	import { mapbox, key, getLowerCenterMap } from './mapbox.js';
+	import { store } from '/src/store.js';
 
 	setContext(key, {
 		getMap: () => map

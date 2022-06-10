@@ -29,6 +29,7 @@
 		const i = cards.findIndex((c) => c.id === selected);
 
 		elems[i]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'center' });
+		console.log('elems', elems, 'i', i, 'el', elems[i]);
 	});
 </script>
 
