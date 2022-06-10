@@ -13,7 +13,7 @@
 	};
 </script>
 
-<nav transition:slide class="bg-teal-500 p-6 grow relative">
+<nav transition:slide class="bg-teal-500 p-6 relative">
 	<div class="flex">
 		<div class="flex items-center flex-shrink-0 text-white mr-6">
 			<span class="font-semibold text-xl tracking-tight">Tickle</span>
