@@ -3,6 +3,7 @@
 	import { store } from '/src/store';
 	import ShowEnv from './ShowEnv.svelte';
 	import { afterUpdate, tick } from 'svelte';
+	import TickleWobble from '$lib/components/TickleWobble.svelte';
 
 	let open = true;
 	let openId = null;
@@ -14,7 +15,7 @@
 
 		// await tick();
 
-		elems[i]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'center' });
+		elems[i]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'start' });
 	});
 </script>
 
@@ -22,9 +23,9 @@
 	<div class="p-4 cont flex flex-col ">
 		<h2 class="text-3xl mb-1 text-gray-800">Welcome to TICKLE!</h2>
 
-		<div class=" overflow-y-auto">
+		<div class="grow overflow-y-auto">
 			{#if $store.envs.length === 0}
-				Loading...
+				<TickleWobble />
 			{:else}
 				{#each $store.envs as env, i}
 					<ShowEnv {...env} {openId} bind:el={elems[i]} onClick={(id) => (openId = id)} />

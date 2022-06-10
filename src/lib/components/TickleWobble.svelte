@@ -1,6 +1,9 @@
-<script></script>
+<script>
+	export let className;
+	export let style;
+</script>
 
-<div class="loader-container">
+<div class="loader-container {className}" {style}>
 	<img class="wobble" src="/alt_tickle_icon.svg" alt="loader" />
 </div>
 
