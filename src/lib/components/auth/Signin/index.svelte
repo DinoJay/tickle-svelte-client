@@ -1,9 +1,8 @@
 <script>
 	import { auth } from '$lib/firebaseConfig/firebase';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
-	import { getNotificationsContext } from 'svelte-notifications';
+	import { addNotification } from '/src/stores/notificationStore';
 
-	const { addNotification } = getNotificationsContext();
 	const errors = {
 		'auth/invalid-email': 'The email address is badly formatted.',
 		'auth/user-not-found': 'There is no user record corresponding to this identifier.',

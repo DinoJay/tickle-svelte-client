@@ -2,7 +2,7 @@
 	import PreviewCard from '$lib/PreviewCard.svelte';
 	import LightBox from './LightBox.svelte';
 	import { afterUpdate } from 'svelte';
-	import Card from '$lib/Card/index.svelte';
+	import Card from '$lib/components/Card/index.svelte';
 
 	export let selected;
 

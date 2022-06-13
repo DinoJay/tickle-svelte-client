@@ -1,6 +1,6 @@
 <script>
 	import '../app.css';
-	import Notifications from 'svelte-notifications';
+	import Notifications from '$lib/components/Notifications/index.svelte';
 	import Nav from '$lib/components/Nav.svelte';
 </script>
 
@@ -13,6 +13,7 @@
 	</div>
 
 	<div class="" id="modals" />
+	<div id="notifications" />
 </Notifications>
 
 <style>

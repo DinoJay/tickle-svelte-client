@@ -1,5 +1,6 @@
 <script>
 	import { fade } from 'svelte/transition';
+
 	export let title;
 	export let img;
 	export let answers;
@@ -11,8 +12,8 @@
 	// $: addResponse(response);
 </script>
 
-<div class="flex-grow flex flex-col p-2" style="max-height:{height}px">
-	<h2 class="text-xl">{title}</h2>
+<div class="flex-grow flex flex-col p-2">
+	<h2 class="text-xl mb-2">{title}</h2>
 	<img class="object-cover w-full flex-grow shrink" style="max-height:200px" src={img.url} />
 	<div class="p-2">
 		<p class="text-xl">{text}</p>

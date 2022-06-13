@@ -1,9 +1,8 @@
 <script>
 	import { auth } from '$lib/firebaseConfig/firebase';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
-	import { getNotificationsContext } from 'svelte-notifications';
 
-	const { addNotification } = getNotificationsContext();
+	import { addNotification } from '/src/stores/notificationStore';
 	const errors = {
 		'auth/email-already-in-use': 'The email address is already in use by another account.',
 		'auth/admin-restricted-operation': 'This operation is restricted to administrators only.',

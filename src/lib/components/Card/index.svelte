@@ -1,6 +1,6 @@
 <script>
 	import LightBox from '$lib/LightBox.svelte';
-	import Quiz from './Challenge/Quiz.svelte';
+	import Quiz from './Challenge/Quiz/index.svelte';
 	export let title;
 	export let description;
 	export let img;
