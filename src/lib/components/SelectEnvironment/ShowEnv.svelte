@@ -1,7 +1,7 @@
 <script>
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { collection, getDocs } from 'firebase/firestore';
-	import { store, loadCards } from '/src/store';
+	import { store, loadCards } from '/src/stores/index';
 	import produce from 'immer';
 	import { fade } from 'svelte/transition';
 

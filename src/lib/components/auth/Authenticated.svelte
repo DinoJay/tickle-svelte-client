@@ -1,5 +1,5 @@
 <script>
-	import { store } from '/src/store';
+	import { store } from '/src/stores/index';
 	import TickleWobble from '$lib/components/TickleWobble.svelte';
 	import { onAuthStateChanged } from 'firebase/auth';
 	import { onMount } from 'svelte';
