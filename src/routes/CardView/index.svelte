@@ -7,7 +7,7 @@
 	import Map from './Map.svelte';
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { collection, getDocs } from 'firebase/firestore';
-	import { store } from '/src/store';
+	import { store } from '/src/stores/index';
 	import MapIcon from 'svelte-material-icons/MapMarker.svelte';
 	import WatchGeoLoc from '$lib/components/WatchGeoLoc.svelte';
 

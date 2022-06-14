@@ -1,6 +1,6 @@
 <script>
 	import LightBox from '$lib/LightBox.svelte';
-	import { store } from '/src/store';
+	import { store } from '/src/stores/index';
 	import ShowEnv from './ShowEnv.svelte';
 	import { afterUpdate, tick } from 'svelte';
 	import TickleWobble from '$lib/components/TickleWobble.svelte';
