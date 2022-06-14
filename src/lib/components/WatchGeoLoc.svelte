@@ -1,12 +1,12 @@
 <script>
-	import { store } from '/src/store';
+	import { store } from '/src/stores/index';
 
 	const watchID = navigator.geolocation.watchPosition((position) => {
 		let currentUser = $store.currentUser;
 
 		currentUser.location = {
-			longitude: position.coords.longitude,
-			latitude: position.coords.latitude
+			lon: position.coords.longitude,
+			lat: position.coords.latitude
 		};
 
 		store.update((obj) => ({

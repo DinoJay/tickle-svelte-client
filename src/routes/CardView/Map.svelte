@@ -2,9 +2,12 @@
 	import ImgMarker from '$lib/components/Map/ImgMarker.svelte';
 	import Map from '$lib/components/Map/index.svelte';
 	import MapMarker from '$lib/components/Map/MapMarker.svelte';
+	import { store } from '/src/stores/index';
 
 	export let data;
 	export let onClick;
+
+	$: userLoc = $store.currentUser.location;
 </script>
 
 <Map lat={0} lon={0} zoom={13}>
@@ -15,6 +18,6 @@
 			lon={card.loc.value.longitude}
 			label={card.title.value}
 		/>
-		<ImgMarker />
+		<ImgMarker {...userLoc} />
 	{/each}
 </Map>

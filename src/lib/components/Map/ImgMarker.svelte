@@ -10,7 +10,11 @@
 	export let label;
 	export let onClick;
 
-    $: {x, y} = map.project([lon, lat]);
+	console.log('lat', lat, 'lon', lon);
+	$: pos = lon && lat ? map.project([lon, lat]) : { x: 0, y: 0 };
+	$: console.log('pos', pos);
+
+	$: if (map.isMoving()) console.log('move');
 </script>
 
-<div class="absolute text-2xl" style="left:{x}px;top:{y}px">X</div>
+<div class="absolute text-2xl" style="left:{pos.x}px;top:{pos.y}px">X</div>

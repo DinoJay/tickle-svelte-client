@@ -1,12 +1,7 @@
 <script>
 	import { onDestroy, setContext } from 'svelte';
-<<<<<<< HEAD
 	import { mapbox, key } from './mapbox.js';
-	import { store } from '/src/store.js';
-	import avatars from '$lib/styles/avatars/index';
-=======
-	import { mapbox, key, getLowerCenterMap } from './mapbox.js';
->>>>>>> b2a9278b1dd2f01e63f11651b35566291555a933
+	import { store } from '/src/stores/index';
 
 	setContext(key, {
 		getMap: () => map
@@ -33,12 +28,11 @@
 
 	$: if ($store.currentUser.location) {
 		if (loaded) {
-			let userLongitude = $store.currentUser.location.longitude;
-			let userLatitude = $store.currentUser.location.latitude;
+			const { lon: lng, lat } = $store.currentUser.location;
 
 			map.setCenter({
-				lng: userLongitude,
-				lat: userLatitude
+				lng,
+				lat
 			});
 		}
 	}
