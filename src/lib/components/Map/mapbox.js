@@ -18,13 +18,19 @@ export const getViewport = (m) => {
 	};
 };
 
-export const getLowerCenterMap = ({ map, latitude: oldLat, longitude: oldLong }) => {
-	const vp = getViewport(map);
+// TODO
+export const getLowerCenterMap = ({ map, longitude: oldLong, latitude: oldLat }) => {
+	// const vp = getViewport(map);
 
-	const { height } = vp;
+	// const { height } = vp;
+
 	const { x, y } = map.project([oldLong, oldLat]);
 
-	const { lng: longitude, lat: latitude } = map.unproject([x, y - height / 8]);
+	const { lng: longitude, lat: latitude } = map.unproject([x, y]);
 
-	return { longitude, latitude };
+	// const { lng: longitude, lat: latitude } = map.unproject([x, y - height / 8]);
+
+	console.log('x', x, 'y', y);
+	console.log('lng', longitude, 'lat', latitude);
+	// return { longitude, latitude };
 };

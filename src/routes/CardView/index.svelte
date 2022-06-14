@@ -21,8 +21,6 @@
 		.catch((error) => {
 			console.log(error);
 		});
-
-	$: console.log(selected);
 </script>
 
 <Authenticated>

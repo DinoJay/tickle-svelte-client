@@ -1,27 +1,36 @@
 <script>
 	import { auth } from '$lib/firebaseConfig/firebase';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
-
+	import avatars from '$lib/styles/avatars/index';
+	import { db } from '$lib/firebaseConfig/firebase';
+	import { doc, setDoc } from 'firebase/firestore';
 	import { addNotification } from '/src/stores/notificationStore';
+
 	const errors = {
 		'auth/email-already-in-use': 'The email address is already in use by another account.',
 		'auth/admin-restricted-operation': 'This operation is restricted to administrators only.',
 		'auth/invalid-email': 'The email address is badly formatted.',
 		'auth/weak-password': 'Password should be at least 6 characters.',
 		'auth/password-confirmation': 'Passwords do not match.',
-		'auth/internal-error': 'An internal error has occurred.'
+		'auth/internal-error': 'An internal error has occurred.',
+		'auth/avatar': 'You must choose an avatar'
 	};
 	let email = '';
 	let pwd = '';
 	let pwdConfirmation = '';
+	let userAvatar = null;
 
 	const submit = (e) => {
 		e.preventDefault();
-		if (passwordIsValid()) {
-			signUpUser();
-		} else {
+		if (!passwordIsValid()) {
 			createNewNotification(errors['auth/password-confirmation']);
+			return;
 		}
+		if (!userAvatar) {
+			createNewNotification(errors['auth/avatar']);
+			return;
+		}
+		signUpUser();
 	};
 
 	const passwordIsValid = () => {
@@ -30,8 +39,10 @@
 
 	const signUpUser = () => {
 		createUserWithEmailAndPassword(auth, email.trim(), pwd)
-			.then(() => {
-				window.location.href = '/CardView';
+			.then((data) => {
+				setDoc(doc(db, 'users', data.user.uid), { avatar: userAvatar, email: email }).then(
+					() => (window.location.href = '/CardView')
+				);
 			})
 			.catch((error) => {
 				createNewNotification(errors[error.code]);
@@ -48,7 +59,7 @@
 	};
 </script>
 
-<img src="/tickle.svg" alt="tickle-logo" class="w-1/3 mt-20 mb-10 h-auto m-auto" />
+<img src="/tickle.svg" alt="tickle-logo" class=" grow  px-20 sm:px-0 lg:my-10  m-auto" />
 <form class="flex flex-col justify-center" action="" method="post" on:submit={(e) => submit(e)}>
 	<input
 		class="w-3/5 m-auto outline-teal-500 text-grey-700 border-black border-2 py-2 px-3 mb-3"
@@ -65,19 +76,33 @@
 		placeholder="Choose password"
 	/>
 	<input
-		class="w-3/5 m-auto outline-teal-500 text-grey-700 border-black border-2 py-2 px-3 mb-3"
+		class="w-3/5 m-auto outline-teal-500 text-grey-700 border-black border-2 py-2 px-3 mb-1"
 		bind:value={pwdConfirmation}
 		type="password"
 		id="passwordConfirmation"
 		placeholder="Confirm password"
 	/>
 
+	<div class="flex m-auto justify-center my-4 w-3/5 overflow-auto h-16">
+		{#each avatars as avatar}
+			<img
+				class="mx-2 h-14 w-auto cursor-pointer 
+				{userAvatar === avatar.id ? 'bg-teal-500' : 'bg-transparent'}"
+				on:click={() => {
+					userAvatar = avatar.id;
+				}}
+				src={avatar.src}
+				alt={avatar.id}
+			/>
+		{/each}
+	</div>
+
 	<button
 		class="w-3/5 m-auto uppercase btn px-3 py-3 font-bold border-2 border-black mb-1"
 		type="submit">Sign up</button
 	>
 </form>
-<p class="w-3/5 m-auto">
+<p class="w-3/5 mx-auto">
 	Already have an account ?
 	<a href="/" class="underline">Sign In</a>
 </p>

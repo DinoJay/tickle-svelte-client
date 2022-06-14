@@ -6,7 +6,6 @@
 
 	const logOut = () => {
 		const auth = getAuth();
-		console.log(auth);
 		signOut(auth).catch((error) => {
 			// An error happened.
 		});

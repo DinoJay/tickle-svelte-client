@@ -1,7 +1,8 @@
 <script>
 	import { onDestroy, setContext } from 'svelte';
-	import { mapbox, key, getLowerCenterMap } from './mapbox.js';
+	import { mapbox, key } from './mapbox.js';
 	import { store } from '/src/store.js';
+	import avatars from '$lib/styles/avatars/index';
 
 	setContext(key, {
 		getMap: () => map
@@ -13,6 +14,7 @@
 
 	let container;
 	let map;
+	let loaded = false;
 
 	function load() {
 		map = new mapbox.Map({
@@ -21,6 +23,20 @@
 			center: [lon, lat],
 			zoom
 		});
+
+		loaded = true;
+	}
+
+	$: if ($store.currentUser.location) {
+		if (loaded) {
+			let userLongitude = $store.currentUser.location.longitude;
+			let userLatitude = $store.currentUser.location.latitude;
+
+			map.setCenter({
+				lng: userLongitude,
+				lat: userLatitude
+			});
+		}
 	}
 
 	onDestroy(() => {
@@ -41,6 +57,7 @@
 
 <style>
 	div {
+		@apply relative;
 		width: 100%;
 		height: 100%;
 	}

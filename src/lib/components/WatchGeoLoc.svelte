@@ -1,23 +1,19 @@
 <script>
-	// const watchID = navigator.geolocation.watchPosition((position) => {
-	// 	store.update((obj) => ({
-	// 		...obj,
-	// 		latitude: position.coords.latitude,
-	// 		longitude: position.coords.longitude
-	// 	}));
-	// });
+	import { store } from '/src/store';
 
-	// NOT HERE
-	// let position = getLowerCenterMap({
-	// 	map,
-	// 	latitude: $store.latitude,
-	// 	longitude: $store.longitude
-	// });
+	const watchID = navigator.geolocation.watchPosition((position) => {
+		let currentUser = $store.currentUser;
 
-	// lat = position.latitude;
-	// lon = position.longitude;
+		currentUser.location = {
+			longitude: position.coords.longitude,
+			latitude: position.coords.latitude
+		};
 
-	// console.log($store);
+		store.update((obj) => ({
+			...obj,
+			currentUser
+		}));
+	});
 </script>
 
 <slot />
