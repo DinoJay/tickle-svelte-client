@@ -18,6 +18,6 @@
 			lon={card.loc.value.longitude}
 			label={card.title.value}
 		/>
-		<ImgMarker {...userLoc} />
 	{/each}
+	<ImgMarker {...userLoc} />
 </Map>
