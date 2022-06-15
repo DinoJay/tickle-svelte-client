@@ -10,17 +10,13 @@
 	import { store } from '/src/stores/index';
 	import MapIcon from 'svelte-material-icons/MapMarker.svelte';
 	import WatchGeoLoc from '$lib/components/WatchGeoLoc.svelte';
+	import { finishDraft } from 'immer';
 
 	let selected = null;
 	let map = false;
 
-	const loadCardEnvironments = getDocs(collection(db, 'card-environments'))
-		.then((snap) => {
-			store.update((obj) => ({ ...obj, envs: snap.docs.map((d) => d.data()) }));
-		})
-		.catch((error) => {
-			console.log(error);
-		});
+	$: centerLoc = tickleData.find((d) => d.id === selected)?.loc?.value;
+	$: console.log('center', centerLoc);
 </script>
 
 <Authenticated>
@@ -36,7 +32,11 @@
 				</div>
 			{:else}
 				<div class="absolute h-full w-full z-0">
-					<Map data={tickleData} onClick={(id) => (selected = id)} />
+					<Map
+						center={[centerLoc?.latitude, centerLoc?.longitude]}
+						data={tickleData}
+						onClick={(id) => (selected = id)}
+					/>
 				</div>
 			{/if}
 

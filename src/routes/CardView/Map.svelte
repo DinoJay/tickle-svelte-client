@@ -6,12 +6,14 @@
 
 	export let data;
 	export let onClick;
+	export let center;
 	let userAvatar = $store.currentUser.avatar;
 
 	$: userLoc = $store.currentUser.location;
+	$: console.log('center', center);
 </script>
 
-<Map lat={0} lon={0} zoom={13}>
+<Map lat={center[0]} lon={center[1]} zoom={13}>
 	{#each data as card}
 		<MapMarker
 			onClick={() => onClick(card.id)}

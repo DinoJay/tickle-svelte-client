@@ -1,5 +1,5 @@
 <script>
-	import { onDestroy, setContext } from 'svelte';
+	import { afterUpdate, onDestroy, setContext } from 'svelte';
 	import { mapbox, key } from './mapbox.js';
 	import { store } from '/src/stores/index';
 
@@ -16,26 +16,35 @@
 	let loaded = false;
 
 	function load() {
+		const center = lon && lat ? { center: [lon, lat] } : {};
 		map = new mapbox.Map({
 			container,
 			style: 'mapbox://styles/mapbox/streets-v9',
-			center: [lon, lat],
+			...center,
 			zoom
 		});
 
 		loaded = true;
 	}
 
-	$: if ($store.currentUser.location) {
-		if (loaded) {
-			const { lon: lng, lat } = $store.currentUser.location;
+	// $: if ($store.currentUser.location) {
+	// 	if (loaded) {
+	// 		const { lon: lng, lat } = $store.currentUser.location;
 
+	// 		map.setCenter({
+	// 			lng,
+	// 			lat
+	// 		});
+	// 	}
+	// }
+
+	afterUpdate(() => {
+		if (lon && lat)
 			map.setCenter({
-				lng,
+				lng: lon,
 				lat
 			});
-		}
-	}
+	});
 
 	onDestroy(() => {
 		if (map) map.remove();
