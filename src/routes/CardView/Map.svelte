@@ -6,6 +6,7 @@
 
 	export let data;
 	export let onClick;
+	let userAvatar = $store.currentUser.avatar;
 
 	$: userLoc = $store.currentUser.location;
 </script>
@@ -19,5 +20,5 @@
 			label={card.title.value}
 		/>
 	{/each}
-	<ImgMarker {...userLoc} />
+	<ImgMarker {...userLoc} {userAvatar} />
 </Map>

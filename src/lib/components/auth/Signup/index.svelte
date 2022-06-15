@@ -1,10 +1,10 @@
 <script>
 	import { auth } from '$lib/firebaseConfig/firebase';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
-	import avatars from '$lib/styles/avatars/index';
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { doc, setDoc } from 'firebase/firestore';
 	import { addNotification } from '/src/stores/notificationStore';
+	import avatars from './avatars';
 
 	const errors = {
 		'auth/email-already-in-use': 'The email address is already in use by another account.',
@@ -83,16 +83,17 @@
 		placeholder="Confirm password"
 	/>
 
-	<div class="flex m-auto justify-center my-4 w-3/5 overflow-auto h-16">
+	<div class="flex m-auto justify-center my-4 w-full overflow-auto h-16">
 		{#each avatars as avatar}
 			<img
 				class="mx-2 h-14 w-auto cursor-pointer 
-				{userAvatar === avatar.id ? 'bg-teal-500' : 'bg-transparent'}"
+				{userAvatar === avatar ? 'bg-teal-500' : 'bg-transparent'}"
 				on:click={() => {
-					userAvatar = avatar.id;
+					userAvatar = avatar;
+					console.log(avatar);
 				}}
-				src={avatar.src}
-				alt={avatar.id}
+				src={'/avatars/' + avatar + '.svg'}
+				alt={avatar}
 			/>
 		{/each}
 	</div>
