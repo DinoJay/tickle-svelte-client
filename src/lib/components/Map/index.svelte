@@ -27,22 +27,22 @@
 		loaded = true;
 	}
 
-	// $: if ($store.currentUser.location) {
-	// 	if (loaded) {
-	// 		const { lon: lng, lat } = $store.currentUser.location;
+	$: if ($store.currentUser.location) {
+		if (loaded) {
+			const { lon: lng, lat } = $store.currentUser.location;
 
-	// 		map.setCenter({
-	// 			lng,
-	// 			lat
-	// 		});
-	// 	}
-	// }
+			map.setCenter({
+				lng,
+				lat
+			});
+		}
+	}
 
 	afterUpdate(() => {
 		if (lon && lat)
-			map.setCenter({
-				lng: lon,
-				lat
+			map.flyTo({
+				center: [lon, lat],
+				essential: true
 			});
 	});
 

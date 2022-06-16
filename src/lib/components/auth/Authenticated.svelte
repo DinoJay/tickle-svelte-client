@@ -12,18 +12,18 @@
 		onAuthStateChanged(auth, (currentUser) => {
 			store.update((obj) => ({ ...obj, currentUser }));
 
-			// if (!$store.currentUser.avatar) {
-			// 	storeUserAvatar(currentUser);
-			// }
+			if (!$store.currentUser.avatar) {
+				storeUserAvatar(currentUser);
+			}
 		});
 	});
 
-	// const storeUserAvatar = (user) => {
-	// 	getDoc(doc(db, 'users', user?.uid)).then((doc) => {
-	// 		user.avatar = doc.data().avatar;
-	// 		store.update((obj) => ({ ...obj, currentUser: user }));
-	// 	});
-	// };
+	const storeUserAvatar = (user) => {
+		getDoc(doc(db, 'users', user?.uid)).then((doc) => {
+			user.avatar = doc.data().avatar;
+			store.update((obj) => ({ ...obj, currentUser: user }));
+		});
+	};
 </script>
 
 {#if $store.currentUser}

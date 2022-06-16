@@ -4,15 +4,15 @@
 	const watchID = navigator.geolocation.watchPosition((position) => {
 		let currentUser = $store.currentUser;
 
-		// currentUser.location = {
-		// 	lon: position.coords.longitude,
-		// 	lat: position.coords.latitude
-		// };
+		currentUser.location = {
+			lon: position.coords.longitude,
+			lat: position.coords.latitude
+		};
 
-		// store.update((obj) => ({
-		// 	...obj,
-		// 	currentUser
-		// }));
+		store.update((obj) => ({
+			...obj,
+			currentUser
+		}));
 	});
 </script>
 

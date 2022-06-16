@@ -1,6 +1,6 @@
 <script>
 	import LightBox from '$lib/LightBox.svelte';
-	import { store } from '/src/stores/index';
+	import { store, loadCardEnvironments } from '/src/stores/index';
 	import ShowEnv from './ShowEnv.svelte';
 	import { afterUpdate, tick } from 'svelte';
 	import TickleWobble from '$lib/components/TickleWobble.svelte';
@@ -8,8 +8,9 @@
 	let open = true;
 	let openId = null;
 	$: envs = $store.envs;
+
 	const elems = $store.envs.map(() => null);
-	afterUpdate(async () => {
+	afterUpdate(() => {
 		const i = envs.findIndex((c) => c.id === openId);
 		console.log('elems', elems);
 
@@ -24,13 +25,15 @@
 		<h2 class="text-3xl mb-1 text-gray-800">Welcome to TICKLE!</h2>
 
 		<div class="grow overflow-y-auto">
-			{#if $store.envs.length === 0}
+			{#await loadCardEnvironments()}
 				<TickleWobble />
-			{:else}
+			{:then _}
 				{#each $store.envs as env, i}
 					<ShowEnv {...env} {openId} bind:el={elems[i]} onClick={(id) => (openId = id)} />
 				{/each}
-			{/if}
+			{:catch error}
+				<p style="color: red">{error.message}</p>
+			{/await}
 		</div>
 	</div>
 </LightBox>

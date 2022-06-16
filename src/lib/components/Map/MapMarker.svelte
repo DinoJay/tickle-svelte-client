@@ -13,8 +13,5 @@
 
 	const popup = new mapbox.Popup({ offset: 25 }).setText(label);
 
-	const marker = new ClickableMarker()
-		.setLngLat([lon, lat])
-		.onClick(() => onClick())
-		.addTo(map);
+	const marker = new ClickableMarker().setLngLat([lon, lat]).onClick(onClick).addTo(map);
 </script>

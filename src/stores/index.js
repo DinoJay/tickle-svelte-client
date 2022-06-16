@@ -25,4 +25,13 @@ async function loadCards(envId) {
 	});
 }
 
-export { loadCards };
+const loadCardEnvironments = () =>
+	getDocs(collection(db, 'card-environments'))
+		.then((snap) => {
+			store.update((obj) => ({ ...obj, envs: snap.docs.map((d) => d.data()) }));
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+
+export { loadCards, loadCardEnvironments };

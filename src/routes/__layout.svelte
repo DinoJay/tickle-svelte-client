@@ -6,7 +6,7 @@
 
 <Notifications>
 	<div
-		class="mx-auto 2xl:my-6 xl:my-4 shadow-md border border-gray-200 p-3 grow flex flex-col layout-container"
+		class="mx-auto 2xl:my-6 xl:my-4 shadow-md border border-gray-200 p-3 grow flex flex-col layout-container overflow-hidden"
 	>
 		<Nav />
 		<slot />
