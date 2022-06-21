@@ -5,18 +5,14 @@
 	import SelectEnvironment from '$lib/components/SelectEnvironment/index.svelte';
 	import Authenticated from '$lib/components/auth/Authenticated.svelte';
 	import Map from './Map.svelte';
-	import { db } from '$lib/firebaseConfig/firebase';
-	import { collection, getDocs } from 'firebase/firestore';
-	import { store } from '/src/stores/index';
 	import MapIcon from 'svelte-material-icons/MapMarker.svelte';
 	import WatchGeoLoc from '$lib/components/WatchGeoLoc.svelte';
-	import { finishDraft } from 'immer';
 
+	export let envId;
 	let selected = null;
 	let map = false;
 
 	$: centerLoc = tickleData.find((d) => d.id === selected)?.loc?.value;
-	$: console.log('center', centerLoc);
 </script>
 
 <Authenticated>
@@ -48,7 +44,9 @@
 				<MapIcon /> Map</button
 			>
 
-			<SelectEnvironment />
+			{#if envId === 'undefined'}
+				<SelectEnvironment {envId} open={true} />
+			{/if}
 		</div>
 	</WatchGeoLoc>
 </Authenticated>

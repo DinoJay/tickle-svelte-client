@@ -2,19 +2,18 @@
 	import LightBox from '$lib/LightBox.svelte';
 	import { store, loadCardEnvironments } from '/src/stores/index';
 	import ShowEnv from './ShowEnv.svelte';
-	import { afterUpdate, tick } from 'svelte';
+	import { afterUpdate } from 'svelte';
 	import TickleWobble from '$lib/components/TickleWobble.svelte';
 
-	let open = true;
-	let openId = null;
+	export let envId;
+	let openId = envId;
+	export let open;
 	$: envs = $store.envs;
 
 	const elems = $store.envs.map(() => null);
 	afterUpdate(() => {
 		const i = envs.findIndex((c) => c.id === openId);
 		console.log('elems', elems);
-
-		// await tick();
 
 		elems[i]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'start' });
 	});

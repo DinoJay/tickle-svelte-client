@@ -1,9 +1,6 @@
 <script>
-	import { db } from '$lib/firebaseConfig/firebase';
-	import { collection, getDocs } from 'firebase/firestore';
 	import { store, loadCards } from '/src/stores/index';
-	import produce from 'immer';
-	import { fade } from 'svelte/transition';
+	import { goto } from '$app/navigation';
 
 	export let id;
 	export let name;
@@ -11,13 +8,18 @@
 	export let img;
 	export let openId;
 	export let onClick;
+	export let open;
 
 	export let el;
 </script>
 
 <div bind:this={el} class="overflow-y-auto">
 	<h2>
-		<button on:click={() => onClick(openId === id ? null : id)}>
+		<button
+			on:click={() => {
+				onClick(openId === id ? null : id);
+			}}
+		>
 			<h2 class="flex items-center text-xl">
 				<span class="mr-1 ">{openId === id ? '🤯' : '🙂'}</span>
 				<span>{name}</span>
@@ -39,6 +41,7 @@
 							return { ...obj, selectedEnvId: id };
 						});
 						openId = null;
+						goto(`/CardView/env/${id}`);
 					}}>Go!</button
 				>
 			</div>

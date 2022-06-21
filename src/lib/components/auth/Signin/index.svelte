@@ -2,6 +2,7 @@
 	import { auth } from '$lib/firebaseConfig/firebase';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { addNotification } from '/src/stores/notificationStore';
+	import { goto } from '$app/navigation';
 
 	const errors = {
 		'auth/invalid-email': 'The email address is badly formatted.',
@@ -20,7 +21,7 @@
 	const signInUser = () => {
 		signInWithEmailAndPassword(auth, email.trim(), pwd)
 			.then(() => {
-				window.location.href = '/CardView';
+				goto('/CardView/env/undefined');
 			})
 			.catch((error) => {
 				createNewNotification(errors[error.code]);

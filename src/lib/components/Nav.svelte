@@ -3,9 +3,12 @@
 	import { scale, fly } from 'svelte/transition';
 	import Menu from 'svelte-material-icons/Menu.svelte';
 	import Close from 'svelte-material-icons/Close.svelte';
+	import SelectEnvironment from '$lib/components/SelectEnvironment/index.svelte';
+	import { afterNavigate } from '$app/navigation';
 
 	let size = '32px';
 	let collapsed = false;
+	let selectEnvOpen = false;
 
 	const logOut = () => {
 		const auth = getAuth();
@@ -13,6 +16,11 @@
 			// An error happened.
 		});
 	};
+
+	afterNavigate(() => {
+		selectEnvOpen = false;
+		collapsed = false;
+	});
 </script>
 
 <nav class="flex items-center w-full h-16 bg-teal-500 text-white relative">
@@ -41,13 +49,17 @@
 			class="flex flex-col sm:w-2/5 w-full h-auto  bg-teal-300 absolute top-[64px] right-0 z-20"
 		>
 			<button
-				class="sm:h-10 sm:text-xl text-2xl h-14  border-b border-white hover:underline"
-				on:click={() => logOut()}>Select environments</button
+				class="sm:h-10 sm:text-xl text-2xl h-14  hover:underline"
+				on:click={() => (selectEnvOpen = !selectEnvOpen)}>Select environments</button
 			>
 			<button class="sm:h-10 sm:text-xl text-2xl h-14  hover:underline" on:click={() => logOut()}
 				>Sign out</button
 			>
 		</div>
+	{/if}
+
+	{#if selectEnvOpen}
+		<SelectEnvironment bind:open={selectEnvOpen} />
 	{/if}
 </nav>
 
