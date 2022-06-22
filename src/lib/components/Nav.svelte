@@ -5,6 +5,9 @@
 	import Close from 'svelte-material-icons/Close.svelte';
 	import SelectEnvironment from '$lib/components/SelectEnvironment/index.svelte';
 	import { afterNavigate } from '$app/navigation';
+	import { page } from '$app/stores';
+
+	$: envId = $page.params.envId;
 
 	let size = '32px';
 	let collapsed = false;
@@ -59,7 +62,7 @@
 	{/if}
 
 	{#if selectEnvOpen}
-		<SelectEnvironment bind:open={selectEnvOpen} />
+		<SelectEnvironment {envId} bind:open={selectEnvOpen} mandatory={false} />
 	{/if}
 </nav>
 

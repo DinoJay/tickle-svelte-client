@@ -10,7 +10,6 @@
 	let userAvatar = $store.currentUser.avatar;
 
 	$: userLoc = $store.currentUser.location;
-	$: console.log('center', center);
 </script>
 
 <Map lat={center[0]} lon={center[1]} zoom={13}>

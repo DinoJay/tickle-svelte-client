@@ -7,6 +7,7 @@
 	export let alt;
 	export let open = false;
 	export let close;
+	export let mandatory = false;
 </script>
 
 {#if open}
@@ -15,13 +16,16 @@
 		use:portal={'modals'}
 		class="fixed modal cont w-full h-full flex drop-shadow-2xl"
 		on:click={(e) => {
-			console.log('e', e);
-			e.stopPropagation();
-			close();
+			if (!mandatory) {
+				e.stopPropagation();
+				close();
+			}
 		}}
 	>
 		<div class="m-auto bg-white relative" on:click={(e) => e.stopPropagation()}>
-			<button on:click={close} class="absolute right-0 p-3"><WindowClose size="1.5em" /> </button>
+			{#if !mandatory}
+				<button on:click={close} class="absolute right-0 p-3"><WindowClose size="1.5em" /> </button>
+			{/if}
 			<slot />
 		</div>
 	</div>
