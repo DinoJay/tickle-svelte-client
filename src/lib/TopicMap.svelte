@@ -8,11 +8,22 @@
 	import group from '$lib/group';
 	import tickleData from '../data';
 
+	export let cards;
 	export let onClick;
 	export let selectedId;
 
+	let withoutNullTopics = [];
+
+	// WE REMOVE THE CARDS WITH A NULL TOPIC - les cartes sont quasi toutes vides ...
+	cards.forEach((card) => {
+		if (card.topics?.value?.length >= 1) withoutNullTopics.push(card);
+	});
+	// console.log('cards', cards);
+	// console.log('tickledata', tickleData);
+	// console.log('withoutnulltopics', withoutNullTopics);
+
 	const sort = (ar, acc = (a) => a.title) => {
-		ar.sort((a, b) => acc(a).localeCompare(b.title));
+		ar = ar.slice().sort((a, b) => acc(b).localeCompare(a.title));
 		return ar;
 	};
 
@@ -54,12 +65,15 @@
 			''
 		);
 
+		// let ret = d
+		// 	.sort((a, b) => accessor(b).localeCompare(a.title))
+		// 	.reduce((acc, cur) => (acc.length > 0 ? `${acc},${accessor(cur)}` : accessor(cur)), '');
 		// const altret = sort(d, accessor); //.join(',');
 		// console.log({ ret, altret });
 		return ret;
 	};
 
-	const nodeData = tickleData.map((d) => {
+	const nodeData = withoutNullTopics.map((d) => {
 		const sets = sort(d.topics?.value).map((d) => d.title);
 		const setsStr = getSetsStr(d.topics?.value);
 		return { ...d, sets, setsStr };
@@ -70,7 +84,7 @@
 	const setKeys = unique(nodeData.flatMap((d) => d.sets));
 
 	const allSetKeys = findAllSubsets(setKeys).map((d) => sort(d, (d) => d));
-	console.log('allSetKeys', allSetKeys);
+	// console.log('allSetKeys', allSetKeys);
 
 	const allSets = allSetKeys
 		.filter((d) => d.length > 0)
@@ -86,7 +100,7 @@
 		// d.size = d.values.length / d.sets.length;
 	});
 
-	console.log('allSets', allSets);
+	// console.log('allSets', allSets);
 
 	const width = 650;
 	const height = 500;
@@ -100,19 +114,23 @@
 		'rgb(255, 127, 14)',
 		'rgb(227, 119, 194)'
 	];
-	const nodes = nodeData.map((d) => ({
-		...d,
-		...circleDict[d.setsStr],
-		x: textCentres[d.setsStr].x,
-		y: textCentres[d.setsStr].y,
-		sx: textCentres[d.setsStr].x,
-		sy: textCentres[d.setsStr].y
-	}));
+	const nodes = nodeData.map((d) => {
+		// console.log('d', textCentres);
+		// console.log(d.setsStr);
+		return {
+			...d,
+			...circleDict[d.setsStr],
+			x: textCentres[d.setsStr]?.x,
+			y: textCentres[d.setsStr]?.y,
+			sx: textCentres[d.setsStr]?.x,
+			sy: textCentres[d.setsStr]?.y
+		};
+	});
 
-	console.log(
-		'nodes',
-		nodes.map((d) => d.sets)
-	);
+	// console.log(
+	// 	'nodes',
+	// 	nodes.map((d) => d.sets)
+	// );
 	const labelPoints = Object.entries(textCentres).map(([l, pos]) => ({ text: l, ...pos }));
 
 	const labels = labelPoints.filter((d, i) => allSets[i].sets.length === 1);
@@ -197,7 +215,7 @@
 	{#each newNodes as n}
 		<div
 			on:click={() => {
-				console.log('click');
+				// console.log('click');
 				onClick(n.id);
 			}}
 			class="absolute z-10 bg-gray-700 rounded-full opacity-40 {n.id === selectedId

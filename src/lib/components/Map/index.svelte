@@ -39,11 +39,12 @@
 	}
 
 	afterUpdate(() => {
-		if (lon && lat)
+		if (lon && lat && map) {
 			map.flyTo({
 				center: [lon, lat],
 				essential: true
 			});
+		}
 	});
 
 	onDestroy(() => {

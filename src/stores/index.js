@@ -3,6 +3,22 @@ import { collection, getDocs } from 'firebase/firestore';
 import produce from 'immer';
 import { writable, get } from 'svelte/store';
 
+// => undefined a passer en string https://blog.logrocket.com/storing-retrieving-javascript-objects-localstorage/
+// import { browser } from '$app/env';
+// export const store = writable(
+// 	browser &&
+// 		(localStorage.getItem('store') ||
+// 			JSON.stringify({
+// 				envs: [],
+// 				selectedEnvId: null,
+// 				currentUser: undefined
+// 			}))
+// );
+// store.subscribe((val) => {
+// 	browser && (localStorage.store = val);
+// });
+// console.log(JSON.parse($store));
+
 export const store = writable({
 	envs: [],
 	selectedEnvId: null,

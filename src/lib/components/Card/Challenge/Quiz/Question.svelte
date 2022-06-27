@@ -14,7 +14,7 @@
 
 <div class="flex-grow flex flex-col p-2">
 	<h2 class="text-xl mb-2">{title}</h2>
-	<img class="object-cover w-full flex-grow shrink" style="max-height:200px" src={img.url} />
+	<!-- <img class="object-cover w-full flex-grow shrink" style="max-height:200px" src={img.url} /> -->
 	<div class="p-2">
 		<p class="text-xl">{text}</p>
 		<div class="mt-2">

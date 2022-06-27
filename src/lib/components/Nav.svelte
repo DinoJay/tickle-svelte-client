@@ -6,6 +6,8 @@
 	import SelectEnvironment from '$lib/components/SelectEnvironment/index.svelte';
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { store } from '/src/stores/index';
+	import { goto } from '$app/navigation';
 
 	$: envId = $page.params.envId;
 
@@ -32,36 +34,42 @@
 	</h1>
 
 	<!-- Mobile NavBar -->
-	<div class="block mt-1.5 absolute right-3">
-		<button on:click={() => (collapsed = !collapsed)}>
-			{#if !collapsed}
-				<div in:scale>
-					<Menu {size} />
-				</div>
-			{:else}
-				<div in:scale>
-					<Close {size} />
-				</div>
-			{/if}
-		</button>
-	</div>
-
-	{#if collapsed}
-		<div
-			transition:fly={{ x: 350, duration: 500, opacity: 1 }}
-			class="flex flex-col sm:w-2/5 w-full h-auto  bg-teal-300 absolute top-[64px] right-0 z-20"
-		>
-			<button
-				class="sm:h-10 sm:text-xl text-2xl h-14  hover:underline"
-				on:click={() => (selectEnvOpen = !selectEnvOpen)}>Select environments</button
-			>
-			<button class="sm:h-10 sm:text-xl text-2xl h-14  hover:underline" on:click={() => logOut()}
-				>Sign out</button
-			>
+	{#if $store.currentUser}
+		<div class="block mt-1.5 absolute right-3">
+			<button on:click={() => (collapsed = !collapsed)}>
+				{#if !collapsed}
+					<div in:scale>
+						<Menu {size} />
+					</div>
+				{:else}
+					<div in:scale>
+						<Close {size} />
+					</div>
+				{/if}
+			</button>
 		</div>
-	{/if}
 
-	{#if selectEnvOpen}
+		{#if collapsed}
+			<div
+				transition:fly={{ x: 350, duration: 500, opacity: 1 }}
+				class="flex flex-col sm:w-2/5 w-full h-auto  bg-teal-300 absolute top-[64px] right-0 z-20"
+			>
+				<button
+					class="sm:h-10 sm:text-xl text-2xl h-14  hover:underline"
+					on:click={() => (selectEnvOpen = !selectEnvOpen)}>Select environments</button
+				>
+
+				<button
+					class="sm:h-10 sm:text-xl text-2xl h-14  hover:underline"
+					on:click={() => goto(`/homepage`)}>Homepage</button
+				>
+
+				<button class="sm:h-10 sm:text-xl text-2xl h-14  hover:underline" on:click={() => logOut()}
+					>Sign out</button
+				>
+			</div>
+		{/if}
+
 		<SelectEnvironment {envId} bind:open={selectEnvOpen} mandatory={false} />
 	{/if}
 </nav>

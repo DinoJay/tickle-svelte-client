@@ -10,6 +10,8 @@
 	const {
 		value: { questions, title }
 	} = datum;
+
+	console.log('questions', questions, 'title', title);
 	let counter = 0;
 	$: curQ = questions[counter];
 	$: curResponse = response[counter];

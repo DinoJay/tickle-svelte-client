@@ -11,9 +11,7 @@
 	export let onClick;
 	export let userAvatar;
 
-	console.log('lat', lat, 'lon', lon);
 	$: pos = lon && lat ? map.project([lon, lat]) : { x: 0, y: 0 };
-	$: console.log('pos', pos);
 
 	map.on('move', () => {
 		pos = lon && lat ? map.project([lon, lat]) : { x: 0, y: 0 };

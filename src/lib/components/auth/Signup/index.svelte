@@ -4,7 +4,7 @@
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { doc, setDoc } from 'firebase/firestore';
 	import { addNotification } from '/src/stores/notificationStore';
-	import avatars from './avatars';
+	import AvatarManager from '$lib/components/AvatarManager/index.svelte';
 
 	const errors = {
 		'auth/email-already-in-use': 'The email address is already in use by another account.',
@@ -41,7 +41,7 @@
 		createUserWithEmailAndPassword(auth, email.trim(), pwd)
 			.then((data) => {
 				setDoc(doc(db, 'users', data.user.uid), { avatar: userAvatar, email: email }).then(
-					() => (window.location.href = '/CardView')
+					() => (window.location.href = '/CardView/env/undefined')
 				);
 			})
 			.catch((error) => {
@@ -84,18 +84,7 @@
 	/>
 
 	<div class="flex m-auto justify-center my-4 w-full overflow-auto h-16">
-		{#each avatars as avatar}
-			<img
-				class="mx-2 h-14 w-auto cursor-pointer 
-				{userAvatar === avatar ? 'bg-teal-500' : 'bg-transparent'}"
-				on:click={() => {
-					userAvatar = avatar;
-					console.log(avatar);
-				}}
-				src={'/avatars/' + avatar + '.svg'}
-				alt={avatar}
-			/>
-		{/each}
+		<AvatarManager bind:userAvatar currentUserAvatar={null} />
 	</div>
 
 	<button
