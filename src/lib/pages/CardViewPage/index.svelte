@@ -38,9 +38,7 @@
 			</div>
 
 			{#if !map}
-				<div class="mx-auto">
-					<TopicMap selectedId={selected} {cards} onClick={(id) => (selected = id)} />
-				</div>
+				<TopicMap selectedId={selected} {cards} onClick={(id) => (selected = id)} />
 			{:else}
 				<WatchGeoLoc>
 					<div class="absolute h-full w-full z-0">

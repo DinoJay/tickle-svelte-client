@@ -189,7 +189,7 @@
 	{/each}
 </svg> -->
 
-<div class="relative" style="width:{width}px; height: {height}px">
+<div class="mx-auto sm:w-[650px] w-[99%] h-screen overflow-auto relative">
 	{#each circleVals as c, i}
 		<div
 			class="absolute border border-sky-500 rounded-full center opacity-20"

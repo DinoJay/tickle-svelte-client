@@ -20,11 +20,11 @@
 
 <div class="border-2 p-3 bg-white flex flex-col" style="width:{400}px;height:{600}px">
 	<h1 class="text-xl">{title}</h1>
-	<img src={img} class="mb-3 object-contain w-full" style="height:300px" />
+	<img src={img} style="height:300px" alt={title} class="mb-3 object-contain w-full" />
 	<p class="h-40 overflow-y-auto mb-3">{description}</p>
-	<button on:click={() => (open = !open)} class="border-2 p-2 mt-auto text-xl w-full"
-		>Challenge</button
-	>
+	<button on:click={() => (open = !open)} class="border-2 p-2 mt-auto text-xl w-full">
+		Challenge
+	</button>
 </div>
 
 {#if activity.value}

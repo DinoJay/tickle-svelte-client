@@ -1,20 +1,26 @@
 <script>
+	import { arrayRemove } from 'firebase/firestore';
+
 	import { fade } from 'svelte/transition';
 
 	export let title;
-	export let img;
+	export let img = null;
 	export let answers;
 	export let text;
 	export let height;
-	export let addResponse;
-	export let response;
+	export let userResponses;
+	export let counter;
 
-	// $: addResponse(response);
+	var responses = [];
+	userResponses.set(counter, responses);
 </script>
 
 <div class="flex-grow flex flex-col p-2">
 	<h2 class="text-xl mb-2">{title}</h2>
-	<!-- <img class="object-cover w-full flex-grow shrink" style="max-height:200px" src={img.url} /> -->
+	{#if img}
+		<img class="object-cover w-full flex-grow shrink" style="max-height:200px" src={img.url} />
+	{/if}
+
 	<div class="p-2">
 		<p class="text-xl">{text}</p>
 		<div class="mt-2">
@@ -22,12 +28,17 @@
 				<div class="text-lg text-gray-600">
 					<input
 						type="checkbox"
-						bind:checked={response[i]}
+						id={a.id}
 						on:change={(e) => {
-							addResponse(response.map((a, j) => (i === j ? e.target.checked : a)));
+							if (e.target.checked) {
+								responses = [...responses, a.text];
+							} else {
+								responses.splice(responses.indexOf(a.text), 1);
+							}
+							userResponses.set(counter, responses);
 						}}
 					/>
-					<label for="vehicle1"> {a.text}</label><br />
+					<label for={a.id}> {a.text}</label><br />
 				</div>
 			{/each}
 		</div>

@@ -2,13 +2,35 @@
 	import { get } from 'svelte/store';
 
 	export let questions;
-	export let response;
 	export let title;
+	export let userResponses;
 
-	$: console.log('questions', questions);
+	// faire un tableau qui recupere que les bonnes reponses OK
+	// comparer la taille de ce tableau a celui des reponses de l uti OK
+	// puis regarder si chaque bonne reponse est dans celui des reponses de l uti OK
+	// rendre userResponses iterable (le transformer en obj et on fait obj.counter) OK
+	// vider les checkboxs entre chaque question
 
-	const checkResp = (i, j) => questions[i].answers[j].correct === response[i][j];
-	const getColor = (i, j) => (checkResp(i, j) ? 'text-green-600' : 'text-red-600');
+	$: console.log('userRESPONSE', userResponses);
+
+	let responses = questions.map((question) =>
+		question.answers
+			.map((ans) => {
+				if (ans.correct) return ans.text;
+			})
+			.filter((e) => e)
+	);
+
+	const checkResp = (i) => {
+		let res = true;
+		if (responses[i].length !== userResponses.get(i).length) res = false;
+		responses[i].forEach((resp) => {
+			if (!userResponses.get(i).includes(resp)) res = false;
+		});
+		return res;
+	};
+
+	const getColor = (i, j) => (checkResp(i) ? 'text-green-600' : 'text-red-600');
 </script>
 
 <div class="p-3 overflow-y-auto">
@@ -16,14 +38,17 @@
 	{#each questions as q, i}
 		<div class={i < questions.length ? 'mb-3' : ''}>
 			<p class="text-lg">{q.text}</p>
+
 			<div class="ml-6">
-				{#each q.answers as a, j}
+				{#each q.answers as a}
 					<div class="flex items-center">
 						<div class="mr-1">{a.text}</div>
-						<div class="text-lg {getColor(i, j)}">
-							{response[i][j] ? '✓' : 'x'}
+						<div class="text-lg {getColor(i)}">
+							{userResponses.get(i).includes(a.text) ? '✓' : 'x'}
 						</div>
-						<div class="text-lg {getColor(i, j)}">{a.correct ? '(✓)' : '(x)'}</div>
+						<div class="text-lg {a.correct ? 'text-green-600' : 'text-red-600'}">
+							{a.correct ? '(✓)' : '(x)'}
+						</div>
 					</div>
 				{/each}
 			</div>
