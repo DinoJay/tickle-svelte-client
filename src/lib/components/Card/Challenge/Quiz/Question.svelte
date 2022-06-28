@@ -1,8 +1,4 @@
 <script>
-	import { arrayRemove } from 'firebase/firestore';
-
-	import { fade } from 'svelte/transition';
-
 	export let title;
 	export let img = null;
 	export let answers;
@@ -12,7 +8,6 @@
 	export let counter;
 
 	var responses = [];
-	userResponses.set(counter, responses);
 </script>
 
 <div class="flex-grow flex flex-col p-2">
@@ -31,11 +26,14 @@
 						id={a.id}
 						on:change={(e) => {
 							if (e.target.checked) {
-								responses = [...responses, a.text];
+								responses.push(a.text);
 							} else {
 								responses.splice(responses.indexOf(a.text), 1);
 							}
-							userResponses.set(counter, responses);
+
+							userResponses[counter] = [...responses];
+							console.log('counter', counter);
+							console.log('urep', userResponses);
 						}}
 					/>
 					<label for={a.id}> {a.text}</label><br />

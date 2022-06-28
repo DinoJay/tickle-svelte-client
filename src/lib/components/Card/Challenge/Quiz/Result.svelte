@@ -23,9 +23,9 @@
 
 	const checkResp = (i) => {
 		let res = true;
-		if (responses[i].length !== userResponses.get(i).length) res = false;
+		if (responses[i].length !== userResponses[i].length) res = false;
 		responses[i].forEach((resp) => {
-			if (!userResponses.get(i).includes(resp)) res = false;
+			if (!userResponses[i].includes(resp)) res = false;
 		});
 		return res;
 	};
@@ -44,7 +44,7 @@
 					<div class="flex items-center">
 						<div class="mr-1">{a.text}</div>
 						<div class="text-lg {getColor(i)}">
-							{userResponses.get(i).includes(a.text) ? '✓' : 'x'}
+							{userResponses[i].includes(a.text) ? '✓' : 'x'}
 						</div>
 						<div class="text-lg {a.correct ? 'text-green-600' : 'text-red-600'}">
 							{a.correct ? '(✓)' : '(x)'}

@@ -63,7 +63,7 @@
 	$: counter = 0;
 	$: curQ = questions[counter];
 	$: img = curQ?.img;
-	$: userResponses = new Map();
+	$: userResponses = {};
 
 	console.log('question', questions);
 	$: console.log('resp', responses);
