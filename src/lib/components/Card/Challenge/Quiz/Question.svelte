@@ -4,10 +4,13 @@
 	export let answers;
 	export let text;
 	export let height;
-	export let userResponses;
+	export let onChange;
 	export let counter;
 
-	var responses = [];
+	$: if (counter) {
+		if (window.document)
+			window.document.querySelectorAll('input').forEach((item) => (item.checked = false));
+	}
 </script>
 
 <div class="flex-grow flex flex-col p-2">
@@ -18,22 +21,16 @@
 
 	<div class="p-2">
 		<p class="text-xl">{text}</p>
-		<div class="mt-2">
-			{#each answers as a, i}
+		<div class="mt-2 ok">
+			{#each answers as a}
 				<div class="text-lg text-gray-600">
 					<input
 						type="checkbox"
 						id={a.id}
 						on:change={(e) => {
-							if (e.target.checked) {
-								responses.push(a.text);
-							} else {
-								responses.splice(responses.indexOf(a.text), 1);
-							}
-
-							userResponses[counter] = [...responses];
-							console.log('counter', counter);
-							console.log('urep', userResponses);
+							let response = {};
+							response[a.id] = a.correct;
+							onChange(response);
 						}}
 					/>
 					<label for={a.id}> {a.text}</label><br />

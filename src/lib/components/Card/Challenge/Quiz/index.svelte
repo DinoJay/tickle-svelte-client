@@ -1,8 +1,6 @@
 <script>
-	import { fade, slide, fly, blur } from 'svelte/transition';
 	import Question from './Question.svelte';
 	import Result from './Result.svelte';
-	import { addNotification } from '/src/stores/notificationStore';
 	export let datum;
 	export let height;
 	export let width;
@@ -45,6 +43,12 @@
 					id: 'f5f0cd70-2c2f-11ec-8bbe-a56976213bef',
 					text: '35',
 					correct: true
+				},
+				{
+					order: 619,
+					id: 'f5f0cd71-2c2f-11ec-8bbe-a56976213bef',
+					text: '1',
+					correct: false
 				}
 			],
 			text: 'How old I am?',
@@ -54,30 +58,37 @@
 		}
 	];
 
-	let responses = questions.map((q) =>
-		q.answers.map((answer) => {
-			if (answer.correct) return answer.text;
-		})
-	);
-
 	$: counter = 0;
 	$: curQ = questions[counter];
 	$: img = curQ?.img;
-	$: userResponses = {};
+	$: quizInformation = {
+		completed: false,
+		date: '',
+		id: 'id activity sub',
+		response: [],
+		succeeded: false,
+		type: 'Quiz',
+		uid: 'user id',
+		username: 'username'
+	};
 
-	console.log('question', questions);
-	$: console.log('resp', responses);
+	const updateQuizInfo = (resp) => {
+		if (quizInformation.response.some((item) => Object.keys(item)[0] === Object.keys(resp)[0]))
+			quizInformation.response.splice(quizInformation.response.indexOf(resp), 1);
+		else quizInformation.response = [...quizInformation.response, resp];
+	};
 </script>
 
 <div class="bg-white flex flex-col cont">
 	{#if counter < questions.length}
-		<Question {title} {img} {...curQ} bind:userResponses {counter} />
+		<Question
+			{title}
+			{img}
+			{...curQ}
+			onChange={(responseId) => updateQuizInfo(responseId)}
+			{counter}
+		/>
 
-		<!-- 
-		TODO :
-		Faire le next question : incrementer counter + feeback ?
-		Faire la page Result
-		Mettre des animations -->
 		<button
 			class="mt-auto w-full bg-gray-600 text-xl p-3 text-white"
 			on:click={() => {
@@ -87,7 +98,7 @@
 			Next Question
 		</button>
 	{:else}
-		<Result {questions} {userResponses} {title} />
+		<Result {questions} {quizInformation} {title} />
 	{/if}
 </div>
 
