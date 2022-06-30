@@ -1,15 +1,13 @@
 <script>
-	//  AJOUTER LES DERNIERES INFOS DU QUIZ RESP (uid...) ENVOYER LES RESULTATS A LA BD
-	// ajouter des animations sur le quizz
-
 	export let questions;
 	export let title;
 	export let quizInformation;
 
-	// faire une methode pour comparer et regarder si true aussi
 	const getObject = (id) => {
 		return quizInformation.response.some((item) => Object.keys(item)[0] === id);
 	};
+
+	console.log(quizInformation);
 </script>
 
 <div class="p-3 overflow-y-auto">

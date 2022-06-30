@@ -2,28 +2,19 @@ import { db } from '$lib/firebaseConfig/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import produce from 'immer';
 import { writable, get } from 'svelte/store';
+import { browser } from '$app/env';
 
 // => undefined a passer en string https://blog.logrocket.com/storing-retrieving-javascript-objects-localstorage/
-// import { browser } from '$app/env';
-// export const store = writable(
-// 	browser &&
-// 		(localStorage.getItem('store') ||
-// 			JSON.stringify({
-// 				envs: [],
-// 				selectedEnvId: null,
-// 				currentUser: undefined
-// 			}))
-// );
-// store.subscribe((val) => {
-// 	browser && (localStorage.store = val);
-// });
 // console.log(JSON.parse($store));
+// https://www.youtube.com/watch?v=Tlxrotj_rlE
 
-export const store = writable({
+const storedItems = JSON.parse(browser && localStorage.getItem('store')) || {
 	envs: [],
 	selectedEnvId: null,
 	currentUser: undefined
-});
+};
+export const store = writable(browser && storedItems);
+store.subscribe((val) => browser && (localStorage.store = JSON.stringify(val)));
 
 async function loadCards(envId) {
 	const snapRef2 = await getDocs(collection(db, 'card-environments', envId, 'cards'));

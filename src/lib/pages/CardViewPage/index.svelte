@@ -13,8 +13,9 @@
 	let selected = null;
 	let map = false;
 	let centerLoc = null;
+	let cards = [];
 
-	$: cards = $store.envs.find((env) => env.id === envId)?.cards;
+	$: if ($store) cards = $store?.envs?.find((env) => env.id === envId)?.cards;
 	$: if (cards) centerLoc = cards.find((d) => d.id === selected)?.loc?.value;
 
 	const checkGeoLocIsOn = () => {
