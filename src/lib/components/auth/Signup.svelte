@@ -23,11 +23,11 @@
 	const submit = (e) => {
 		e.preventDefault();
 		if (!passwordIsValid()) {
-			createNewNotification(errors['auth/password-confirmation']);
+			addNotification({ text: errors['auth/password-confirmation'] });
 			return;
 		}
 		if (!userAvatar) {
-			createNewNotification(errors['auth/avatar']);
+			addNotification({ text: errors['auth/avatar'] });
 			return;
 		}
 		signUpUser();
@@ -45,17 +45,8 @@
 				);
 			})
 			.catch((error) => {
-				createNewNotification(errors[error.code]);
+				addNotification({ text: errors[error.code] });
 			});
-	};
-
-	const createNewNotification = (message) => {
-		addNotification({
-			text: message,
-			position: 'top-right',
-			removeAfter: 3000,
-			type: 'warning'
-		});
 	};
 </script>
 

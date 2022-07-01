@@ -2,7 +2,7 @@
 	import TopicMap from '$lib/TopicMap.svelte';
 	import Slider from '$lib/Slider.svelte';
 	import SelectEnvironment from '$lib/components/SelectEnvironment/index.svelte';
-	import Authenticated from '$lib/components/auth/Authenticated.svelte';
+	import Authenticated from '$lib/components/auth/utils/Authenticated.svelte';
 	import Map from './Map.svelte';
 	import MapIcon from 'svelte-material-icons/MapMarker.svelte';
 	import WatchGeoLoc from '$lib/components/WatchGeoLoc.svelte';

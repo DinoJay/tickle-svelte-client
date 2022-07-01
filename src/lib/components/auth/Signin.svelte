@@ -24,17 +24,8 @@
 				goto('/CardView/env/undefined');
 			})
 			.catch((error) => {
-				createNewNotification(errors[error.code]);
+				addNotification({ text: errors[error.code] });
 			});
-	};
-
-	const createNewNotification = (message) => {
-		addNotification({
-			text: message,
-			position: 'top-right',
-			removeAfter: 3000,
-			type: 'warning'
-		});
 	};
 </script>
 
