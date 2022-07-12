@@ -4,12 +4,12 @@
 </script>
 
 <div class="loader-container {className}" {style}>
-	<img class="wobble" src="/alt_tickle_icon.svg" alt="loader" />
+	<img class="wobble m-auto" src="/alt_tickle_icon.svg" alt="loader" />
 </div>
 
 <style>
 	.loader-container {
-		@apply h-full w-full flex;
+		@apply h-[calc(100vh-4rem)] w-screen flex;
 	}
 
 	.wobble {

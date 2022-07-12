@@ -4,10 +4,12 @@
 	import { afterUpdate } from 'svelte';
 	import Card from '$lib/components/Card/index.svelte';
 
-	export let selected;
+	export let selectedCard;
 
 	export let cards;
 	export let onClick;
+
+	console.log(cards);
 
 	$: previewCardData = cards.map((c) => ({
 		id: c.id,
@@ -19,28 +21,28 @@
 		title: c.title?.value,
 		img: c.img?.value?.url,
 		description: c.description?.value,
-		activity: c.activity
+		activity: c.activity,
+		id: c.id
 	});
 
 	const elems = cards.map(() => null);
 	let modalOpen = false;
 
 	afterUpdate(() => {
-		const i = cards.findIndex((c) => c.id === selected);
+		const i = cards.findIndex((c) => c.id === selectedCard);
 
 		elems[i]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'center' });
-		console.log('elems', elems, 'i', i, 'el', elems[i]);
 	});
 </script>
 
-<div class="flex overflow-x-auto overflow-y-visible py-3 px-6 ">
+<div class="flex overflow-x-auto h-auto p-5 z-10">
 	{#each previewCardData as c, i}
 		<div
 			class="mr-3 shrink-0 grow-0 transition"
-			style="transform:scale({c.id === selected ? '1.10' : '1'})"
+			style="transform:scale({c.id === selectedCard ? '1.10' : '1'})"
 			bind:this={elems[i]}
 			on:click={(e) => {
-				if (selected === c.id) modalOpen = true;
+				if (selectedCard === c.id) modalOpen = true;
 				onClick(c.id);
 			}}
 		>
@@ -48,6 +50,6 @@
 		</div>
 	{/each}
 	<LightBox open={modalOpen} close={() => (modalOpen = false)}>
-		<Card {...getCardProps(cards.find((c) => c.id === selected))} />
+		<Card {...getCardProps(cards.find((c) => c.id === selectedCard))} />
 	</LightBox>
 </div>

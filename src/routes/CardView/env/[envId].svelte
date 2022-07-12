@@ -1,8 +1,16 @@
 <script>
-	import CardViewPage from '$lib/pages/CardViewPage/index.svelte';
+	import CardViewPage from '$lib/pages/cardView/CardView.svelte';
 	import { page } from '$app/stores';
+	import LoadEnvironments from '$lib/components/utils/LoadEnvironments.svelte';
+	import LoadCards from '$lib/components/utils/LoadCards.svelte';
+	import ListenUserLocation from '$lib/components/geoLocation/ListenUserLocation.svelte';
 
-	$: envId = $page.params.envId;
+	$: environmentId = $page.params.envId;
 </script>
 
-<CardViewPage {envId} />
+<ListenUserLocation>
+	<LoadEnvironments>
+		<LoadCards {environmentId} />
+		<CardViewPage envId={environmentId} />
+	</LoadEnvironments>
+</ListenUserLocation>

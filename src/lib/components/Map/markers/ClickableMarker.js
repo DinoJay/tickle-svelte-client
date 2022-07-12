@@ -1,4 +1,4 @@
-import { mapbox } from './mapbox';
+import { mapbox } from '../mapbox';
 
 // extend mapboxGL Marker so we can pass in an onClick handler
 export class ClickableMarker extends mapbox.Marker {

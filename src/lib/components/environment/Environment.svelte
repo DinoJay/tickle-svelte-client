@@ -1,5 +1,4 @@
 <script>
-	import { store, loadCards } from '/src/stores/index';
 	import { goto } from '$app/navigation';
 
 	export let id;
@@ -36,10 +35,6 @@
 				<button
 					class="border border-gray-300 border-3 w-full p-2 text-xl"
 					on:click={() => {
-						loadCards(id);
-						store.update((obj) => {
-							return { ...obj, selectedEnvId: id };
-						});
 						openId = null;
 						goto(`/CardView/env/${id}`);
 					}}>Go!</button

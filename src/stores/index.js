@@ -10,7 +10,6 @@ import { browser } from '$app/env';
 
 const storedItems = JSON.parse(browser && localStorage.getItem('store')) || {
 	envs: [],
-	selectedEnvId: null,
 	currentUser: undefined
 };
 export const store = writable(browser && storedItems);

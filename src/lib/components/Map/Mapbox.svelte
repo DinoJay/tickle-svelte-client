@@ -13,29 +13,20 @@
 
 	let container;
 	let map;
-	let loaded = false;
 
 	function load() {
-		const center = lon && lat ? { center: [lon, lat] } : {};
+		const { lon: lng, lat } = $store.currentUser.location;
+
 		map = new mapbox.Map({
 			container,
 			style: 'mapbox://styles/mapbox/streets-v9',
-			...center,
 			zoom
 		});
 
-		loaded = true;
-	}
-
-	$: if ($store.currentUser.location) {
-		if (loaded) {
-			const { lon: lng, lat } = $store.currentUser.location;
-
-			map.setCenter({
-				lng,
-				lat
-			});
-		}
+		map.setCenter({
+			lng,
+			lat
+		});
 	}
 
 	afterUpdate(() => {

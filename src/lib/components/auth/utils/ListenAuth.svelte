@@ -8,23 +8,27 @@
 
 	onMount(() => {
 		onAuthStateChanged(auth, (currentUser) => {
-			if (!currentUser) goto('/');
-
-			store.update((obj) => ({ ...obj, currentUser }));
-			getUserAvatar(currentUser);
+			if (!currentUser) {
+				localStorage.clear();
+				goto('/');
+			} else {
+				if (!$store?.currentUser) {
+					loadUser(currentUser);
+				}
+			}
 		});
 
 		/**
-		 * Get the user's avatar from Firestore based on user
+		 * Load the user from Firestore to the local svelte store
 		 * @param user
 		 */
-		const getUserAvatar = (user) => {
-			if (!user?.avatar) {
-				getDoc(doc(db, 'users', user?.uid)).then((doc) => {
-					user.avatar = doc.data().avatar;
-					store.update((obj) => ({ ...obj, currentUser: user }));
-				});
-			}
+		const loadUser = (user) => {
+			getDoc(doc(db, 'users', user.uid)).then((doc) => {
+				let userObj = {};
+				userObj.avatar = doc.data().avatar;
+				userObj.uid = user.uid;
+				store.update((obj) => ({ ...obj, currentUser: userObj }));
+			});
 		};
 	});
 </script>

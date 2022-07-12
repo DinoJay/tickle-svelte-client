@@ -1,21 +1,16 @@
 <script>
 	import LightBox from '$lib/LightBox.svelte';
-	import { store, loadCardEnvironments } from '/src/stores/index';
-	import ShowEnv from './ShowEnv.svelte';
+	import { store } from '/src/stores/index';
+	import ShowEnv from './Environment.svelte';
 	import { afterUpdate } from 'svelte';
-	import TickleWobble from '../TickleWobble.svelte';
 
 	export let envId;
 	export let open;
 	export let mandatory;
 
-	loadCardEnvironments();
-
 	const elems = $store.envs.map(() => null);
 	afterUpdate(() => {
 		const i = $store.envs.findIndex((c) => c.id === envId);
-		console.log('elems', elems);
-
 		elems[i]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'start' });
 	});
 </script>
@@ -27,8 +22,6 @@
 		<div class="grow overflow-y-auto">
 			{#each $store.envs as env, i}
 				<ShowEnv {...env} openId={envId} bind:el={elems[i]} onClick={(id) => (envId = id)} />
-			{:else}
-				<TickleWobble />
 			{/each}
 		</div>
 	</div>

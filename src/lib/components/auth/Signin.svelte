@@ -1,8 +1,9 @@
 <script>
+	import { goto } from '$app/navigation';
+
 	import { auth } from '$lib/firebaseConfig/firebase';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { addNotification } from '/src/stores/notificationStore';
-	import { goto } from '$app/navigation';
 
 	const errors = {
 		'auth/invalid-email': 'The email address is badly formatted.',
@@ -13,11 +14,18 @@
 	let email = '';
 	let pwd = '';
 
+	/**
+	 * Sign in the user if all the information are correct
+	 * @param e - event
+	 */
 	const submit = (e) => {
 		e.preventDefault();
 		signInUser();
 	};
 
+	/**
+	 * Sign in the user - redirect the user to the card view page
+	 */
 	const signInUser = () => {
 		signInWithEmailAndPassword(auth, email.trim(), pwd)
 			.then(() => {
@@ -29,18 +37,18 @@
 	};
 </script>
 
-<div class="grow flex flex-col">
-	<img src="/tickle.svg" alt="tickle-logo" class=" grow  px-20 sm:px-0 lg:mt-20  m-auto" />
-	<form class="flex flex-col justify-center" action="" method="post" on:submit={(e) => submit(e)}>
+<div class="flex flex-col h-[calc(100vh-4rem)]">
+	<img src="/tickle.svg" alt="tickle-logo" class="w-1/4 m-auto" />
+	<form class="flex flex-col my-auto" action="" method="post" on:submit={(e) => submit(e)}>
 		<input
-			class="w-full sm:w-2/5 m-auto outline-teal-500 text-grey-700 border-black border-2 py-2 px-3 mb-3 sm:mt-10"
+			class="w-[90%] lg:w-2/5 m-auto outline-teal-500 text-grey-700 border-black border-2 py-2 px-3 mb-3"
 			bind:value={email}
 			type="text"
 			id="email"
 			placeholder="Email Address"
 		/>
 		<input
-			class=" w-full sm:w-2/5 m-auto outline-teal-500 text-grey-700 border-black border-2 py-2 px-3 mb-3"
+			class="w-[90%] lg:w-2/5 m-auto outline-teal-500 text-grey-700 border-black border-2 py-2 px-3 mb-3"
 			bind:value={pwd}
 			type="password"
 			id="password"
@@ -48,15 +56,12 @@
 		/>
 
 		<button
-			class="w-full sm:w-2/5 m-auto uppercase btn px-3 py-3 font-bold border-2 border-black mb-1"
+			class="w-[90%] lg:w-2/5 m-auto uppercase btn px-3 py-3 font-bold border-2 border-black mb-1"
 			type="submit">Sign in</button
 		>
+		<p class="mx-auto">
+			Do not have an account ?
+			<a href="/register-user" class="underline">Sign Up</a>
+		</p>
 	</form>
-	<p class=" m-auto">
-		Do not have an account ?
-		<a href="/register-user" class="underline">Sign Up</a>
-	</p>
 </div>
-
-<style>
-</style>
