@@ -8,8 +8,7 @@
 
 	export let cards;
 	export let onClick;
-
-	console.log(cards);
+	export let envId;
 
 	$: previewCardData = cards.map((c) => ({
 		id: c.id,
@@ -22,7 +21,8 @@
 		img: c.img?.value?.url,
 		description: c.description?.value,
 		activity: c.activity,
-		id: c.id
+		id: c.id,
+		envId: envId
 	});
 
 	const elems = cards.map(() => null);

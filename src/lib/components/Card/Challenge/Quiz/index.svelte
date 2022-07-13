@@ -7,6 +7,7 @@
 	export let height;
 	export let width;
 	export let cardId;
+	export let envId;
 
 	const {
 		value: { questions, title }
@@ -19,6 +20,7 @@
 		completed: false,
 		date: new Date().getTime(),
 		cardId: cardId,
+		envId: envId,
 		response: [],
 		succeeded: false,
 		type: 'Quiz',

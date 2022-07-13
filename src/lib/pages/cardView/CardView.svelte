@@ -18,7 +18,7 @@
 
 <div class="flex flex-col h-[calc(100vh-4rem)] w-full relative">
 	{#if cards?.length > 0}
-		<Slider {selectedCard} {cards} onClick={(id) => (selectedCard = id)} />
+		<Slider {selectedCard} {cards} {envId} onClick={(id) => (selectedCard = id)} />
 
 		{#if !map}
 			<TopicMap {selectedCard} {cards} onClick={(id) => (selectedCard = id)} />

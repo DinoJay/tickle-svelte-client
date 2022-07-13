@@ -10,6 +10,7 @@
 	export let img;
 	export let activity;
 	export let id;
+	export let envId;
 
 	let allowed = true;
 	let challengeButtonContent = '...';
@@ -21,6 +22,7 @@
 	const getQuizProps = () => ({
 		datum: activity,
 		cardId: id,
+		envId: envId,
 		width: 400,
 		height: 600
 	});

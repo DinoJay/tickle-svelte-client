@@ -1,0 +1,52 @@
+let objEnvIdCardsId = {};
+	let userObjEnvsCards = {};
+	let userObjEnvs = {};
+
+	/**
+	 * Get all the submissions of the user
+	 * We have the envsId and the cardsId for all the submissions
+	 */
+	async function getUserSubmissions() {
+		var snapRef = await getDocs(
+			collection(db, 'users', $store.currentUser.uid, 'activitySubmissions')
+		);
+		var submissions = snapRef.docs.map((doc) => {
+			return doc.data();
+		});
+
+		submissions.forEach((submission) => {
+			if (!objEnvIdCardsId[submission.envId]) objEnvIdCardsId[submission.envId] = [];
+			objEnvIdCardsId[submission.envId].push(submission.cardId);
+		});
+
+		/**
+		 * For each envId of objEnvIdCardsId
+		 * We get all the cards of the environment
+		 * Then we get the collected card thanks the cardId we stored in objEnvIdCardsId
+		 */
+		for (const [key, value] of Object.entries(objEnvIdCardsId)) {
+			let allCardsFromEnvId = getCardsFromEnvId(key);
+			(await allCardsFromEnvId).forEach((card) => {
+				if (value.includes(card.id)) userObjEnvsCards[key].push(card);
+			});
+		}
+	}
+
+	/**
+	 * Get all the cards from an environment
+	 * @param envId
+	 */
+	async function getCardsFromEnvId(envId) {
+		userObjEnvsCards[envId] = [];
+		var snapRef = await getDocs(collection(db, 'card-environments', envId, 'cards'));
+		var cards = snapRef.docs.map((doc) => {
+			return doc.data();
+		});
+		return cards;
+	}
+
+	if ($store?.currentUser) {
+		getUserSubmissions();
+	}
+
+	$: if (userObjEnvsCards) console.log(userObjEnvsCards);
