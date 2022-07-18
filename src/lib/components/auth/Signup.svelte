@@ -2,7 +2,7 @@
 	import { auth } from '$lib/firebaseConfig/firebase';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { db } from '$lib/firebaseConfig/firebase';
-	import { doc, setDoc } from 'firebase/firestore';
+	import { addDoc, collection, collectionGroup, doc, getDocs, setDoc } from 'firebase/firestore';
 	import { addNotification } from '/src/stores/notificationStore';
 	import AvatarManager from '$lib/components/avatarManager/AvatarSelector.svelte';
 	import { goto } from '$app/navigation';
@@ -59,6 +59,22 @@
 	const passwordIsValid = () => {
 		return pwd === pwdConfirmation;
 	};
+
+	// getDocs(
+	// 	collection(db, 'card-environments', '4448f4c0-b70a-11eb-b459-e190a6a10b49', 'cardTemplates')
+	// )
+	// 	.then((snap) => {
+	// 		return snap.docs.map((d) => d.data());
+	// 	})
+	// 	.then((data) => {
+	// 		data.forEach((card) => {
+	// 			// addDoc(collection(db, 'card-envs'), data);
+	// 			//addDoc(collection(db, 'card-envs', 'zPp5DEAWL3Z6I5spziIE', 'cardTemplates'), card);
+	// 		});
+	// 	})
+	// 	.catch((error) => {
+	// 		console.log(error);
+	// 	});
 </script>
 
 <div class="flex flex-col h-[calc(100vh-4rem)]">

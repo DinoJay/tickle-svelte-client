@@ -16,7 +16,7 @@ export const store = writable(browser && storedItems);
 store.subscribe((val) => browser && (localStorage.store = JSON.stringify(val)));
 
 async function loadCards(envId) {
-	const snapRef2 = await getDocs(collection(db, 'card-environments', envId, 'cards'));
+	const snapRef2 = await getDocs(collection(db, 'card-envs', envId, 'cards'));
 	const cards = snapRef2.docs.map((doc) => {
 		return doc.data();
 	});
@@ -32,7 +32,7 @@ async function loadCards(envId) {
 
 async function loadCardEnvironments() {
 	if (get(store).envs.length === 0) {
-		getDocs(collection(db, 'card-environments'))
+		getDocs(collection(db, 'card-envs'))
 			.then((snap) => {
 				store.update((obj) => ({ ...obj, envs: snap.docs.map((d) => d.data()) }));
 			})

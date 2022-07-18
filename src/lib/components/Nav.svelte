@@ -9,6 +9,7 @@
 	import { onMount } from 'svelte';
 	import { afterNavigate } from '$app/navigation';
 	import { goto } from '$app/navigation';
+	import { clickOutside } from '$lib/components/utils/clickOutside';
 
 	$: envId = $page.params.envId;
 
@@ -50,7 +51,11 @@
 	});
 </script>
 
-<nav class="flex items-center w-full h-16 bg-c-dark-brown text-white relative">
+<nav
+	class="flex items-center w-full h-16 bg-c-dark-brown text-white relative"
+	use:clickOutside
+	on:click_outside={() => (collapsed = false)}
+>
 	<h1 class="text-3xl mx-5 font-bold">
 		<a class="flex items-center" href="/"> Tickle </a>
 	</h1>

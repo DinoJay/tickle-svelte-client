@@ -6,7 +6,7 @@
 	var watchId = null;
 
 	onMount(() => {
-		if (!watchId && $store.currentUser != undefined) {
+		if (!watchId) {
 			/**
 			 * Check if the user's browser geolocation is allowed
 			 */

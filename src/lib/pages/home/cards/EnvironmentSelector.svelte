@@ -6,13 +6,15 @@
 
 	export let selectedEnvironment = 'default';
 	export let userCardsIdForEachEnv = {};
-	let environments = {};
+	export let environments = {};
 
 	/**
 	 * Get all the submissions of the user
 	 * Get all the environments from these submissions
 	 */
 	async function getEnvironments() {
+		if (Object.keys(environments).length != 0) return;
+
 		var snapRef = await getDocs(
 			collection(db, 'users', $store.currentUser.uid, 'activitySubmissions')
 		);
@@ -26,7 +28,7 @@
 		submissions.forEach(async (submission) => {
 			// Fill environments with the name of the environment
 			if (!environments[submission.envId]) {
-				var docRef = doc(db, 'card-environments', submission.envId);
+				var docRef = doc(db, 'card-envs', submission.envId);
 				var docSnap = await getDoc(docRef);
 				if (docSnap.exists()) environments[submission.envId] = docSnap.data().name;
 			}
@@ -37,7 +39,8 @@
 			}
 			userCardsIdForEachEnv[submission.envId].push({
 				id: submission.cardId,
-				score: submission.score
+				score: submission.score,
+				maxScore: submission.maxScore
 			});
 		});
 	}
@@ -46,16 +49,18 @@
 {#await getEnvironments()}
 	<TickleWobble />
 {:then _}
-	<select
-		id="environmentSelector"
-		bind:value={selectedEnvironment}
-		class="sm:w-[60%] w-[90%] rounded-lg mt-2 h-8"
-	>
-		<option value="default">Choose an environment</option>
-		{#each Object.entries(environments) as [id, envName]}
-			<option value={id}>
-				{envName}
-			</option>
-		{/each}
-	</select>
+	<div class="bg-c-light-yellow h-[3rem]">
+		<select
+			id="environmentSelector"
+			bind:value={selectedEnvironment}
+			class="sm:w-[60%] w-[90%] rounded-lg mt-2 h-8"
+		>
+			<option value="default">Choose an environment</option>
+			{#each Object.entries(environments) as [id, envName]}
+				<option value={id}>
+					{envName}
+				</option>
+			{/each}
+		</select>
+	</div>
 {/await}

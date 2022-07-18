@@ -7,7 +7,6 @@
 
 	let userAvatar = $store.currentUser?.avatar;
 
-	console.log($store.currentUser);
 	async function changeAvatar() {
 		const userRef = doc(db, 'users', $store.currentUser.uid);
 		await updateDoc(userRef, {

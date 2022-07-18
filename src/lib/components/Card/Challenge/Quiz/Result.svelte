@@ -21,6 +21,7 @@
 	 * Method to update the information of the quizInformation : succeeded, completed and score
 	 */
 	const updateQuizInfo = () => {
+		let maxScore = 10 * questions.length;
 		let score = 0;
 		quizInformation.succeeded = true;
 		quizInformation.completed = true;
@@ -32,12 +33,14 @@
 		quizInformation.response.forEach((resp) => {
 			if (!Object.values(resp)[0]) {
 				quizInformation.succeeded = false;
+				score -= 10;
 			} else {
-				score += 50;
+				score += 10;
 			}
 		});
 
 		quizInformation.score = score;
+		quizInformation.maxScore = maxScore;
 
 		addDoc(
 			collection(db, 'users', quizInformation.uid, 'activitySubmissions'),

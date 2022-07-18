@@ -10,6 +10,11 @@
 	let flyOut = 0;
 	$: screenWidth = 0;
 
+	// CollectedCards
+	let selectedEnvironment = 'default';
+	let userCardsIdForEachEnv = {};
+	let environments = {};
+
 	/**
 	 * Dynamic method to catch the size of the screen
 	 */
@@ -49,7 +54,7 @@
 		out:fly={{ x: -screenWidth, duration: 500, opacity: 1 }}
 		class="absolute w-full h-[calc(100vh-10rem)]"
 	>
-		<CollectedCards />
+		<CollectedCards bind:selectedEnvironment bind:userCardsIdForEachEnv bind:environments />
 	</div>
 {:else if selectedIcon == 'friends'}
 	<div

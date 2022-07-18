@@ -42,7 +42,7 @@
 			if (submission.cardId == id) {
 				allowed = false;
 				challengeButtonContent =
-					'Completed - score : ' + submission.score + '/' + activity.value.questions.length * 50;
+					'Completed - score : ' + submission.score + '/' + submission.maxScore;
 			}
 		});
 
