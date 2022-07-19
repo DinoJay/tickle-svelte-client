@@ -24,7 +24,7 @@
 			 * @param state - granted or not
 			 */
 			const geoLocPosition = (state) => {
-				if (state == 'granted') {
+				if (state == 'granted' || state == 'prompt') {
 					watchId = navigator.geolocation.watchPosition(success);
 				} else {
 					updateUserLocation(undefined);

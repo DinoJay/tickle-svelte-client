@@ -5,6 +5,7 @@
 	import Quiz from './Challenge/Quiz/index.svelte';
 	import Hangman from './Challenge/Hangman/index.svelte';
 	import { store } from '/src/stores/index';
+	import { onMount } from 'svelte';
 
 	export let title;
 	export let description;
@@ -17,8 +18,16 @@
 	let challengeButtonContent = '...';
 
 	let open = false;
-	const width = 400;
-	const height = 600;
+	var width = 400;
+	var height = 600;
+
+	/**
+	 * LightBox height width for mobile
+	 */
+	onMount(() => {
+		if (window.innerWidth < width) width = window.innerWidth;
+		if (window.innerHeight < height) height = window.innerHeight;
+	});
 
 	const getActivityProps = () => ({
 		datum: activity

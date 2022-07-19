@@ -8,10 +8,10 @@
 <button
 	on:click={() => onClick()}
 	class="{map ? 'bg-c-light-green' : 'bg-c-light-red'} 
-    flex items-center h-16 w-16 bottom-8 right-5 spinner
+    flex items-center h-16 w-16 bottom-8 right-5 
     absolute border-2 border-black rounded-full"
 >
-	<span class="m-auto"> <CompassOutline size={32} /></span>
+	<span class="m-auto spinner"> <CompassOutline size={32} /></span>
 </button>
 
 <style>

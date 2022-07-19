@@ -1,52 +1,43 @@
-let objEnvIdCardsId = {};
-	let userObjEnvsCards = {};
-	let userObjEnvs = {};
+<script>
+	import { store } from '/src/stores/index';
+	import CardsOutline from 'svelte-material-icons/CardsOutline.svelte';
+	import AccountGroupOutline from 'svelte-material-icons/AccountGroupOutline.svelte';
+	import ChartLine from 'svelte-material-icons/ChartLine.svelte';
 
-	/**
-	 * Get all the submissions of the user
-	 * We have the envsId and the cardsId for all the submissions
-	 */
-	async function getUserSubmissions() {
-		var snapRef = await getDocs(
-			collection(db, 'users', $store.currentUser.uid, 'activitySubmissions')
-		);
-		var submissions = snapRef.docs.map((doc) => {
-			return doc.data();
-		});
+	export let selectedIcon;
+	export let onClick;
 
-		submissions.forEach((submission) => {
-			if (!objEnvIdCardsId[submission.envId]) objEnvIdCardsId[submission.envId] = [];
-			objEnvIdCardsId[submission.envId].push(submission.cardId);
-		});
+	let icons = ['cards', 'friends', 'progress', 'avatar'];
+</script>
 
-		/**
-		 * For each envId of objEnvIdCardsId
-		 * We get all the cards of the environment
-		 * Then we get the collected card thanks the cardId we stored in objEnvIdCardsId
-		 */
-		for (const [key, value] of Object.entries(objEnvIdCardsId)) {
-			let allCardsFromEnvId = getCardsFromEnvId(key);
-			(await allCardsFromEnvId).forEach((card) => {
-				if (value.includes(card.id)) userObjEnvsCards[key].push(card);
-			});
-		}
-	}
-
-	/**
-	 * Get all the cards from an environment
-	 * @param envId
-	 */
-	async function getCardsFromEnvId(envId) {
-		userObjEnvsCards[envId] = [];
-		var snapRef = await getDocs(collection(db, 'card-environments', envId, 'cards'));
-		var cards = snapRef.docs.map((doc) => {
-			return doc.data();
-		});
-		return cards;
-	}
-
-	if ($store?.currentUser) {
-		getUserSubmissions();
-	}
-
-	$: if (userObjEnvsCards) console.log(userObjEnvsCards);
+<div class="flex justify-center h-auto w-full bg-c-cream">
+	{#each icons as icon}
+		<div
+			class="flex h-[5rem] w-[5rem] sm:mx-4 mx-1 my-2 bg-white hover:scale-110 cursor-pointer
+			{selectedIcon == icon ? 'border-2 border-c-dark-brown' : ''}"
+			on:click={() => onClick(icon)}
+		>
+			<span class="m-auto text-center">
+				{#if icon == 'cards'}
+					<CardsOutline size={56} />
+					Cards
+				{:else if icon == 'friends'}
+					<AccountGroupOutline size={56} />
+					Friends
+				{:else if icon == 'progress'}
+					<ChartLine size={56} />
+					Progress
+				{:else if icon == 'avatar'}
+					{#if $store?.currentUser?.avatar}
+						<img
+							src="/avatars/{$store.currentUser.avatar}.svg"
+							alt={$store.currentUser.avatar}
+							class="w-[56px]"
+						/>
+					{/if}
+					Avatar
+				{/if}
+			</span>
+		</div>
+	{/each}
+</div>
