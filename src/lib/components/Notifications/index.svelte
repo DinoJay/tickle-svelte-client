@@ -3,7 +3,7 @@
 	import Notification from './Notification.svelte';
 
 	const close = () => notificationStore.update((n) => ({ ...n, text: null }));
-	$: console.log('noti', $notificationStore);
+	// $: console.log('noti', $notificationStore);
 </script>
 
 {#if $notificationStore.text}

@@ -1,13 +1,9 @@
 <script>
 	import Question from './Question.svelte';
 	import Result from './Result.svelte';
-	import { store } from '/src/stores/index';
 
 	export let datum;
-	export let height;
-	export let width;
-	export let cardId;
-	export let envId;
+	export let quizInformation;
 
 	const {
 		value: { questions, title }
@@ -16,17 +12,7 @@
 	$: counter = 0;
 	$: curQ = questions[counter];
 	$: img = curQ?.img;
-	$: quizInformation = {
-		completed: false,
-		date: new Date().getTime(),
-		cardId: cardId,
-		envId: envId,
-		response: [],
-		succeeded: false,
-		type: 'Quiz',
-		uid: $store.currentUser.uid,
-		score: 0
-	};
+	quizInformation.response = [];
 
 	/**
 	 * Method to add the responses of the users in the object quizInformation

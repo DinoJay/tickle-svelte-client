@@ -3,6 +3,7 @@
 	import LightBox from '$lib/LightBox.svelte';
 	import { collection, getDocs } from 'firebase/firestore';
 	import Quiz from './Challenge/Quiz/index.svelte';
+	import Hangman from './Challenge/Hangman/index.svelte';
 	import { store } from '/src/stores/index';
 
 	export let title;
@@ -19,13 +20,20 @@
 	const width = 400;
 	const height = 600;
 
-	const getQuizProps = () => ({
-		datum: activity,
+	const getActivityProps = () => ({
+		datum: activity
+	});
+
+	let quizInformation = {
+		completed: false,
+		date: new Date().getTime(),
 		cardId: id,
 		envId: envId,
-		width: 400,
-		height: 600
-	});
+		type: activity.type,
+		succeeded: false,
+		uid: $store.currentUser.uid,
+		score: 0
+	};
 
 	/**
 	 * Check if the user alredy did the activity
@@ -82,6 +90,10 @@
 			isUserAllowed();
 		}}
 	>
-		<Quiz {...getQuizProps()} />
+		{#if activity.type == 'Quiz'}
+			<Quiz {...getActivityProps()} {quizInformation} />
+		{:else if activity.type == 'Hangman'}
+			<Hangman {...getActivityProps()} {quizInformation} />
+		{/if}
 	</LightBox>
 {/if}
