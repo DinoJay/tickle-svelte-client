@@ -46,7 +46,7 @@
 	}
 </script>
 
-<div class="flex flex-col h-[calc(100vh-16rem)] w-full p-3 my-2 ">
+<div class="flex flex-col h-[calc(100vh-14rem)] w-full my-2 ">
 	<div class="overflow-auto grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6  gap-4">
 		{#each userCards as card}
 			<Card {card} />

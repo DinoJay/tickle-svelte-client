@@ -17,6 +17,7 @@ export function points({
 	orientationOrder = null,
 	normalize = true
 }) {
+	if (width < 500) orientation = Math.PI / 1;
 	// handle 0-sized sets by removing from input
 	var toremove = {};
 

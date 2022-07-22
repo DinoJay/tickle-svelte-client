@@ -20,15 +20,17 @@
 	{#if cards?.length > 0}
 		<Slider {selectedCard} {cards} {envId} onClick={(id) => (selectedCard = id)} />
 
-		{#if !map}
+		<div class=" {!map ? 'visible' : 'invisible'}">
 			<TopicMap {selectedCard} {cards} onClick={(id) => (selectedCard = id)} />
-		{:else}
+		</div>
+
+		<div class="absolute h-full w-full  {map ? 'visible' : 'invisible'}">
 			<Map
 				center={[centerLoc?.latitude, centerLoc?.longitude]}
 				data={cards}
 				onClick={(id) => (selectedCard = id)}
 			/>
-		{/if}
+		</div>
 
 		<MapButton {map} onClick={() => (map = !map)} />
 	{/if}

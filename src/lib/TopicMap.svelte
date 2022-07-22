@@ -12,13 +12,16 @@
 		'rgb(255, 127, 14)',
 		'rgb(227, 119, 194)'
 	];
-	const width = 650;
-	const height = 500;
-	const NODERAD = 12;
+
+	const width = window.innerWidth * 0.95;
+	const height = window.innerHeight * 0.6;
+	console.log(width);
+	let NODERAD = 12;
+	if (window.innerWidth < 750) NODERAD = 8;
+
 	var circleVals = [];
 	var labels = [];
 	var newNodes = [];
-
 	let withoutNullTopics = [];
 
 	$: if (cards) {
@@ -69,7 +72,6 @@
 			return ret;
 		};
 
-		// d
 		const nodeData = withoutNullTopics.map((d) => {
 			const sets = sort(d.topics?.value).map((d) => d.title);
 			const setsStr = getSetsStr(d.topics?.value);
@@ -137,8 +139,8 @@
 	}
 </script>
 
-<div class="flex w-[99%] h-[calc(100vh-20rem)] overflow-auto">
-	<div class="m-auto  h-[700px] w-[650px] relative">
+<div class="flex w-full h-[calc(100vh-20rem)] ">
+	<div class="m-auto relative overflow-auto" style="height:{height}px; width: {width}px;">
 		{#each circleVals as c, i}
 			<div
 				class="absolute border border-sky-500 rounded-full center opacity-20"
@@ -149,7 +151,7 @@
 		{#each labels as l, i}
 			<div
 				class="absolute center text-center"
-				style="left:{l.x}px;top:{l.y}px;width:{2 * circleVals[i].radius}px"
+				style="left:{l.x}px;top:{l.y}px;width:{1 * circleVals[i].radius}px"
 			>
 				{l.text}
 			</div>

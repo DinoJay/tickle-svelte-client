@@ -16,18 +16,16 @@
 </script>
 
 <Located>
-	<div class="absolute h-full w-full z-0">
-		<Mapbox lat={center[0]} lon={center[1]} zoom={13}>
-			{#each data as card (card.id)}
-				<MapMarker
-					onClick={() => onClick(card.id)}
-					lon={card.loc.value.longitude}
-					lat={card.loc.value.latitude}
-					label={card.title.value}
-				/>
-			{/each}
-			<ImgMarker {...userLoc} {userAvatar} />
-			<Recenter {...userLoc} {userAvatar} onClick={() => onClick(null)} />
-		</Mapbox>
-	</div>
+	<Mapbox lat={center[0]} lon={center[1]} zoom={13}>
+		{#each data as card (card.id)}
+			<MapMarker
+				onClick={() => onClick(card.id)}
+				lon={card.loc.value.longitude}
+				lat={card.loc.value.latitude}
+				label={card.title.value}
+			/>
+		{/each}
+		<ImgMarker {...userLoc} {userAvatar} />
+		<Recenter {...userLoc} {userAvatar} onClick={() => onClick(null)} />
+	</Mapbox>
 </Located>
