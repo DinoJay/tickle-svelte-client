@@ -10,7 +10,7 @@
 		onAuthStateChanged(auth, (currentUser) => {
 			if (!currentUser) {
 				localStorage.clear();
-				goto('/');
+				if (window.location.pathname != '/register-user') goto('/');
 			} else {
 				if (!$store?.currentUser) {
 					loadUser(currentUser);

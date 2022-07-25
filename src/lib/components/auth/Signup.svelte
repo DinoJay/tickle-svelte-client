@@ -59,43 +59,32 @@
 	const passwordIsValid = () => {
 		return pwd === pwdConfirmation;
 	};
-
-	// getDocs(
-	// 	collection(db, 'card-environments', '4448f4c0-b70a-11eb-b459-e190a6a10b49', 'cardTemplates')
-	// )
-	// 	.then((snap) => {
-	// 		return snap.docs.map((d) => d.data());
-	// 	})
-	// 	.then((data) => {
-	// 		data.forEach((card) => {
-	// 			// addDoc(collection(db, 'card-envs'), data);
-	// 			//addDoc(collection(db, 'card-envs', 'zPp5DEAWL3Z6I5spziIE', 'cardTemplates'), card);
-	// 		});
-	// 	})
-	// 	.catch((error) => {
-	// 		console.log(error);
-	// 	});
 </script>
 
 <div class="flex flex-col h-[calc(100vh-4rem)]">
-	<img src="/tickle.svg" alt="tickle-logo" class="w-1/5 m-auto" />
+	<span class="translate-anim-container my-auto">
+		<img src="/tickle.svg" alt="tickle-logo" class="w-1/5 m-auto translate-anim" />
+	</span>
 	<form class="flex flex-col my-auto" action="" method="post" on:submit={(e) => submit(e)}>
 		<input
-			class="w-[90%] lg:w-2/5 m-auto outline-teal-500 text-grey-700 border-black border-2 py-2 px-3 mb-3"
+			class="w-[90%] lg:w-2/5 m-auto py-2 px-3 mb-3
+				outline-teal-500 text-grey-700 border-black border-2 shadow"
 			bind:value={email}
 			type="text"
 			id="email"
 			placeholder="Email Address"
 		/>
 		<input
-			class="w-[90%] lg:w-2/5 m-auto outline-teal-500 text-grey-700 border-black border-2 py-2 px-3 mb-3"
+			class="w-[90%] lg:w-2/5 m-auto py-2 px-3 mb-3
+				outline-teal-500 text-grey-700 border-black border-2 shadow"
 			bind:value={pwd}
 			type="password"
 			id="password"
 			placeholder="Choose password"
 		/>
 		<input
-			class="w-[90%] lg:w-2/5 m-auto outline-teal-500 text-grey-700 border-black border-2 py-2 px-3 mb-3"
+			class="w-[90%] lg:w-2/5 m-auto py-2 px-3 mb-3
+				outline-teal-500 text-grey-700 border-black border-2 shadow"
 			bind:value={pwdConfirmation}
 			type="password"
 			id="passwordConfirmation"
@@ -107,7 +96,8 @@
 		</div>
 
 		<button
-			class="w-[90%] lg:w-2/5 m-auto uppercase btn px-3 py-3 font-bold border-2 border-black mb-1"
+			class="w-[90%] lg:w-2/5 m-auto px-3 py-3 mb-1
+			uppercase btn  font-bold border-2 border-black shadow"
 			type="submit">Sign up</button
 		>
 		<p class="mx-auto">

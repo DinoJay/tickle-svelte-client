@@ -38,17 +38,22 @@
 </script>
 
 <div class="flex flex-col h-[calc(100vh-4rem)]">
-	<img src="/tickle.svg" alt="tickle-logo" class="w-1/4 m-auto" />
+	<span class="translate-anim-container my-auto">
+		<img src="/tickle.svg" alt="tickle-logo" class="translate-anim w-1/4 m-auto" />
+	</span>
+
 	<form class="flex flex-col my-auto" action="" method="post" on:submit={(e) => submit(e)}>
 		<input
-			class="w-[90%] lg:w-2/5 m-auto outline-teal-500 text-grey-700 border-black border-2 py-2 px-3 mb-3"
+			class="w-[90%] lg:w-2/5 m-auto py-2 px-3 mb-3
+				outline-teal-500 text-grey-700 border-black border-2 shadow"
 			bind:value={email}
 			type="text"
 			id="email"
 			placeholder="Email Address"
 		/>
 		<input
-			class="w-[90%] lg:w-2/5 m-auto outline-teal-500 text-grey-700 border-black border-2 py-2 px-3 mb-3"
+			class="w-[90%] lg:w-2/5 m-auto py-2 px-3 mb-3
+				outline-teal-500 text-grey-700 border-black border-2 shadow"
 			bind:value={pwd}
 			type="password"
 			id="password"
@@ -56,7 +61,8 @@
 		/>
 
 		<button
-			class="w-[90%] lg:w-2/5 m-auto uppercase btn px-3 py-3 font-bold border-2 border-black mb-1"
+			class="w-[90%] lg:w-2/5 m-auto mb-1
+				uppercase btn px-3 py-3 font-bold border-2 border-black shadow "
 			type="submit">Sign in</button
 		>
 		<p class="mx-auto">

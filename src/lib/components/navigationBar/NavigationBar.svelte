@@ -1,8 +1,6 @@
 <script>
 	import { getAuth, signOut } from 'firebase/auth';
-	import { scale, fly } from 'svelte/transition';
-	import Menu from 'svelte-material-icons/Menu.svelte';
-	import Close from 'svelte-material-icons/Close.svelte';
+	import { fly } from 'svelte/transition';
 	import SelectEnvironment from '$lib/components/environment/EnvironmentSelector.svelte';
 	import { page } from '$app/stores';
 	import { store } from '/src/stores/index';
@@ -10,10 +8,11 @@
 	import { afterNavigate } from '$app/navigation';
 	import { goto } from '$app/navigation';
 	import { clickOutside } from '$lib/components/utils/clickOutside';
+	import Logo from './Logo.svelte';
+	import Burger from './Burger.svelte';
 
 	$: envId = $page.params.envId;
 
-	let size = '32px';
 	let collapsed = false;
 	let selectEnvOpen = false;
 	let mobileNavWidth;
@@ -49,6 +48,18 @@
 		collapsed = false;
 		selectEnvOpen = false;
 	});
+
+	let sections = [
+		{
+			name: 'Select environments',
+			foo: () => {
+				selectEnvOpen = !selectEnvOpen;
+				collapsed = !collapsed;
+			}
+		},
+		{ name: 'Home', foo: () => goto('/home') },
+		{ name: 'Sign out', foo: () => logOut() }
+	];
 </script>
 
 <nav
@@ -56,24 +67,12 @@
 	use:clickOutside
 	on:click_outside={() => (collapsed = false)}
 >
-	<h1 class="text-3xl mx-5 font-bold">
-		<a class="flex items-center" href="/"> Tickle </a>
-	</h1>
+	<Logo />
 
 	<!-- Mobile NavBar -->
 	{#if $store?.currentUser != undefined}
 		<div class="block mt-1.5 absolute right-3">
-			<button on:click={() => (collapsed = !collapsed)}>
-				{#if !collapsed}
-					<div in:scale>
-						<Menu {size} />
-					</div>
-				{:else}
-					<div in:scale>
-						<Close {size} />
-					</div>
-				{/if}
-			</button>
+			<Burger bind:collapsed />
 		</div>
 
 		{#if collapsed}
@@ -81,19 +80,14 @@
 				transition:fly={{ x: mobileNavWidth, duration: 500, opacity: 1 }}
 				class="flex flex-col sm:w-2/5 w-full h-auto  bg-c-brown absolute top-[4rem] right-0 z-20"
 			>
-				<button
-					class="sm:h-10 sm:text-xl text-2xl h-14 border-b hover:underline"
-					on:click={() => (selectEnvOpen = !selectEnvOpen)}>Select environments</button
-				>
-
-				<button
-					class="sm:h-10 sm:text-xl text-2xl h-14 border-b hover:underline"
-					on:click={() => goto(`/home`)}>Home</button
-				>
-
-				<button class="sm:h-10 sm:text-xl text-2xl h-14  hover:underline" on:click={() => logOut()}
-					>Sign out</button
-				>
+				{#each sections as section}
+					<button
+						class="sm:h-10 sm:text-xl text-2xl h-14 border-b hover:underline"
+						on:click={section.foo}
+					>
+						{section.name}
+					</button>
+				{/each}
 			</div>
 		{/if}
 

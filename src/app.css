@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+.shadow {
+	box-shadow: 3px 5px 3px black;
+}
+
+.translate-anim-container {
+	display: block;
+	overflow: hidden;
+}
+
+.translate-anim {
+	display: block;
+	animation: translate-landing 1.5s ease forwards;
+	transform: translateY(150%);
+}
+
+@keyframes translate-landing {
+	100% {
+		transform: translateY(0);
+	}
+}
+
 .layout-container {
 	width: 100vw;
 	height: 100vh;

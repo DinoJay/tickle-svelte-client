@@ -20,8 +20,8 @@
 		<h2 class="text-3xl mb-1 text-gray-800">Welcome to TICKLE!</h2>
 
 		<div class="grow overflow-y-auto">
-			{#each $store.envs as env, i}
-				<ShowEnv {...env} openId={envId} bind:el={elems[i]} onClick={(id) => (envId = id)} />
+			{#each $store.envs as env}
+				<ShowEnv {...env} openId={envId} onClick={(id) => (envId = id)} />
 			{/each}
 		</div>
 	</div>

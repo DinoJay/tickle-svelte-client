@@ -7,12 +7,12 @@
 	export let img;
 	export let openId;
 	export let onClick;
-	export let open;
 
-	export let el;
+	export let authorId = null;
+	export let cards = null;
 </script>
 
-<div bind:this={el} class="overflow-y-auto">
+<div class="overflow-y-auto">
 	<h2>
 		<button
 			on:click={() => {

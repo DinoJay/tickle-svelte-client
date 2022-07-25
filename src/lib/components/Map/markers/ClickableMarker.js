@@ -16,7 +16,6 @@ export class ClickableMarker extends mapbox.Marker {
 
 		if (this._handleClick && (targetElement === element || element.contains(targetElement))) {
 			this._handleClick();
-			console.log(this._handleClick);
 		}
 	}
 }

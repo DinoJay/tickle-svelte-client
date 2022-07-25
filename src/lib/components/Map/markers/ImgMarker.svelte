@@ -7,8 +7,6 @@
 
 	export let lat;
 	export let lon;
-	export let label;
-	export let onClick;
 	export let userAvatar;
 
 	$: pos = lon && lat ? map.project([lon, lat]) : { x: 0, y: 0 };

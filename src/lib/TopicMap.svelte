@@ -15,7 +15,6 @@
 
 	const width = window.innerWidth * 0.95;
 	const height = window.innerHeight * 0.6;
-	console.log(width);
 	let NODERAD = 12;
 	if (window.innerWidth < 750) NODERAD = 8;
 
@@ -56,6 +55,7 @@
 					}
 				}
 			}
+
 			return res;
 		};
 

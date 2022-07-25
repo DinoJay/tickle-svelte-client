@@ -1,6 +1,6 @@
 <script>
-	export let className;
-	export let style;
+	export let className = '';
+	export let style = '';
 </script>
 
 <div class="loader-container {className}" {style}>

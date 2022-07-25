@@ -78,3 +78,21 @@
 		</div>
 	{/each}
 </div>
+
+
+
+	// getDocs(
+	// 	collection(db, 'card-environments', '4448f4c0-b70a-11eb-b459-e190a6a10b49', 'cardTemplates')
+	// )
+	// 	.then((snap) => {
+	// 		return snap.docs.map((d) => d.data());
+	// 	})
+	// 	.then((data) => {
+	// 		data.forEach((card) => {
+	// 			// addDoc(collection(db, 'card-envs'), data);
+	// 			//addDoc(collection(db, 'card-envs', 'zPp5DEAWL3Z6I5spziIE', 'cardTemplates'), card);
+	// 		});
+	// 	})
+	// 	.catch((error) => {
+	// 		console.log(error);
+	// 	});
