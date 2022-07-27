@@ -1,6 +1,5 @@
 <script>
 	import { goto } from '$app/navigation';
-
 	import { auth } from '$lib/firebaseConfig/firebase';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { addNotification } from '/src/stores/notificationStore';

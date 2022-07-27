@@ -1,7 +1,7 @@
 <script>
 	import TickleWobble from '$lib/components/utils/TickleWobble.svelte';
 	import { db } from '$lib/firebaseConfig/firebase';
-	import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+	import { collection, getDocs } from 'firebase/firestore';
 	import { store } from '/src/stores/index';
 
 	export let selectedEnvironment = 'default';
@@ -28,9 +28,9 @@
 		submissions.forEach(async (submission) => {
 			// Fill environments with the name of the environment
 			if (!environments[submission.envId]) {
-				var docRef = doc(db, 'card-envs', submission.envId);
-				var docSnap = await getDoc(docRef);
-				if (docSnap.exists()) environments[submission.envId] = docSnap.data().name;
+				let environment = $store.envs.find((env) => env.id == submission.envId);
+				environments[submission.envId] = [];
+				environments[submission.envId].push(environment.name);
 			}
 
 			// Fill userCardsIdForEachEnv with all the cards collected from the user for each environment

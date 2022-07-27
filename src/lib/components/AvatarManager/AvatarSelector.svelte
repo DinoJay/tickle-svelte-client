@@ -1,6 +1,10 @@
 <script>
 	import avatars from '$lib/components/avatarManager/avatars';
-	export let userAvatar = null;
+	/**
+	 * newUserAvatar - the new user's avatar
+	 * currentUserAvatar - thus current user's avatar - if the user already has an avatar
+	 */
+	export let newUserAvatar = null;
 	export let currentUserAvatar = null;
 </script>
 
@@ -8,10 +12,10 @@
 	{#each avatars as avatar}
 		<img
 			class="w-[4rem] h-[4rem] cursor-pointer 
-				{userAvatar === avatar ? 'bg-c-green' : ''}
+				{newUserAvatar === avatar ? 'bg-c-green' : ''}
 				{currentUserAvatar === avatar ? 'bg-c-light-green' : ''}"
 			on:click={() => {
-				userAvatar = avatar;
+				newUserAvatar = avatar;
 			}}
 			src={'/avatars/' + avatar + '.svg'}
 			alt={avatar}

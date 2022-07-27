@@ -11,6 +11,6 @@
 <ListenUserLocation>
 	<LoadEnvironments>
 		<LoadCards {environmentId} />
-		<CardViewPage envId={environmentId} />
+		<CardViewPage selectedEnvironment={environmentId} />
 	</LoadEnvironments>
 </ListenUserLocation>

@@ -49,7 +49,6 @@
 			// If all the letters are true, the player wins
 			let isWin = rightLetters.map((letter) => letter.find == true);
 			if (!isWin.includes(false)) {
-				console.log('non');
 				victory = true;
 				sendResults(true, true, 50, 50);
 			}

@@ -8,7 +8,9 @@
 
 	export let cards;
 	export let onClick;
-	export let envId;
+	export let selectedEnvironment;
+
+	console.log(cards);
 
 	$: previewCardData = cards.map((c) => ({
 		id: c.id,
@@ -22,7 +24,7 @@
 		description: c.description?.value,
 		activity: c.activity,
 		id: c.id,
-		envId: envId
+		envId: selectedEnvironment
 	});
 
 	const elems = cards.map(() => null);
@@ -49,7 +51,7 @@
 			<PreviewCard {...c} />
 		</div>
 	{/each}
-	<LightBox open={modalOpen} close={() => (modalOpen = false)}>
+	<LightBox isOpen={modalOpen} close={() => (modalOpen = false)}>
 		<Card {...getCardProps(cards.find((c) => c.id === selectedCard))} />
 	</LightBox>
 </div>

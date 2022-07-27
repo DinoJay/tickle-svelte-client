@@ -2,7 +2,7 @@
 	import { auth } from '$lib/firebaseConfig/firebase';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { db } from '$lib/firebaseConfig/firebase';
-	import { addDoc, collection, collectionGroup, doc, getDocs, setDoc } from 'firebase/firestore';
+	import { doc, setDoc } from 'firebase/firestore';
 	import { addNotification } from '/src/stores/notificationStore';
 	import AvatarManager from '$lib/components/avatarManager/AvatarSelector.svelte';
 	import { goto } from '$app/navigation';
@@ -92,7 +92,7 @@
 		/>
 
 		<div class="flex justify-center w-[90%] mx-auto lg:w-2/5 my-4">
-			<AvatarManager bind:userAvatar currentUserAvatar={null} />
+			<AvatarManager bind:newUserAvatar={userAvatar} currentUserAvatar={null} />
 		</div>
 
 		<button

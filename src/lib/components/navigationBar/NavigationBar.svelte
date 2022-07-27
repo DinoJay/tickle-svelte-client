@@ -11,7 +11,7 @@
 	import Logo from './Logo.svelte';
 	import Burger from './Burger.svelte';
 
-	$: envId = $page.params.envId;
+	$: selectedEnvironment = $page.params.envId;
 
 	let collapsed = false;
 	let selectEnvOpen = false;
@@ -58,6 +58,7 @@
 			}
 		},
 		{ name: 'Home', foo: () => goto('/home') },
+		{ name: 'Admin', foo: () => goto('/admin') },
 		{ name: 'Sign out', foo: () => logOut() }
 	];
 </script>
@@ -91,7 +92,7 @@
 			</div>
 		{/if}
 
-		<SelectEnvironment {envId} bind:open={selectEnvOpen} mandatory={false} />
+		<SelectEnvironment {selectedEnvironment} bind:isOpen={selectEnvOpen} isMandatory={false} />
 	{/if}
 </nav>
 

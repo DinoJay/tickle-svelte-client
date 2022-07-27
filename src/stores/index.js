@@ -31,15 +31,13 @@ async function loadCards(envId) {
 }
 
 async function loadCardEnvironments() {
-	if (get(store).envs.length === 0) {
-		getDocs(collection(db, 'card-envs'))
-			.then((snap) => {
-				store.update((obj) => ({ ...obj, envs: snap.docs.map((d) => d.data()) }));
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
+	getDocs(collection(db, 'card-envs'))
+		.then((snap) => {
+			store.update((obj) => ({ ...obj, envs: snap.docs.map((d) => d.data()) }));
+		})
+		.catch((error) => {
+			console.log(error);
+		});
 }
 
 export { loadCards, loadCardEnvironments };

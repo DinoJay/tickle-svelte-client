@@ -17,7 +17,7 @@
 	let allowed = true;
 	let challengeButtonContent = '...';
 
-	let open = false;
+	let isOpen = false;
 	var width = 400;
 	var height = 600;
 
@@ -79,7 +79,7 @@
 	</p>
 	<button
 		on:click={() => {
-			if (allowed) open = !open;
+			if (allowed) isOpen = !isOpen;
 		}}
 		class=" h-[10%] w-full bg-c-dark-brown text-white  text-xl absolute left-0 bottom-0
 			{allowed ? '' : 'cursor-not-allowed'}"
@@ -90,12 +90,12 @@
 
 {#if activity.value}
 	<LightBox
-		{open}
+		{isOpen}
 		{activity}
 		{width}
 		{height}
 		close={() => {
-			open = false;
+			isOpen = false;
 			isUserAllowed();
 		}}
 	>

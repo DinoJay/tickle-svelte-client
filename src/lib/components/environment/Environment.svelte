@@ -5,7 +5,7 @@
 	export let name;
 	export let description;
 	export let img;
-	export let openId;
+	export let openEnv;
 	export let onClick;
 
 	export let authorId = null;
@@ -16,16 +16,16 @@
 	<h2>
 		<button
 			on:click={() => {
-				onClick(openId === id ? null : id);
+				onClick(openEnv === id ? null : id);
 			}}
 		>
 			<h2 class="flex items-center text-xl">
-				<span class="mr-1 ">{openId === id ? '🤯' : '🙂'}</span>
+				<span class="mr-1 ">{openEnv === id ? '🤯' : '🙂'}</span>
 				<span>{name}</span>
 			</h2>
 		</button>
 	</h2>
-	{#if openId === id}
+	{#if openEnv === id}
 		<div class="my-2">
 			<img class="w-full object-contain h-96" src={img?.url || '/tickle.svg'} alt={name} />
 			<div>
@@ -35,7 +35,7 @@
 				<button
 					class="border border-gray-300 border-3 w-full p-2 text-xl"
 					on:click={() => {
-						openId = null;
+						openEnv = null;
 						goto(`/CardView/env/${id}`);
 					}}>Go!</button
 				>

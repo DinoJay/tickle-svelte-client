@@ -6,19 +6,19 @@
 	import { store } from '/src/stores/index';
 	import MapButton from './MapButton.svelte';
 
-	export let envId;
+	export let selectedEnvironment;
 	let selectedCard = null;
 	let map = false;
 	let centerLoc = null;
 	let cards = [];
 
-	$: if ($store) cards = $store?.envs?.find((env) => env.id === envId)?.cards;
+	$: if ($store) cards = $store?.envs?.find((env) => env.id === selectedEnvironment)?.cards;
 	$: if (cards) centerLoc = cards.find((d) => d.id === selectedCard)?.loc?.value;
 </script>
 
 <div class="flex flex-col h-[calc(100vh-4rem)] w-full relative">
 	{#if cards?.length > 0}
-		<Slider {selectedCard} {cards} {envId} onClick={(id) => (selectedCard = id)} />
+		<Slider {selectedCard} {cards} {selectedEnvironment} onClick={(id) => (selectedCard = id)} />
 
 		<div class=" {!map ? 'visible' : 'invisible'}">
 			<TopicMap {selectedCard} {cards} onClick={(id) => (selectedCard = id)} />
@@ -35,7 +35,7 @@
 		<MapButton {map} onClick={() => (map = !map)} />
 	{/if}
 
-	{#if envId === 'undefined'}
-		<SelectEnvironment {envId} open={true} mandatory={true} />
+	{#if selectedEnvironment === 'undefined'}
+		<SelectEnvironment {selectedEnvironment} isOpen={true} isMandatory={true} />
 	{/if}
 </div>

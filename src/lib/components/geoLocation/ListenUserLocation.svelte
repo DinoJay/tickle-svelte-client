@@ -12,7 +12,7 @@
 			 */
 			const geoLocPermission = () => {
 				navigator.permissions.query({ name: 'geolocation' }).then((result) => {
-					if (watchId == null) geoLocPosition(result.state);
+					geoLocPosition(result.state);
 					result.onchange = (event) => {
 						geoLocPosition(event?.target?.state);
 					};
