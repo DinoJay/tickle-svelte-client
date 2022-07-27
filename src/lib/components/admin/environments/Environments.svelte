@@ -47,29 +47,31 @@
 </script>
 
 <div class="h-[35rem] overflow-auto">
-	{#each environments as env}
-		<div
-			class="flex h-12 w-full
+	{#if $store.envs}
+		{#each environments as env}
+			<div
+				class="flex h-12 w-full
 				bg-white my-1"
-		>
-			<p
-				class="flex h-full w-full justify-center items-center
+			>
+				<p
+					class="flex h-full w-full justify-center items-center
 					whitespace-nowrap text-ellipsis cursor-pointer
 					{selectedEnvironment == env.id ? 'bg-green-200 hover:bg-green-400' : ' hover:bg-gray-200'}"
-				on:click={() => selectEnvOrOpenLightBox(env)}
-			>
-				{env.name}
-			</p>
+					on:click={() => selectEnvOrOpenLightBox(env)}
+				>
+					{env.name}
+				</p>
 
-			<DeleteButton
-				onClick={() => {
-					environments.splice(environments.indexOf(env), 1);
-					environments = [...environments];
-				}}
-				ref={doc(db, 'card-envs', env.id)}
-			/>
-		</div>
-	{/each}
+				<DeleteButton
+					onClick={() => {
+						environments.splice(environments.indexOf(env), 1);
+						environments = [...environments];
+					}}
+					ref={doc(db, 'card-envs', env.id)}
+				/>
+			</div>
+		{/each}
+	{/if}
 </div>
 
 <AddButton
