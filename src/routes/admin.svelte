@@ -5,6 +5,8 @@
 	import Cards from '$lib/components/admin/cards/Cards.svelte';
 	import Map from '$lib/components/admin/map/Map.svelte';
 
+	// uploads images : https://svelte.dev/repl/b17c13d4f1bb40799ccf09e0841ddd90?version=3.49.0
+
 	/**
 	 * selectedEnvironment - The current environment selected in the admin page
 	 * selectedCard - The current card selected from an envrionment

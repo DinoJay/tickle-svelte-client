@@ -38,7 +38,7 @@
 	/**
 	 * Each times the selectedEnvironment or the lightBox are updated we check for new environments
 	 */
-	$: if (selectedEnvironment || isLightBoxOpen) {
+	$: if (isLightBoxOpen) {
 		loadCardEnvironments();
 		environments = $store.envs;
 	}

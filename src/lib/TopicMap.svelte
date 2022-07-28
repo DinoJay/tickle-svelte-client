@@ -23,6 +23,8 @@
 	var newNodes = [];
 	let withoutNullTopics = [];
 
+	console.log(cards);
+
 	$: if (cards) {
 		withoutNullTopics = [];
 
@@ -31,111 +33,113 @@
 			if (card.topics?.value?.length >= 1) withoutNullTopics.push(card);
 		});
 
-		const sort = (ar, acc = (a) => a.title) => {
-			ar = ar.slice().sort((a, b) => acc(b).localeCompare(a.title));
-			return ar;
-		};
+		if (withoutNullTopics.length != 0) {
+			const sort = (ar, acc = (a) => a.title) => {
+				ar = ar.slice().sort((a, b) => acc(b).localeCompare(a.title));
+				return ar;
+			};
 
-		const findAllSubsets = (arr = []) => {
-			arr.sort();
-			const res = [[]];
-			let count, subRes, preLength;
-			for (let i = 0; i < arr.length; i++) {
-				count = 1;
-				while (arr[i + 1] && arr[i + 1] == arr[i]) {
-					count += 1;
-					i++;
-				}
-				preLength = res.length;
-				for (let j = 0; j < preLength; j++) {
-					subRes = res[j].slice();
-					for (let x = 1; x <= count; x++) {
-						if (x > 0) subRes.push(arr[i]);
-						res.push(subRes.slice());
+			const findAllSubsets = (arr = []) => {
+				arr.sort();
+				const res = [[]];
+				let count, subRes, preLength;
+				for (let i = 0; i < arr.length; i++) {
+					count = 1;
+					while (arr[i + 1] && arr[i + 1] == arr[i]) {
+						count += 1;
+						i++;
+					}
+					preLength = res.length;
+					for (let j = 0; j < preLength; j++) {
+						subRes = res[j].slice();
+						for (let x = 1; x <= count; x++) {
+							if (x > 0) subRes.push(arr[i]);
+							res.push(subRes.slice());
+						}
 					}
 				}
-			}
 
-			return res;
-		};
-
-		const isSubset = (a, b) => {
-			const len = a.filter((d) => b.includes(d)).length;
-			return a.length === len;
-		};
-
-		const getSetsStr = (d, accessor = (e) => e.title) => {
-			const ret = sort(d, accessor).reduce(
-				(acc, cur) => (acc.length > 0 ? `${acc},${accessor(cur)}` : accessor(cur)),
-				''
-			);
-			return ret;
-		};
-
-		const nodeData = withoutNullTopics.map((d) => {
-			const sets = sort(d.topics?.value).map((d) => d.title);
-			const setsStr = getSetsStr(d.topics?.value);
-			return { ...d, sets, setsStr };
-		});
-
-		const unique = (a) => [...new Set(a)];
-
-		const setKeys = unique(nodeData.flatMap((d) => d.sets));
-
-		const allSetKeys = findAllSubsets(setKeys).map((d) => sort(d, (d) => d));
-
-		const allSets = allSetKeys
-			.filter((d) => d.length > 0)
-			.map((a) => ({
-				key: getSetsStr(a, (d) => d),
-				sets: a,
-				values: nodeData.filter((d) => isSubset(a, d.sets))
-			}))
-			.filter((d) => d.values.length > 0);
-
-		allSets.forEach((d) => {
-			d.size = d.values.length / d.sets.length;
-		});
-
-		const { textCentres, circles: circleDict, rs } = points({ data: allSets, width, height });
-
-		circleVals = Object.values(circleDict);
-
-		const nodes = nodeData.map((d) => {
-			return {
-				...d,
-				...circleDict[d.setsStr],
-				x: textCentres[d.setsStr]?.x,
-				y: textCentres[d.setsStr]?.y,
-				sx: textCentres[d.setsStr]?.x,
-				sy: textCentres[d.setsStr]?.y
+				return res;
 			};
-		});
 
-		const labelPoints = Object.entries(textCentres).map(([l, pos]) => ({ text: l, ...pos }));
+			const isSubset = (a, b) => {
+				const len = a.filter((d) => b.includes(d)).length;
+				return a.length === len;
+			};
 
-		labels = labelPoints.filter((d, i) => allSets[i].sets.length === 1);
+			const getSetsStr = (d, accessor = (e) => e.title) => {
+				const ret = sort(d, accessor).reduce(
+					(acc, cur) => (acc.length > 0 ? `${acc},${accessor(cur)}` : accessor(cur)),
+					''
+				);
+				return ret;
+			};
 
-		const rsNodes = rs.map((d) => {
-			return { ...d, nodes: nodes.filter((n) => n.setsStr === d.setsStr) };
-		});
-
-		const setNodes = rsNodes.map((set) => {
-			var innerRadius = set.r,
-				center = set.center,
-				nodes = set.nodes,
-				x = center.x,
-				y = center.y;
-
-			const p = d3.packSiblings(nodes.map((d) => ({ ...d, r: NODERAD + 2 })));
-			p.forEach((n) => {
-				n.x += x;
-				n.y += y;
+			const nodeData = withoutNullTopics.map((d) => {
+				const sets = sort(d.topics?.value).map((d) => d.title);
+				const setsStr = getSetsStr(d.topics?.value);
+				return { ...d, sets, setsStr };
 			});
-			return { ...set, nodes: p };
-		});
 
-		newNodes = setNodes.flatMap((d) => d.nodes);
+			const unique = (a) => [...new Set(a)];
+
+			const setKeys = unique(nodeData.flatMap((d) => d.sets));
+
+			const allSetKeys = findAllSubsets(setKeys).map((d) => sort(d, (d) => d));
+
+			const allSets = allSetKeys
+				.filter((d) => d.length > 0)
+				.map((a) => ({
+					key: getSetsStr(a, (d) => d),
+					sets: a,
+					values: nodeData.filter((d) => isSubset(a, d.sets))
+				}))
+				.filter((d) => d.values.length > 0);
+
+			allSets.forEach((d) => {
+				d.size = d.values.length / d.sets.length;
+			});
+
+			const { textCentres, circles: circleDict, rs } = points({ data: allSets, width, height });
+
+			circleVals = Object.values(circleDict);
+
+			const nodes = nodeData.map((d) => {
+				return {
+					...d,
+					...circleDict[d.setsStr],
+					x: textCentres[d.setsStr]?.x,
+					y: textCentres[d.setsStr]?.y,
+					sx: textCentres[d.setsStr]?.x,
+					sy: textCentres[d.setsStr]?.y
+				};
+			});
+
+			const labelPoints = Object.entries(textCentres).map(([l, pos]) => ({ text: l, ...pos }));
+
+			labels = labelPoints.filter((d, i) => allSets[i].sets.length === 1);
+
+			const rsNodes = rs.map((d) => {
+				return { ...d, nodes: nodes.filter((n) => n.setsStr === d.setsStr) };
+			});
+
+			const setNodes = rsNodes.map((set) => {
+				var innerRadius = set.r,
+					center = set.center,
+					nodes = set.nodes,
+					x = center.x,
+					y = center.y;
+
+				const p = d3.packSiblings(nodes.map((d) => ({ ...d, r: NODERAD + 2 })));
+				p.forEach((n) => {
+					n.x += x;
+					n.y += y;
+				});
+				return { ...set, nodes: p };
+			});
+
+			newNodes = setNodes.flatMap((d) => d.nodes);
+		}
 	}
 </script>
 

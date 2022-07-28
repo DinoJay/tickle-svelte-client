@@ -112,6 +112,13 @@
 				/>
 			</div>
 		</div>
+	{:else}
+		<p
+			class="w-full mt-5 text-center
+			font-medium uppercase"
+		>
+			Empty
+		</p>
 	{/each}
 </div>
 

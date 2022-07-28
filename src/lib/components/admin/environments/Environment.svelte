@@ -36,7 +36,8 @@
 		let docRef = doc(db, 'card-envs', currentEnvironment.id);
 
 		updateDoc(docRef, {
-			name: currentEnvironment.name
+			name: currentEnvironment.name,
+			description: currentEnvironment.description
 		});
 	}
 </script>
