@@ -21,7 +21,9 @@
 	let currentCard = {
 		id: 'null',
 		title: { key: 'title', value: '' },
-		description: { label: 'Description', value: '' }
+		description: { label: 'Description', value: '' },
+		img: { value: { name: '', url: '' } },
+		activity: null
 	};
 	let isLightBoxOpen = false;
 
@@ -129,7 +131,9 @@
 		currentCard = {
 			id: 'null',
 			title: { key: 'title', value: '' },
-			description: { label: 'Description', value: '' }
+			description: { label: 'Description', value: '' },
+			img: { value: { name: '', url: '' } },
+			activity: null
 		};
 	}}
 />

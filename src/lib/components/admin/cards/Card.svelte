@@ -11,11 +11,13 @@
 	export let currentCard = {
 		id: 'null',
 		title: { key: 'title', value: '' },
-		description: { label: 'Description', value: '' }
+		description: { label: 'Description', value: '' },
+		img: { value: { name: '', url: '' } }
 	};
 
 	let height = 600;
 	let width = 400;
+	let fileInput;
 
 	/**
 	 * LightBox height width for mobile
@@ -24,6 +26,20 @@
 		if (window.innerWidth < width) width = window.innerWidth;
 		if (window.innerHeight < height) height = window.innerHeight;
 	});
+
+	/**
+	 * Read the file upload and convert it to a picture
+	 * @param e - event
+	 */
+	const onFileSelected = (e) => {
+		let image = e.target.files[0];
+		let reader = new FileReader();
+		reader.readAsDataURL(image);
+		reader.onload = (e) => {
+			currentCard.img.value.url = e.target.result;
+			saveCard();
+		};
+	};
 
 	/**
 	 * If it's a new card we create it in Firebase
@@ -47,7 +63,9 @@
 		let docRef = doc(db, 'card-envs', selectedEnvironment, 'cards', currentCard.id);
 
 		updateDoc(docRef, {
-			title: currentCard.title
+			title: currentCard.title,
+			description: currentCard.description,
+			img: currentCard.img
 		});
 	}
 </script>
@@ -80,6 +98,23 @@
 			id="description"
 			bind:value={currentCard.description.value}
 			on:input={() => saveCard()}
+		/>
+	</div>
+
+	<div class="flex flex-col w-[90%] h-[90%] m-auto">
+		{#if currentCard?.img?.value?.url}
+			<img class="m-auto" src={currentCard.img.value.url} alt="Picture selected for the card" />
+		{:else}
+			<p class="m-auto">No image found for this card</p>
+		{/if}
+		<p class="mx-auto mt-auto cursor-pointer" on:click={() => fileInput.click()}>Choose image</p>
+		<input
+			type="file"
+			name="picture"
+			id="pictureFile"
+			class="invisible"
+			bind:this={fileInput}
+			on:change={(e) => onFileSelected(e)}
 		/>
 	</div>
 </div>

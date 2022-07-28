@@ -11,6 +11,7 @@
 	export let selectedEnvironment = null;
 	export let selectedCard = null;
 
+	// marker position
 	let lon = null;
 	let lat = null;
 
