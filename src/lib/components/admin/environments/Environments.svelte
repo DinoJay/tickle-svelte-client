@@ -7,13 +7,11 @@
 	import { db } from '$lib/firebaseConfig/firebase';
 	import DeleteButton from '../DeleteButton.svelte';
 
-	// todo create / update env
-
 	/**
 	 * footerContent - the content of the button used to add a new element
 	 * selectedEnvironment - The current environment ID selected in the admin page
-	 * isLightBoxOpen - default : false
 	 * currentEnvironment - the current environment OBJECT selected in the admin page
+	 * isLightBoxOpen - default : false
 	 */
 	export let footerContent = '';
 	export let selectedEnvironment = null;
@@ -25,8 +23,8 @@
 
 	/**
 	 * Function to select an environment
-	 * Is the environment is already selected it opens the lightBox ti update it
-	 * @param envId - the id of the selected environment
+	 * If the environment is already selected it opens the lightBox to update it
+	 * @param env - the selected environment OBJECT
 	 */
 	const selectEnvOrOpenLightBox = (env) => {
 		if (selectedEnvironment != env.id) {

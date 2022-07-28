@@ -7,15 +7,25 @@
 		getMap: () => map
 	});
 
-	export let lat;
-	export let lon;
-	export let zoom;
+	export let lat = 0;
+	export let lon = 0;
+	export let zoom = 13;
+	export let geoLocationMandatory = true;
 
 	let container;
 	let map;
 
 	function load() {
-		const { lon: lng, lat } = $store.currentUser.location;
+		var lng, lat;
+		if (geoLocationMandatory) {
+			lng = $store.currentUser.location.lon;
+			lat = $store.currentUser.location.lat;
+		} else {
+			lng = 4.39;
+			lat = 50.82;
+		}
+
+		console.log('load map');
 
 		map = new mapbox.Map({
 			container,

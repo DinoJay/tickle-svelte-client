@@ -8,8 +8,11 @@
 {#if $store.currentUser.location != undefined}
 	<slot />
 {:else}
-	<div class="m-auto">
-		<span class="flex justify-center">
+	<div
+		class="flex flex-col h-full w-full
+			justify-center items-center	"
+	>
+		<span>
 			<CellphoneMarker size={120} />
 		</span>
 		{errorMessage}

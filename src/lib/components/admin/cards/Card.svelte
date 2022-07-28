@@ -1,0 +1,85 @@
+<script>
+	import { db } from '$lib/firebaseConfig/firebase';
+	import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
+	import { onMount } from 'svelte';
+
+	/**
+	 * selectedEnvironment - The current environment selected in the admin page
+	 * currentCard - The current card OBJECT selected from an envrionment
+	 */
+	export let selectedEnvironment;
+	export let currentCard = {
+		id: 'null',
+		title: { key: 'title', value: '' },
+		description: { label: 'Description', value: '' }
+	};
+
+	let height = 600;
+	let width = 400;
+
+	/**
+	 * LightBox height width for mobile
+	 */
+	onMount(() => {
+		if (window.innerWidth < width) width = window.innerWidth;
+		if (window.innerHeight < height) height = window.innerHeight;
+	});
+
+	/**
+	 * If it's a new card we create it in Firebase
+	 * And we update the id of the current card object with the created id
+	 */
+	if (currentCard.id == 'null') {
+		addDoc(collection(db, 'card-envs', selectedEnvironment, 'cards'), currentCard).then(
+			(newDocRef) => {
+				updateDoc(newDocRef, {
+					id: newDocRef.id
+				});
+				currentCard.id = newDocRef.id;
+			}
+		);
+	}
+
+	/**
+	 * It saves the card in Firebase when a value is changed
+	 */
+	async function saveCard() {
+		let docRef = doc(db, 'card-envs', selectedEnvironment, 'cards', currentCard.id);
+
+		updateDoc(docRef, {
+			title: currentCard.title
+		});
+	}
+</script>
+
+<div class="flex flex-col bg-white" style="height: {height}px;width: {width}px;">
+	<div
+		class="flex flex-col w-[90%]
+            mx-auto mt-[13%]"
+	>
+		<label class="mr-auto" for="title"> Title : </label>
+		<input
+			class="w-full border border-black"
+			type="text"
+			name="title"
+			id="title"
+			bind:value={currentCard.title.value}
+			on:input={() => saveCard()}
+		/>
+	</div>
+
+	<div
+		class="flex flex-col w-[90%]
+            mx-auto mt-[13%] "
+	>
+		<label class="mr-auto" for="description"> Description : </label>
+		<textarea
+			class="w-full border border-black"
+			type="text"
+			name="description"
+			id="description"
+			bind:value={currentCard.description.value}
+			on:input={() => saveCard()}
+		/>
+	</div>
+</div>

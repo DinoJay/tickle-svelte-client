@@ -16,12 +16,12 @@
 <div
 	class="panel-container h-[3rem]
 		overflow-hidden 
-		{expanded ? 'expanded' : ''}
-		{selectedEnvironment ? 'bg-blue-300 cursor-pointer' : 'bg-gray-300 cursor-not-allowed'}"
+		{expanded ? 'expanded' : ''}"
 >
 	<!-- Title container -->
 	<div
-		class="flex h-[3rem] w-full justify-center"
+		class="flex h-[3rem] w-full justify-center
+		{selectedEnvironment ? 'bg-blue-300 cursor-pointer' : 'bg-gray-300 cursor-not-allowed'}"
 		on:click={() => {
 			if (selectedEnvironment) expanded = !expanded;
 		}}
