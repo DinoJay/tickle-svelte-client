@@ -12,7 +12,8 @@
 		id: 'null',
 		title: { key: 'title', value: '' },
 		description: { label: 'Description', value: '' },
-		img: { value: { name: '', url: '' } }
+		img: { value: { name: '', url: '' } },
+		activity: null
 	};
 
 	let height = 600;
