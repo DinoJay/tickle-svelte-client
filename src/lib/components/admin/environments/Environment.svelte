@@ -3,10 +3,16 @@
 	import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 	import { onMount } from 'svelte';
 
-	export let currentEnvironment = { id: 'null', name: '' };
+	export let currentEnvironment = {
+		id: 'null',
+		name: '',
+		description: '',
+		img: { name: '', url: '' }
+	};
 
 	let height = 600;
 	let width = 400;
+	let fileInput;
 
 	/**
 	 * LightBox height width for mobile
@@ -15,6 +21,20 @@
 		if (window.innerWidth < width) width = window.innerWidth;
 		if (window.innerHeight < height) height = window.innerHeight;
 	});
+
+	/**
+	 * Read the file upload and convert it to a picture
+	 * @param e - event
+	 */
+	const onFileSelected = (e) => {
+		let image = e.target.files[0];
+		let reader = new FileReader();
+		reader.readAsDataURL(image);
+		reader.onload = (e) => {
+			currentEnvironment.img.url = e.target.result;
+			saveEnvironment();
+		};
+	};
 
 	/**
 	 * If it's a new topic we create it in Firebase
@@ -37,7 +57,8 @@
 
 		updateDoc(docRef, {
 			name: currentEnvironment.name,
-			description: currentEnvironment.description
+			description: currentEnvironment.description,
+			img: currentEnvironment.img
 		});
 	}
 </script>
@@ -70,6 +91,23 @@
 			id="description"
 			bind:value={currentEnvironment.description}
 			on:input={() => saveEnvironment()}
+		/>
+	</div>
+
+	<div class="flex flex-col w-[90%] h-[90%] m-auto">
+		{#if currentEnvironment?.img?.url}
+			<img class="m-auto" src={currentEnvironment.img.url} alt="Picture selected for the card" />
+		{:else}
+			<p class="m-auto">No image found for this card</p>
+		{/if}
+		<p class="mx-auto mt-auto cursor-pointer" on:click={() => fileInput.click()}>Choose image</p>
+		<input
+			type="file"
+			name="picture"
+			id="pictureFile"
+			class="invisible"
+			bind:this={fileInput}
+			on:change={(e) => onFileSelected(e)}
 		/>
 	</div>
 </div>

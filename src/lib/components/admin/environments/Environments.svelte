@@ -18,7 +18,7 @@
 
 	loadCardEnvironments();
 	let environments = $store.envs;
-	let currentEnvironment = { id: 'null', name: '' };
+	let currentEnvironment = { id: 'null', name: '', description: '', img: { name: '', url: '' } };
 	let isLightBoxOpen = false;
 
 	/**
@@ -76,7 +76,7 @@
 	{footerContent}
 	onClick={() => {
 		isLightBoxOpen = true;
-		currentEnvironment = { id: 'null', name: '' };
+		currentEnvironment = { id: 'null', name: '', description: '', img: { name: '', url: '' } };
 	}}
 />
 
