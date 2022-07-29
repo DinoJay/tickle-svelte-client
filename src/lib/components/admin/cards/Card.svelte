@@ -105,7 +105,11 @@
 
 	<div class="flex flex-col w-[90%] h-[50%] mx-auto mt-[5%]">
 		{#if currentCard?.img?.value?.url}
-			<img class="m-auto" src={currentCard.img.value.url} alt="Picture selected for the card" />
+			<img
+				class="m-auto max-h-[90%] max-w-[90%]"
+				src={currentCard.img.value.url}
+				alt="Picture selected for the card"
+			/>
 		{:else}
 			<p class="m-auto">No image found for this card</p>
 		{/if}

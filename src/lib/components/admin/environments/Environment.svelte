@@ -81,7 +81,7 @@
 
 	<div
 		class="flex flex-col w-[90%]
-            mx-auto mt-[13%] "
+            mx-auto mt-[5%] "
 	>
 		<label class="mr-auto" for="description"> Description : </label>
 		<textarea
@@ -94,9 +94,13 @@
 		/>
 	</div>
 
-	<div class="flex flex-col w-[90%] h-[90%] m-auto">
+	<div class="flex flex-col w-[90%] h-[50%] mx-auto mt-[5%]">
 		{#if currentEnvironment?.img?.url}
-			<img class="m-auto" src={currentEnvironment.img.url} alt="Picture selected for the card" />
+			<img
+				class="m-auto max-h-[90%] max-w-[90%]"
+				src={currentEnvironment.img.url}
+				alt="Picture selected for the card"
+			/>
 		{:else}
 			<p class="m-auto">No image found for this card</p>
 		{/if}
@@ -108,6 +112,21 @@
 			class="invisible"
 			bind:this={fileInput}
 			on:change={(e) => onFileSelected(e)}
+		/>
+	</div>
+
+	<div
+		class="flex flex-col w-[90%]
+            mx-auto mt-[5%]"
+	>
+		<label for="pictureAlt">Image alt :</label>
+		<input
+			class="w-full border border-black"
+			type="text"
+			name="pictureAlt"
+			id="pictureAlt"
+			bind:value={currentEnvironment.img.name}
+			on:input={() => saveEnvironment()}
 		/>
 	</div>
 </div>

@@ -10,6 +10,7 @@
 	import { clickOutside } from '$lib/components/utils/clickOutside';
 	import Logo from './Logo.svelte';
 	import Burger from './Burger.svelte';
+	import LoadEnvironments from '../utils/LoadEnvironments.svelte';
 
 	$: selectedEnvironment = $page.params.envId;
 
@@ -92,7 +93,9 @@
 			</div>
 		{/if}
 
-		<SelectEnvironment {selectedEnvironment} bind:isOpen={selectEnvOpen} isMandatory={false} />
+		<LoadEnvironments>
+			<SelectEnvironment {selectedEnvironment} bind:isOpen={selectEnvOpen} isMandatory={false} />
+		</LoadEnvironments>
 	{/if}
 </nav>
 
