@@ -1,6 +1,5 @@
 <script>
-	import { goto } from '$app/navigation';
-
+	export let onClick = () => {};
 	export let height = '4rem';
 	export let width = '11rem';
 
@@ -11,7 +10,7 @@
 	id="logo"
 	style="height: {height}; width: {width};"
 	class="relative cursor-pointer hover:scale-105"
-	on:click={() => goto('/')}
+	on:click={() => onClick()}
 >
 	{#each logo as letter, i}
 		<span class="absolute translate-anim-container" style="top:25%;left:{i * 25 + 5}px;">

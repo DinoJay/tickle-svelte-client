@@ -68,7 +68,7 @@
 	use:clickOutside
 	on:click_outside={() => (collapsed = false)}
 >
-	<Logo />
+	<Logo onClick={() => logOut()} />
 
 	<!-- Mobile NavBar -->
 	{#if $store?.currentUser != undefined}
