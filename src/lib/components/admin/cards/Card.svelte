@@ -13,7 +13,8 @@
 		title: { key: 'title', value: '' },
 		description: { label: 'Description', value: '' },
 		img: { value: { name: '', url: '' } },
-		activity: null
+		activity: null,
+		loc: { value: { longitude: 4.39, latitude: 50.82 } }
 	};
 
 	let height = 600;
@@ -89,7 +90,7 @@
 
 	<div
 		class="flex flex-col w-[90%]
-            mx-auto mt-[13%] "
+            mx-auto mt-[5%] "
 	>
 		<label class="mr-auto" for="description"> Description : </label>
 		<textarea
@@ -102,13 +103,17 @@
 		/>
 	</div>
 
-	<div class="flex flex-col w-[90%] h-[90%] m-auto">
+	<div class="flex flex-col w-[90%] h-[50%] mx-auto mt-[5%]">
 		{#if currentCard?.img?.value?.url}
 			<img class="m-auto" src={currentCard.img.value.url} alt="Picture selected for the card" />
 		{:else}
 			<p class="m-auto">No image found for this card</p>
 		{/if}
-		<p class="mx-auto mt-auto cursor-pointer" on:click={() => fileInput.click()}>Choose image</p>
+		<label
+			class="mx-auto mt-auto cursor-pointer"
+			for="pictureFile"
+			on:click={() => fileInput.click()}>Choose image</label
+		>
 		<input
 			type="file"
 			name="picture"
@@ -116,6 +121,21 @@
 			class="invisible"
 			bind:this={fileInput}
 			on:change={(e) => onFileSelected(e)}
+		/>
+	</div>
+
+	<div
+		class="flex flex-col w-[90%]
+            mx-auto mt-[5%]"
+	>
+		<label for="pictureAlt">Image alt :</label>
+		<input
+			class="w-full border border-black"
+			type="text"
+			name="pictureAlt"
+			id="pictureAlt"
+			bind:value={currentCard.img.value.name}
+			on:input={() => saveCard()}
 		/>
 	</div>
 </div>

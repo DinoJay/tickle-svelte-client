@@ -16,14 +16,14 @@
 	export let footerContent = '';
 	export let selectedEnvironment = null;
 	export let selectedCard = null;
-
 	let cards = [];
 	let currentCard = {
 		id: 'null',
 		title: { key: 'title', value: '' },
 		description: { label: 'Description', value: '' },
 		img: { value: { name: '', url: '' } },
-		activity: null
+		activity: null,
+		loc: { value: { longitude: 4.39, latitude: 50.82 } }
 	};
 	let isLightBoxOpen = false;
 
@@ -133,7 +133,8 @@
 			title: { key: 'title', value: '' },
 			description: { label: 'Description', value: '' },
 			img: { value: { name: '', url: '' } },
-			activity: null
+			activity: null,
+			loc: { value: { longitude: 4.39, latitude: 50.82 } }
 		};
 	}}
 />

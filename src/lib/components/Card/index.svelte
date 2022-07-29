@@ -38,7 +38,7 @@
 		date: new Date().getTime(),
 		cardId: id,
 		envId: envId,
-		type: activity.type,
+		type: activity?.type,
 		succeeded: false,
 		uid: $store.currentUser.uid,
 		score: 0
@@ -88,7 +88,7 @@
 	</button>
 </div>
 
-{#if activity.value}
+{#if activity?.value}
 	<LightBox
 		{isOpen}
 		{activity}

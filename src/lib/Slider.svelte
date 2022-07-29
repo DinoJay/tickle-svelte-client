@@ -15,15 +15,16 @@
 	$: previewCardData = cards.map((c) => ({
 		id: c.id,
 		title: c.title?.value,
-		img: c.img?.value?.url
+		img: c.img?.value?.url,
+		alt: c.img?.value?.name
 	}));
 
 	const getCardProps = (c) => ({
 		title: c.title?.value,
 		img: c.img?.value?.url,
 		description: c.description?.value,
-		activity: c.activity,
-		id: c.id,
+		activity: c?.activity,
+		id: c?.id,
 		envId: selectedEnvironment
 	});
 
