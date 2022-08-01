@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import ChangeAvatar from '$lib/pages/home/avatar/ChangeAvatar.svelte';
+	import ChangeAvatar from '$lib/components/home/avatar/ChangeAvatar.svelte';
 	import CollectedCards from './cards/CollectedCards.svelte';
 
 	export let selectedIcon;

@@ -49,7 +49,7 @@
 {#await getEnvironments()}
 	<TickleWobble />
 {:then _}
-	<div class="bg-c-light-yellow h-[3rem]">
+	<div class="bg-c-light-grey h-[3rem]">
 		<select
 			id="environmentSelector"
 			bind:value={selectedEnvironment}

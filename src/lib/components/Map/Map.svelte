@@ -10,9 +10,9 @@
 	export let onClick = () => {};
 	export let centerLocation = { longitude: 0, latitude: 0 };
 
-	let userAvatar = $store.currentUser.avatar;
+	let userAvatar = $store.currentUser?.avatar;
 
-	$: userLocation = $store.currentUser.location;
+	$: userLocation = $store.currentUser?.location;
 </script>
 
 <Located>

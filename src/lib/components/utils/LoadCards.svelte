@@ -3,7 +3,7 @@
 
 	export let environmentId = 'undefined';
 
-	$: if (environmentId != 'undefined') {
+	$: if (environmentId != 'undefined' && environmentId) {
 		loadCards(environmentId);
 	}
 </script>
