@@ -17,6 +17,7 @@
 
 	function load() {
 		var lng, lat;
+
 		if (geoLocationMandatory) {
 			lng = $store.currentUser.location.lon;
 			lat = $store.currentUser.location.lat;
@@ -24,8 +25,6 @@
 			lng = 4.39;
 			lat = 50.82;
 		}
-
-		console.log('load map');
 
 		map = new mapbox.Map({
 			container,

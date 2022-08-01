@@ -5,10 +5,11 @@
 	const { getMap } = getContext(key);
 	const map = getMap();
 
-	export let lat;
-	export let lon;
-	export let userAvatar;
-	export let onClick;
+	export let lon = 0;
+	export let lat = 0;
+	export let userAvatar = 'nerd';
+	// When we recenter we set the selected card as null
+	export let onClick = () => {};
 
 	const recenter = () => {
 		map.flyTo({
@@ -23,8 +24,9 @@
 		recenter();
 		onClick();
 	}}
-	class="flex h-16 w-16 bg-c-light-green absolute bottom-8 left-5 rounded-full 
-		hover:bg-c-green border-2 border-black"
+	class="flex h-16 w-16 
+		absolute bottom-8 left-5 rounded-full 
+		bg-c-light-green hover:bg-c-green border-2 border-black"
 >
 	<img class="m-auto" src={'/avatars/' + userAvatar + '.svg'} alt={userAvatar} />
 </button>

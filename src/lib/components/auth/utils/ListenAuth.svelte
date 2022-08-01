@@ -1,20 +1,28 @@
 <script>
 	import { onMount } from 'svelte';
 	import { store } from '/src/stores/index';
-	import { onAuthStateChanged } from 'firebase/auth';
 	import { auth, db } from '$lib/firebaseConfig/firebase';
+	import { onAuthStateChanged } from 'firebase/auth';
 	import { doc, getDoc } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 
+	let allowedNavigation = ['/', '/register-user'];
+
+	/**
+	 * Listener on the user auth state
+	 * If the user is not in the store, we update the store
+	 * If the user is not defined, he can only acces to the pages in the array : allowedNavigation
+	 */
 	onMount(() => {
 		onAuthStateChanged(auth, (currentUser) => {
 			if (!currentUser) {
 				localStorage.clear();
-				if (window.location.pathname != '/register-user') goto('/');
-			} else {
-				if (!$store?.currentUser) {
-					loadUser(currentUser);
-				}
+				store.update((obj) => ({ ...obj, currentUser: null }));
+				if (!allowedNavigation.includes(window?.location?.pathname)) goto('/');
+				return;
+			}
+			if (!$store?.currentUser) {
+				loadUser(currentUser);
 			}
 		});
 

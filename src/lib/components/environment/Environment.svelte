@@ -1,15 +1,12 @@
 <script>
 	import { goto } from '$app/navigation';
 
-	export let id;
-	export let name;
-	export let description;
-	export let img;
-	export let openEnv;
-	export let onClick;
-
-	export let authorId = null;
-	export let cards = null;
+	export let id = '';
+	export let name = '';
+	export let description = '';
+	export let img = '';
+	export let openEnv = '';
+	export let onClick = () => {};
 </script>
 
 <div class="overflow-y-auto">
@@ -19,24 +16,25 @@
 				onClick(openEnv === id ? null : id);
 			}}
 		>
-			<h2 class="flex items-center text-xl">
+			<p class="flex items-center text-xl">
 				<span class="mr-1 ">{openEnv === id ? '🤯' : '🙂'}</span>
 				<span>{name}</span>
-			</h2>
+			</p>
 		</button>
 	</h2>
 	{#if openEnv === id}
 		<div class="my-2">
-			<img class="w-full object-contain h-96" src={img?.url || '/tickle.svg'} alt={name} />
+			<img class="h-96 w-full object-contain" src={img?.url || '/tickle.svg'} alt={name} />
 			<div>
 				<p class="mb-3">
 					{description}
 				</p>
 				<button
-					class="border border-gray-300 border-3 w-full p-2 text-xl"
+					class="w-full p-2 text-xl
+						hover:bg-c-light-grey
+						border border-black border-3"
 					on:click={() => {
-						openEnv = null;
-						goto(`/CardView/env/${id}`);
+						goto(`/cardview/environment/${id}`);
 					}}>Go!</button
 				>
 			</div>

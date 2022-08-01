@@ -10,6 +10,7 @@
 
 	const marker = new mapbox.Marker({ draggable: true }).setLngLat([lon, lat]).addTo(map);
 
+	// Update coords when we select a new card
 	$: if (lon || lat) {
 		marker.setLngLat([lon, lat]);
 	}

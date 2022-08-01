@@ -1,8 +1,8 @@
 <script>
 	import Menu from 'svelte-material-icons/Menu.svelte';
+	import Close from 'svelte-material-icons/Close.svelte';
 	import { scale } from 'svelte/transition';
 
-	import Close from 'svelte-material-icons/Close.svelte';
 	export let collapsed;
 
 	let size = '32px';

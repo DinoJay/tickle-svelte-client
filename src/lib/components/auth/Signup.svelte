@@ -1,11 +1,11 @@
 <script>
 	import { auth } from '$lib/firebaseConfig/firebase';
-	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { doc, setDoc } from 'firebase/firestore';
+	import { createUserWithEmailAndPassword } from 'firebase/auth';
+	import { goto } from '$app/navigation';
 	import { addNotification } from '/src/stores/notificationStore';
 	import AvatarManager from '$lib/components/avatarManager/AvatarSelector.svelte';
-	import { goto } from '$app/navigation';
 
 	const errors = {
 		'auth/email-already-in-use': 'The email address is already in use by another account.',
@@ -65,10 +65,12 @@
 	<span class="translate-anim-container my-auto">
 		<img src="/tickle.svg" alt="tickle-logo" class="w-1/5 m-auto translate-anim" />
 	</span>
+
 	<form class="flex flex-col my-auto" action="" method="post" on:submit={(e) => submit(e)}>
 		<input
 			class="w-[90%] lg:w-2/5 m-auto py-2 px-3 mb-3
-				outline-teal-500 text-grey-700 border-black border-2 shadow"
+				outline-c-dark-grey
+				border-black border-2 custom-shadow"
 			bind:value={email}
 			type="text"
 			id="email"
@@ -76,7 +78,8 @@
 		/>
 		<input
 			class="w-[90%] lg:w-2/5 m-auto py-2 px-3 mb-3
-				outline-teal-500 text-grey-700 border-black border-2 shadow"
+				outline-c-dark-grey
+				border-black border-2 custom-shadow"
 			bind:value={pwd}
 			type="password"
 			id="password"
@@ -84,20 +87,23 @@
 		/>
 		<input
 			class="w-[90%] lg:w-2/5 m-auto py-2 px-3 mb-3
-				outline-teal-500 text-grey-700 border-black border-2 shadow"
+				outline-c-dark-grey
+				border-black border-2 custom-shadow"
 			bind:value={pwdConfirmation}
 			type="password"
 			id="passwordConfirmation"
 			placeholder="Confirm password"
 		/>
 
-		<div class="flex justify-center w-[90%] mx-auto lg:w-2/5 my-4">
+		<div class="w-auto mx-auto my-4">
 			<AvatarManager bind:newUserAvatar={userAvatar} currentUserAvatar={null} />
 		</div>
 
 		<button
-			class="w-[90%] lg:w-2/5 m-auto px-3 py-3 mb-1
-			uppercase btn  font-bold border-2 border-black shadow"
+			class="w-[90%] lg:w-2/5 m-auto mb-1 px-3 py-3 
+				font-bold uppercase btn 
+			 	border-2 border-black custom-shadow 
+				bg-white hover:bg-c-light-grey"
 			type="submit">Sign up</button
 		>
 		<p class="mx-auto">
@@ -106,3 +112,9 @@
 		</p>
 	</form>
 </div>
+
+<style>
+	.custom-shadow {
+		box-shadow: 5px 5px 5px #a6a29f;
+	}
+</style>

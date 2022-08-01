@@ -1,10 +1,10 @@
 <script>
 	import * as d3 from 'd3';
-	import { points } from '../lib/venn/diagram';
+	import { points } from './venn/diagram';
 
-	export let cards;
-	export let onClick;
-	export let selectedCard;
+	export let cards = [{}];
+	export let selectedCard = '';
+	export let onClick = () => {};
 
 	const colors = [
 		'rgb(44, 160, 44)',
@@ -12,23 +12,21 @@
 		'rgb(255, 127, 14)',
 		'rgb(227, 119, 194)'
 	];
-
 	const width = window.innerWidth * 0.95;
 	const height = window.innerHeight * 0.6;
+
 	let NODERAD = 12;
 	if (window.innerWidth < 750) NODERAD = 8;
 
-	var circleVals = [];
-	var labels = [];
-	var newNodes = [];
+	let circleVals = [];
+	let labels = [];
+	let newNodes = [];
 	let withoutNullTopics = [];
-
-	console.log(cards);
 
 	$: if (cards) {
 		withoutNullTopics = [];
 
-		// WE REMOVE THE CARDS WITH A NULL TOPIC - les cartes sont quasi toutes vides ...
+		// we ignore the card with a null topic
 		cards.forEach((card) => {
 			if (card.topics?.value?.length >= 1) withoutNullTopics.push(card);
 		});
@@ -143,8 +141,8 @@
 	}
 </script>
 
-<div class="flex w-full h-[calc(100vh-20rem)] ">
-	<div class="m-auto relative overflow-auto" style="height:{height}px; width: {width}px;">
+<div class="flex w-full h-[calc(100vh-20rem)]">
+	<div class="m-auto relative overflow-auto" style="height:{height}px;width:{width}px;">
 		{#each circleVals as c, i}
 			<div
 				class="absolute border border-sky-500 rounded-full center opacity-20"
@@ -163,7 +161,6 @@
 		{#each newNodes as n}
 			<div
 				on:click={() => {
-					// console.log('click');
 					onClick(n.id);
 				}}
 				class="absolute z-10 bg-gray-700 rounded-full opacity-40 {n.id === selectedCard

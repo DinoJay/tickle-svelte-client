@@ -11,7 +11,13 @@ module.exports = {
 				'c-light-red': '#F27166',
 				'c-dark-brown': '#63524E',
 				'c-cream': '#D9C5AD',
-				'c-brown': '#8C5042'
+				'c-brown': '#8C5042',
+				'c-wheat': '#F2EFE9',
+				'c-light-grey': '#D9D9D9',
+				'c-grey': '#A6A29F',
+				'c-dark-grey': '#59514F',
+				'c-grey-brown': '#403430',
+				'c-black': '#262626'
 			}
 		}
 	},

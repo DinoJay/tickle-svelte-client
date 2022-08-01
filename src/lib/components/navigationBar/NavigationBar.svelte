@@ -1,27 +1,34 @@
 <script>
-	import { getAuth, signOut } from 'firebase/auth';
+	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import SelectEnvironment from '$lib/components/environment/EnvironmentSelector.svelte';
 	import { page } from '$app/stores';
 	import { store } from '/src/stores/index';
-	import { onMount } from 'svelte';
+	import { getAuth, signOut } from 'firebase/auth';
 	import { afterNavigate } from '$app/navigation';
 	import { goto } from '$app/navigation';
 	import { clickOutside } from '$lib/components/utils/clickOutside';
 	import Logo from './Logo.svelte';
 	import Burger from './Burger.svelte';
 	import LoadEnvironments from '../utils/LoadEnvironments.svelte';
+	import SelectEnvironment from '$lib/components/environment/EnvironmentSelector.svelte';
 
-	$: selectedEnvironment = $page.params.envId;
+	$: selectedEnvironment = $page.params.environmentId;
 
 	let collapsed = false;
 	let selectEnvOpen = false;
-	let mobileNavWidth;
-
-	const logOut = () => {
-		signOut(getAuth());
-		window.location.href = '/';
-	};
+	let mobileNavWidth = 0;
+	let sections = [
+		{
+			name: 'Select environments',
+			foo: () => {
+				selectEnvOpen = !selectEnvOpen;
+				collapsed = !collapsed;
+			}
+		},
+		{ name: 'Home', foo: () => goto('/home') },
+		{ name: 'Admin', foo: () => goto('/admin') },
+		{ name: 'Sign out', foo: () => logOut() }
+	];
 
 	/**
 	 * Dynamic method to catch the size of the screen
@@ -50,41 +57,38 @@
 		selectEnvOpen = false;
 	});
 
-	let sections = [
-		{
-			name: 'Select environments',
-			foo: () => {
-				selectEnvOpen = !selectEnvOpen;
-				collapsed = !collapsed;
-			}
-		},
-		{ name: 'Home', foo: () => goto('/home') },
-		{ name: 'Admin', foo: () => goto('/admin') },
-		{ name: 'Sign out', foo: () => logOut() }
-	];
+	/**
+	 * Function use to logout the user
+	 */
+	const logOut = () => {
+		signOut(getAuth());
+	};
 </script>
 
 <nav
-	class="flex items-center w-full h-16 bg-c-dark-brown text-white relative"
+	class="flex items-center h-16 w-full  
+		bg-c-black text-white relative"
 	use:clickOutside
 	on:click_outside={() => (collapsed = false)}
 >
 	<Logo onClick={() => logOut()} />
 
-	<!-- Mobile NavBar -->
-	{#if $store?.currentUser != undefined}
-		<div class="block mt-1.5 absolute right-3">
+	{#if $store?.currentUser}
+		<div class="absolute right-3 top-4 ">
 			<Burger bind:collapsed />
 		</div>
 
 		{#if collapsed}
 			<div
 				transition:fly={{ x: mobileNavWidth, duration: 500, opacity: 1 }}
-				class="flex flex-col sm:w-2/5 w-full h-auto  bg-c-brown absolute top-[4rem] right-0 z-20"
+				class="flex flex-col h-auto sm:w-[40%] w-full  
+				 	absolute top-[4rem] right-0 z-20
+					bg-c-dark-grey "
 			>
 				{#each sections as section}
 					<button
-						class="sm:h-10 sm:text-xl text-2xl h-14 border-b hover:underline"
+						class="sm:h-10 sm:text-xl text-2xl h-14 
+							border-b hover:underline"
 						on:click={section.foo}
 					>
 						{section.name}
@@ -98,6 +102,3 @@
 		</LoadEnvironments>
 	{/if}
 </nav>
-
-<style>
-</style>
