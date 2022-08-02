@@ -1,18 +1,13 @@
 <script>
-	import LightBox from '$lib/LightBox.svelte';
+	import LightBox from '$lib/components/utils/LightBox.svelte';
 	import { loadCardEnvironments, store } from '/src/stores/index';
-	import AddButton from '../AddButton.svelte';
+	import AddButton from '../utils/AddButton.svelte';
 	import Environment from './Environment.svelte';
 	import { doc } from 'firebase/firestore';
 	import { db } from '$lib/firebaseConfig/firebase';
-	import DeleteButton from '../DeleteButton.svelte';
+	import DeleteButton from '../utils/DeleteButton.svelte';
+	import Body from '../utils/Body.svelte';
 
-	/**
-	 * footerContent - the content of the button used to add a new element
-	 * selectedEnvironment - The current environment ID selected in the admin page
-	 * currentEnvironment - the current environment OBJECT selected in the admin page
-	 * isLightBoxOpen - default : false
-	 */
 	export let footerContent = '';
 	export let selectedEnvironment = null;
 
@@ -20,20 +15,6 @@
 	let environments = $store.envs;
 	let currentEnvironment = { id: 'null', name: '', description: '', img: { name: '', url: '' } };
 	let isLightBoxOpen = false;
-
-	/**
-	 * Function to select an environment
-	 * If the environment is already selected it opens the lightBox to update it
-	 * @param env - the selected environment OBJECT
-	 */
-	const selectEnvOrOpenLightBox = (env) => {
-		if (selectedEnvironment != env.id) {
-			selectedEnvironment = env.id;
-		} else {
-			isLightBoxOpen = true;
-			currentEnvironment = env;
-		}
-	};
 
 	/**
 	 * Each times the selectedEnvironment or the lightBox are updated we check for new environments
@@ -51,14 +32,12 @@
 				class="flex h-12 w-full
 				bg-white my-1"
 			>
-				<p
-					class="flex h-full w-full justify-center items-center
-					whitespace-nowrap text-ellipsis cursor-pointer
-					{selectedEnvironment == env.id ? 'bg-green-200 hover:bg-green-400' : ' hover:bg-gray-200'}"
-					on:click={() => selectEnvOrOpenLightBox(env)}
-				>
-					{env.name}
-				</p>
+				<Body
+					element={env}
+					bind:selectedElement={selectedEnvironment}
+					bind:currentElement={currentEnvironment}
+					bind:isLightBoxOpen
+				/>
 
 				<DeleteButton
 					onClick={() => {

@@ -1,11 +1,6 @@
 <script>
 	import ArrowRightDropCircleOutline from 'svelte-material-icons/ArrowRightDropCircleOutline.svelte';
 
-	/**
-	 * title - The title of the panel
-	 * selectedEnvironment - default : true, used to allow the user to expand the panel or not
-	 * expanded - default : false, is the panel expanded or collapsed ?
-	 */
 	export let title = '';
 	export let selectedEnvironment = true;
 
@@ -21,14 +16,14 @@
 	<!-- Title container -->
 	<div
 		class="flex h-[3rem] w-full justify-center
-		{selectedEnvironment ? 'bg-blue-300 cursor-pointer' : 'bg-gray-300 cursor-not-allowed'}"
+		{selectedEnvironment ? 'bg-c-light-green cursor-pointer' : 'bg-c-light-grey cursor-not-allowed'}"
 		on:click={() => {
 			if (selectedEnvironment) expanded = !expanded;
 		}}
 	>
 		<!-- Icon -->
 		<span
-			class="my-auto mr-2
+			class="my-auto mr-2 transition-all
 			{expanded ? 'rotate' : ''}"
 		>
 			<ArrowRightDropCircleOutline size={24} />
@@ -41,7 +36,7 @@
 	<!-- Body's block -->
 	<div
 		class="h-[37rem] w-full 
-			bg-red-300"
+			bg-c-light-grey"
 	>
 		<slot />
 	</div>

@@ -3,10 +3,6 @@
 	import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 	import { onMount } from 'svelte';
 
-	/**
-	 * selectedEnvironment - The current environment selected in the admin page
-	 * currentTopic - default : { title: '', description: '', id: 'null' }, the current topic
-	 */
 	export let selectedEnvironment;
 	export let currentTopic = { title: '', description: '', id: 'null' };
 

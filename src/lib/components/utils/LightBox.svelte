@@ -1,5 +1,5 @@
 <script>
-	import { portal } from './portalAction';
+	import { portal } from '$lib/portalAction';
 	import WindowClose from 'svelte-material-icons/WindowClose.svelte';
 	import { blur } from 'svelte/transition';
 

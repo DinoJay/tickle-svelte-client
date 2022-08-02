@@ -1,17 +1,8 @@
-<script>
-	export let className = '';
-	export let style = '';
-</script>
-
-<div class="loader-container {className}" {style}>
+<div class="flex h-full w-full absolute">
 	<img class="wobble m-auto" src="/alt_tickle_icon.svg" alt="loader" />
 </div>
 
 <style>
-	.loader-container {
-		@apply h-[calc(100vh-4rem)] w-screen flex;
-	}
-
 	.wobble {
 		@apply m-auto;
 		animation-duration: 1s;

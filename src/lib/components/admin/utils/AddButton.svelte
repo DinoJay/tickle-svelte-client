@@ -1,16 +1,12 @@
 <script>
-	/**
-	 * Button used to add a new element
-	 * footerContent - the content of the button
-	 */
 	export let footerContent = '';
 	export let onClick = () => {};
 </script>
 
 <button
 	class="flex h-[2rem] w-full
-	whitespace-nowrap text-ellipsis
-	bg-slate-500 hover:bg-slate-300"
+	whitespace-nowrap text-ellipsis text-white
+	bg-c-black hover:bg-c-grey"
 	on:click={() => onClick()}
 >
 	<p class="m-auto">

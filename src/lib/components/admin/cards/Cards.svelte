@@ -1,18 +1,12 @@
 <script>
-	import LightBox from '$lib/LightBox.svelte';
-	import AddButton from '../AddButton.svelte';
+	import LightBox from '$lib/components/utils/LightBox.svelte';
+	import AddButton from '../utils/AddButton.svelte';
 	import { collection, doc, getDocs } from 'firebase/firestore';
 	import { db } from '$lib/firebaseConfig/firebase';
-	import DeleteButton from '../DeleteButton.svelte';
+	import DeleteButton from '../utils/DeleteButton.svelte';
 	import Card from './Card.svelte';
+	import Body from '../utils/Body.svelte';
 
-	/**
-	 * footerContent - the content of the button used to add a new element
-	 * selectedEnvironment - The current environment ID selected in the admin page
-	 * selectedCard - The current card ID selected from an envrionment
-	 * currentCard - The current card OBJECT selected from an envrionment
-	 * isLightBoxOpen - default : false
-	 */
 	export let footerContent = '';
 	export let selectedEnvironment = null;
 	export let selectedCard = null;
@@ -26,20 +20,6 @@
 		loc: { value: { longitude: 4.39, latitude: 50.82 } }
 	};
 	let isLightBoxOpen = false;
-
-	/**
-	 * Function to select a card
-	 * If the card is already selected it opens the lightBox to update it
-	 * @param card - the selected card OBJECT
-	 */
-	const selectCardOrOpenLightBox = (card) => {
-		if (selectedCard != card.id) {
-			selectedCard = card.id;
-		} else {
-			isLightBoxOpen = true;
-			currentCard = card;
-		}
-	};
 
 	/**
 	 * Function used to get all the cards of the selectedEnvironment from Firebase
@@ -75,31 +55,13 @@
 			class="flex flex-col h-[14rem] w-[14rem] 
             mx-auto my-1 bg-white"
 		>
-			<!-- Bloc de la carte -->
-			<div
-				class="h-[12rem] w-full cursor-pointer
-                    {selectedCard == card.id
-					? 'bg-green-200 hover:bg-green-400'
-					: ' hover:bg-gray-200'}"
-				on:click={() => selectCardOrOpenLightBox(card)}
-			>
-				<!-- Titre de la carte -->
-				<p
-					class="h-[3rem] w-full
-					    text-ellipsis text-center"
-				>
-					{card.title.value}
-				</p>
-				<!-- Image de la carte -->
-				{#if card?.img}
-					<img
-						class="h-[9rem] w-full"
-						src={card.img.value.url}
-						alt={card.img.value.name}
-						style="object-fit: cover;"
-					/>
-				{/if}
-			</div>
+			<Body
+				element={card}
+				bind:selectedElement={selectedCard}
+				bind:currentElement={currentCard}
+				bind:isLightBoxOpen
+				isCard={true}
+			/>
 
 			<div
 				class="flex h-[2rem] w-full

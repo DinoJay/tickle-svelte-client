@@ -2,7 +2,7 @@
 	import { afterUpdate } from 'svelte';
 	import { store } from '/src/stores/index';
 	import ShowEnv from './Environment.svelte';
-	import LightBox from '$lib/LightBox.svelte';
+	import LightBox from '$lib/components/utils/LightBox.svelte';
 
 	export let selectedEnvironment = '';
 	export let isOpen = false;

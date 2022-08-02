@@ -1,7 +1,7 @@
 <script>
 	import { afterUpdate } from 'svelte';
 	import PreviewCard from '$lib/components/cardView/utils/slider/PreviewCard.svelte';
-	import LightBox from '$lib/LightBox.svelte';
+	import LightBox from '$lib/components/utils/LightBox.svelte';
 	import Card from '$lib/components/card/Card.svelte';
 
 	export let cards = [{}];

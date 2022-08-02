@@ -3,10 +3,6 @@
 	import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 	import { onMount } from 'svelte';
 
-	/**
-	 * selectedEnvironment - The current environment selected in the admin page
-	 * currentCard - The current card OBJECT selected from an envrionment
-	 */
 	export let selectedEnvironment;
 	export let currentCard = {
 		id: 'null',

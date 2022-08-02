@@ -1,18 +1,12 @@
 <script>
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
-	import LightBox from '$lib/LightBox.svelte';
+	import LightBox from '$lib/components/utils/LightBox.svelte';
 	import Topic from '$lib/components/admin/topics/Topic.svelte';
-	import AddButton from '$lib/components/admin/AddButton.svelte';
-	import DeleteButton from '../DeleteButton.svelte';
+	import AddButton from '$lib/components/admin/utils/AddButton.svelte';
+	import DeleteButton from '../utils/DeleteButton.svelte';
+	import Body from '../utils/Body.svelte';
 
-	/**
-	 * footerContent - the content of the button used to add a new element
-	 * selectedEnvironment - The current environment selected in the admin page
-	 * isLightBoxOpen - default : false
-	 * topics - all the topics of the selectedEnvironment
-	 * currentTopic - default : { title: '', description: '', id: 'null' }, the current topic
-	 */
 	export let footerContent = '';
 	export let selectedEnvironment = null;
 
@@ -44,17 +38,14 @@
 			class="flex h-12 w-full my-1
 			 	bg-white"
 		>
-			<p
-				class="flex h-full w-full justify-center items-center
-					whitespace-nowrap text-ellipsis
-					cursor-pointer hover:bg-gray-200"
-				on:click={() => {
+			<Body
+				element={topic}
+				onClick={() => {
 					currentTopic = topic;
 					isLightBoxOpen = true;
 				}}
-			>
-				{topic.title}
-			</p>
+			/>
+
 			<DeleteButton
 				onClick={() => {
 					topics.splice(topics.indexOf(topic), 1);
