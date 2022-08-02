@@ -2,26 +2,25 @@
 	import Question from './Question.svelte';
 	import Result from './Result.svelte';
 
-	export let datum;
-	export let quizInformation;
+	export let activity;
+	export let activityInformation = {};
 
-	const {
-		value: { questions, title }
-	} = datum;
+	const questions = activity.value.questions;
+	const title = activity.value.title;
 
 	$: counter = 0;
 	$: curQ = questions[counter];
 	$: img = curQ?.img;
-	quizInformation.response = [];
+	activityInformation.response = [];
 
 	/**
-	 * Method to add the responses of the users in the object quizInformation
+	 * Method to add the responses of the users in the object activityInformation
 	 * @param resp - the user's reponse
 	 */
 	const updateQuizInfo = (resp) => {
-		if (quizInformation.response.some((item) => Object.keys(item)[0] === Object.keys(resp)[0]))
-			quizInformation.response.splice(quizInformation.response.indexOf(resp), 1);
-		else quizInformation.response = [...quizInformation.response, resp];
+		if (activityInformation.response.some((item) => Object.keys(item)[0] === Object.keys(resp)[0]))
+			activityInformation.response.splice(activityInformation.response.indexOf(resp), 1);
+		else activityInformation.response = [...activityInformation.response, resp];
 	};
 </script>
 
@@ -36,7 +35,8 @@
 		/>
 
 		<button
-			class="mt-auto h-[10%] w-full bg-c-dark-brown text-xl p-3 text-white"
+			class="h-[10%] w-full mt-auto bg-c-black
+			 	text-xl p-3 text-white"
 			on:click={() => {
 				counter++;
 			}}
@@ -44,7 +44,7 @@
 			Next Question
 		</button>
 	{:else}
-		<Result {questions} {quizInformation} {title} />
+		<Result {questions} {activityInformation} {title} />
 	{/if}
 </div>
 

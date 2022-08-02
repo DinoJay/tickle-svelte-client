@@ -1,11 +1,10 @@
 <script>
-	export let title;
-	export let img = null;
-	export let answers;
-	export let text;
-	export let height;
-	export let onChange;
-	export let counter;
+	export let title = '';
+	export let img = '';
+	export let answers = [];
+	export let text = '';
+	export let onChange = () => {};
+	export let counter = 0;
 
 	$: if (counter) {
 		if (window.document)

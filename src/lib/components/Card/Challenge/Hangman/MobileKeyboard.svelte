@@ -1,7 +1,7 @@
 <script>
-	export let onClick;
-	export let wrongLetters;
-	export let rightLetters;
+	export let onClick = () => {};
+	export let wrongLetters = [];
+	export let rightLetters = [];
 	let alphabet = [
 		'a',
 		'b',
@@ -32,7 +32,7 @@
 	];
 </script>
 
-<div class="h-auto w-full m-auto">
+<div class="flex flex-wrap h-auto w-full m-auto">
 	{#each alphabet as letter}
 		<button
 			class="h-8 w-6 border border-black m-2

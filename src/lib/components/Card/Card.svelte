@@ -1,39 +1,27 @@
 <script>
-	import { db } from '$lib/firebaseConfig/firebase';
-	import LightBox from '$lib/LightBox.svelte';
-	import { collection, getDocs } from 'firebase/firestore';
-	import Quiz from './Challenge/Quiz/index.svelte';
-	import Hangman from './Challenge/Hangman/index.svelte';
-	import { store } from '/src/stores/index';
 	import { onMount } from 'svelte';
+	import { db } from '$lib/firebaseConfig/firebase';
+	import { collection, getDocs } from 'firebase/firestore';
+	import { store } from '/src/stores/index';
+	import LightBox from '$lib/LightBox.svelte';
+	import Quiz from '$lib/components/card/challenge/quiz/Quiz.svelte';
+	import Hangman from '$lib/components/card/challenge/hangman/Hangman.svelte';
 
-	export let title;
-	export let description;
-	export let img;
-	export let activity;
-	export let id;
-	export let envId;
+	export let title = '';
+	export let description = '';
+	export let img = '';
+	export let activity = '';
+	export let id = '';
+	export let envId = '';
 
-	let allowed = true;
+	let allowed = false;
 	let challengeButtonContent = '...';
 
 	let isOpen = false;
 	var width = 400;
 	var height = 600;
 
-	/**
-	 * LightBox height width for mobile
-	 */
-	onMount(() => {
-		if (window.innerWidth < width) width = window.innerWidth;
-		if (window.innerHeight < height) height = window.innerHeight;
-	});
-
-	const getActivityProps = () => ({
-		datum: activity
-	});
-
-	let quizInformation = {
+	let activityInformation = {
 		completed: false,
 		date: new Date().getTime(),
 		cardId: id,
@@ -45,9 +33,18 @@
 	};
 
 	/**
+	 * LightBox height width for mobile
+	 */
+	onMount(() => {
+		if (window.innerWidth < width) width = window.innerWidth;
+		if (window.innerHeight < height) height = window.innerHeight;
+	});
+
+	/**
 	 * Check if the user alredy did the activity
 	 */
 	async function isUserAllowed() {
+		allowed = true;
 		var snapRef = await getDocs(
 			collection(db, 'users', $store.currentUser.uid, 'activitySubmissions')
 		);
@@ -73,15 +70,16 @@
 	<h1 class="text-xl">
 		{title}
 	</h1>
-	<img src={img} alt={title} class="mb-3 object-contain w-full" style="height:300px" />
-	<p class="h-40 overflow-y-auto mb-3">
+	<img src={img} alt={title} class="w-full mb-3 object-contain " style="height:300px" />
+	<p class="h-40 mb-3 overflow-y-auto ">
 		{description}
 	</p>
 	<button
 		on:click={() => {
 			if (allowed) isOpen = !isOpen;
 		}}
-		class=" h-[10%] w-full bg-c-dark-brown text-white  text-xl absolute left-0 bottom-0
+		class="h-[10%] w-full absolute left-0 bottom-0
+			bg-c-black text-white text-xl 
 			{allowed ? '' : 'cursor-not-allowed'}"
 	>
 		{challengeButtonContent}
@@ -91,18 +89,18 @@
 {#if activity?.value}
 	<LightBox
 		{isOpen}
-		{activity}
 		{width}
 		{height}
 		close={() => {
 			isOpen = false;
+			allowed = false;
 			isUserAllowed();
 		}}
 	>
 		{#if activity.type == 'Quiz'}
-			<Quiz {...getActivityProps()} {quizInformation} />
+			<Quiz {activity} {activityInformation} />
 		{:else if activity.type == 'Hangman'}
-			<Hangman {...getActivityProps()} {quizInformation} />
+			<Hangman {activity} {activityInformation} />
 		{/if}
 	</LightBox>
 {/if}

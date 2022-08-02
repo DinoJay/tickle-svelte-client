@@ -4,12 +4,11 @@
 	import { onMount } from 'svelte';
 	import MobileKeyboard from './MobileKeyboard.svelte';
 
-	export let datum;
-	export let quizInformation;
+	export let activity;
+	export let activityInformation = {};
 
-	const {
-		value: { word, title }
-	} = datum;
+	const word = activity.value.word;
+	const title = activity.value.title;
 
 	let wrongLetters = [];
 	let rightLetters = [];
@@ -24,12 +23,19 @@
 		rightLetters = [...rightLetters, { value: letter, find: false }];
 	}
 
+	/**
+	 * Listener on keydown for computer
+	 */
 	onMount(() => {
 		window.addEventListener('keydown', (event) => {
 			game(event.keyCode);
 		});
 	});
 
+	/**
+	 * Game algorithm
+	 * @param keyCode
+	 */
 	const game = (keyCode) => {
 		let key = String.fromCharCode(keyCode).toLocaleLowerCase();
 
@@ -71,13 +77,13 @@
 	 * @param maxScore
 	 */
 	const sendResults = (completed, succeeded, score, maxScore) => {
-		quizInformation.completed = completed;
-		quizInformation.succeeded = succeeded;
-		quizInformation.score = score;
-		quizInformation.maxScore = maxScore;
+		activityInformation.completed = completed;
+		activityInformation.succeeded = succeeded;
+		activityInformation.score = score;
+		activityInformation.maxScore = maxScore;
 		addDoc(
-			collection(db, 'users', quizInformation.uid, 'activitySubmissions'),
-			quizInformation
+			collection(db, 'users', activityInformation.uid, 'activitySubmissions'),
+			activityInformation
 		).then(() => {
 			status = 'We have received your results ✓';
 		});
@@ -123,12 +129,17 @@
 	<MobileKeyboard onClick={(keyCode) => game(keyCode)} {wrongLetters} {rightLetters} />
 
 	{#if gameOver}
-		<img class="h-24 w-24 m-auto" src={gameOverSrc} alt="gameover" />
+		<img
+			class="h-32 w-32 m-auto 
+				absolute top-[calc(50%-4rem)] left-[calc(50%-4rem)]"
+			src={gameOverSrc}
+			alt="gameover"
+		/>
 	{/if}
 
 	<div
 		class="flex h-[10%] w-full  mt-auto p-3
-        bg-c-dark-brown text-xl text-white"
+        	bg-c-black text-xl text-white"
 	>
 		<div class="m-auto">
 			{#if gameOver || victory}

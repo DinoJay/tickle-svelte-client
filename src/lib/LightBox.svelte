@@ -1,13 +1,10 @@
 <script>
 	import { portal } from './portalAction';
 	import WindowClose from 'svelte-material-icons/WindowClose.svelte';
-	import { fade, slide, fly, blur } from 'svelte/transition';
+	import { blur } from 'svelte/transition';
 
-	export let style;
-	export let className;
-	export let alt;
 	export let isOpen = false;
-	export let close;
+	export let close = () => {};
 	export let isMandatory = false;
 </script>
 
