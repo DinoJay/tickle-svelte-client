@@ -8,12 +8,12 @@
 			hover:scale-105"
 >
 	<h1 class="h-[4rem] font-medium text-ellipsis overflow-hidden">
-		{card.title.value}
+		{card.title}
 	</h1>
 
 	<img
-		src={card.img.value.url}
-		alt={card.title.value}
+		src={card.img.url}
+		alt={card.img.name}
 		class="h-[107px] w-[180px] mt-12 mx-auto  
                 border border-black object-cover"
 	/>

@@ -28,7 +28,7 @@
 
 		// we ignore the card with a null topic
 		cards.forEach((card) => {
-			if (card.topics?.value?.length >= 1) withoutNullTopics.push(card);
+			if (card.topics?.length >= 1) withoutNullTopics.push(card);
 		});
 
 		if (withoutNullTopics.length != 0) {
@@ -74,8 +74,8 @@
 			};
 
 			const nodeData = withoutNullTopics.map((d) => {
-				const sets = sort(d.topics?.value).map((d) => d.title);
-				const setsStr = getSetsStr(d.topics?.value);
+				const sets = sort(d.topics).map((d) => d.title);
+				const setsStr = getSetsStr(d.topics);
 				return { ...d, sets, setsStr };
 			});
 
@@ -153,7 +153,7 @@
 		{#each labels as l, i}
 			<div
 				class="absolute center text-center"
-				style="left:{l.x}px;top:{l.y}px;width:{1 * circleVals[i].radius}px"
+				style="left:{l.x}px;top:{l.y - 30}px;width:{1 * circleVals[i].radius}px"
 			>
 				{l.text}
 			</div>

@@ -6,7 +6,7 @@
 	import { doc } from 'firebase/firestore';
 	import { db } from '$lib/firebaseConfig/firebase';
 	import DeleteButton from '../utils/DeleteButton.svelte';
-	import Body from '../utils/PanelBody.svelte';
+	import Body from '../utils/BodyPanel.svelte';
 
 	export let footerContent = '';
 	export let selectedEnvironment = null;

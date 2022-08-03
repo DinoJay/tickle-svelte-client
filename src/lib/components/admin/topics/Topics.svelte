@@ -5,14 +5,14 @@
 	import Topic from '$lib/components/admin/topics/EditTopic.svelte';
 	import AddButton from '$lib/components/admin/utils/AddButton.svelte';
 	import DeleteButton from '../utils/DeleteButton.svelte';
-	import Body from '../utils/PanelBody.svelte';
+	import Body from '../utils/BodyPanel.svelte';
 
 	export let footerContent = '';
 	export let selectedEnvironment = null;
 
 	let isLightBoxOpen = false;
 	let topics = [];
-	let currentTopic = { title: '', description: '', id: 'null' };
+	let currentTopic = { title: '', description: '', id: 'null', img: { name: '', url: '' } };
 
 	/**
 	 * Function used to get all the topics of the selectedEnvironment from Firebase
@@ -68,7 +68,7 @@
 	{footerContent}
 	onClick={() => {
 		isLightBoxOpen = true;
-		currentTopic = { title: '', description: '', id: 'null' };
+		currentTopic = { title: '', description: '', id: 'null', img: { name: '', url: '' } };
 	}}
 />
 

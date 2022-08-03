@@ -65,10 +65,12 @@
 			class="flex flex-col w-[90%]
             mx-auto mt-[3%]"
 		>
-			<label class="mr-auto" for={field.getter}> {field.name} : </label>
+			<label class="mr-auto font-medium" for={field.getter}> {field.name} : </label>
+
 			{#if field.type == 'text'}
 				<input
-					class="w-full overflow-auto border border-black"
+					class="w-full overflow-auto p-1
+						border border-c-gray"
 					type="text"
 					name="edit-field"
 					id={field.getter}
@@ -77,7 +79,7 @@
 				/>
 			{:else if field.type == 'textarea'}
 				<textarea
-					class="w-full overflow-auto border border-black"
+					class="w-full overflow-auto border border-c-gray p-1"
 					type="text"
 					name="edit-field"
 					id={field.getter}
@@ -85,7 +87,7 @@
 					on:input={() => saveElement()}
 				/>
 			{:else if field.type == 'img'}
-				<div class="flex flex-col h-auto w-[90%] ">
+				<div class="flex flex-col h-auto w-[100%] ">
 					{#if currentElement[field.getter].url != ''}
 						<img
 							class="m-auto h-[150px] max-w-[100%]"
@@ -93,7 +95,13 @@
 							alt={currentElement[field.getter].name}
 						/>
 					{:else}
-						<p class="m-auto h-[150px] max-w-[100%]">No image found for this card</p>
+						<p
+							class="flex items-center 
+								h-[150px] max-w-[100%] 
+								m-auto italic text-c-gray"
+						>
+							No image found for this card
+						</p>
 					{/if}
 					<p class="mx-auto mt-auto cursor-pointer" on:click={() => fileInput.click()}>
 						Choose image
@@ -106,10 +114,10 @@
 						bind:this={fileInput}
 						on:change={(e) => onFileSelected(e)}
 					/>
-
-					<label for="pictureAlt">Image alt :</label>
+					<label for="pictureAlt" class="mr-auto font-medium">Image alt :</label>
 					<input
-						class="w-full border border-black"
+						class="w-full p-1
+							border border-c-gray"
 						type="text"
 						name="pictureAlt"
 						id="pictureAlt"
@@ -120,4 +128,6 @@
 			{/if}
 		</div>
 	{/each}
+
+	<slot />
 </div>

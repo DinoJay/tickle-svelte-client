@@ -4,11 +4,12 @@
 	import EditWindow from '../utils/EditWindow.svelte';
 
 	export let selectedEnvironment = '';
-	export let currentTopic = { title: '', description: '', id: 'null' };
+	export let currentTopic = { title: '', description: '', id: 'null', img: { name: '', url: '' } };
 
 	let fields = [
 		{ name: 'Title', getter: 'title', type: 'text' },
-		{ name: 'Description', getter: 'description', type: 'textarea' }
+		{ name: 'Description', getter: 'description', type: 'textarea' },
+		{ name: 'Image', getter: 'img', type: 'img' }
 	];
 	$: docRef = doc(db, 'card-envs', selectedEnvironment, 'topics', currentTopic.id);
 	let collectionRef = collection(db, 'card-envs', selectedEnvironment, 'topics');

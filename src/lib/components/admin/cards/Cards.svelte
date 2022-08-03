@@ -5,7 +5,7 @@
 	import { db } from '$lib/firebaseConfig/firebase';
 	import DeleteButton from '../utils/DeleteButton.svelte';
 	import Card from './EditCard.svelte';
-	import Body from '../utils/PanelBody.svelte';
+	import Body from '../utils/BodyPanel.svelte';
 
 	export let footerContent = '';
 	export let selectedEnvironment = null;
@@ -17,9 +17,9 @@
 		description: '',
 		img: { name: '', url: '' },
 		activity: null,
+		topics: [],
 		loc: { longitude: 4.39, latitude: 50.82 }
 	};
-
 	let isLightBoxOpen = false;
 
 	/**
@@ -97,6 +97,7 @@
 			description: '',
 			img: { name: '', url: '' },
 			activity: null,
+			topics: [],
 			loc: { longitude: 4.39, latitude: 50.82 }
 		};
 	}}
