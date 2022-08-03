@@ -14,7 +14,7 @@
 	let centerLocation = '';
 
 	$: if ($store.envs) cards = $store.envs?.find((env) => env.id === selectedEnvironment)?.cards;
-	$: if (cards) centerLocation = cards.find((card) => card.id === selectedCard)?.loc?.value;
+	$: if (cards) centerLocation = cards.find((card) => card.id === selectedCard)?.loc;
 </script>
 
 <div class="flex flex-col h-[calc(100vh-4rem)] w-full relative">

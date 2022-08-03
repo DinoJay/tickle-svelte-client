@@ -25,8 +25,8 @@
 		if (docSnap.exists()) {
 			let card = docSnap.data();
 			if (card?.loc) {
-				lon = card.loc.value.longitude;
-				lat = card.loc.value.latitude;
+				lon = card.loc.longitude;
+				lat = card.loc.latitude;
 			} else {
 				lon = 4.39;
 				lat = 50.82;
@@ -43,7 +43,7 @@
 		let docRef = doc(db, 'card-envs', selectedEnvironment, 'cards', selectedCard);
 
 		await updateDoc(docRef, {
-			loc: { value: { longitude: lon, latitude: lat } }
+			loc: { longitude: lon, latitude: lat }
 		});
 	}
 

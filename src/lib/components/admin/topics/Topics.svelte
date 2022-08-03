@@ -1,11 +1,11 @@
 <script>
 	import { db } from '$lib/firebaseConfig/firebase';
-	import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+	import { collection, doc, getDocs } from 'firebase/firestore';
 	import LightBox from '$lib/components/utils/LightBox.svelte';
-	import Topic from '$lib/components/admin/topics/Topic.svelte';
+	import Topic from '$lib/components/admin/topics/EditTopic.svelte';
 	import AddButton from '$lib/components/admin/utils/AddButton.svelte';
 	import DeleteButton from '../utils/DeleteButton.svelte';
-	import Body from '../utils/Body.svelte';
+	import Body from '../utils/PanelBody.svelte';
 
 	export let footerContent = '';
 	export let selectedEnvironment = null;

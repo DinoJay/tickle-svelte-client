@@ -4,7 +4,8 @@
 
 <div
 	class="h-[18rem] w-[12rem] mx-auto m-3 relative
-            border-2 border-c-black bg-white  hover:scale-105"
+            border-2 border-c-black bg-white custom-shadow
+			hover:scale-105"
 >
 	<h1 class="h-[4rem] font-medium text-ellipsis overflow-hidden">
 		{card.title.value}
@@ -23,3 +24,9 @@
 		<p class="m-auto">Score : {card.score} / {card.maxScore}</p>
 	</div>
 </div>
+
+<style>
+	.custom-shadow {
+		box-shadow: 5px 5px 5px #a6a29f;
+	}
+</style>

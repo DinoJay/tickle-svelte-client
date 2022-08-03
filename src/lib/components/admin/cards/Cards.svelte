@@ -4,8 +4,8 @@
 	import { collection, doc, getDocs } from 'firebase/firestore';
 	import { db } from '$lib/firebaseConfig/firebase';
 	import DeleteButton from '../utils/DeleteButton.svelte';
-	import Card from './Card.svelte';
-	import Body from '../utils/Body.svelte';
+	import Card from './EditCard.svelte';
+	import Body from '../utils/PanelBody.svelte';
 
 	export let footerContent = '';
 	export let selectedEnvironment = null;
@@ -13,12 +13,13 @@
 	let cards = [];
 	let currentCard = {
 		id: 'null',
-		title: { key: 'title', value: '' },
-		description: { label: 'Description', value: '' },
-		img: { value: { name: '', url: '' } },
+		title: '',
+		description: '',
+		img: { name: '', url: '' },
 		activity: null,
-		loc: { value: { longitude: 4.39, latitude: 50.82 } }
+		loc: { longitude: 4.39, latitude: 50.82 }
 	};
+
 	let isLightBoxOpen = false;
 
 	/**
@@ -92,11 +93,11 @@
 		isLightBoxOpen = true;
 		currentCard = {
 			id: 'null',
-			title: { key: 'title', value: '' },
-			description: { label: 'Description', value: '' },
-			img: { value: { name: '', url: '' } },
+			title: '',
+			description: '',
+			img: { name: '', url: '' },
 			activity: null,
-			loc: { value: { longitude: 4.39, latitude: 50.82 } }
+			loc: { longitude: 4.39, latitude: 50.82 }
 		};
 	}}
 />

@@ -20,9 +20,9 @@
 		{#each cards as card (card.id)}
 			<MapMarker
 				onClick={() => onClick(card.id)}
-				lon={card.loc.value.longitude}
-				lat={card.loc.value.latitude}
-				label={card.title.value}
+				lon={card.loc.longitude}
+				lat={card.loc.latitude}
+				label={card.title}
 			/>
 		{/each}
 		<ImgMarker {...userLocation} {userAvatar} />

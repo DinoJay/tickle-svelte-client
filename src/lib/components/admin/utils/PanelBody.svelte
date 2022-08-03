@@ -21,7 +21,7 @@
 <p
 	class="flex h-full w-full justify-center items-center
 		whitespace-nowrap text-ellipsis cursor-pointer
-		{selectedElement == element.id ? 'bg-green-200 hover:bg-green-400' : ' hover:bg-c-grey'}
+		{selectedElement == element.id ? 'bg-green-200 hover:bg-green-400' : 'hover:bg-c-grey'}
 		{isCard ? 'flex-col' : ''}"
 	on:click={() => onClick()}
 >
@@ -30,12 +30,12 @@
 			class="h-[3rem] w-full
 				text-ellipsis text-center"
 		>
-			{element.title.value}
+			{element.title}
 		</p>
 		<img
 			class="h-[9rem] w-full"
-			src={element.img.value.url}
-			alt={element.img.value.name}
+			src={element?.img.url}
+			alt={element?.img.name}
 			style="object-fit: cover;"
 		/>
 	{:else}

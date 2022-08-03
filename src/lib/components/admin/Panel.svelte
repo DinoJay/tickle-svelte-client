@@ -9,7 +9,8 @@
 
 <!-- Main block -->
 <div
-	class="panel-container h-[3rem]
+	class="panel-container h-[3rem] 
+		border-2 border-c-black custom-shadow
 		overflow-hidden 
 		{expanded ? 'expanded' : ''}"
 >
@@ -53,5 +54,9 @@
 
 	.rotate {
 		transform: rotate(90deg);
+	}
+
+	.custom-shadow {
+		box-shadow: 5px 5px 5px #a6a29f;
 	}
 </style>

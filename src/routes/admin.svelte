@@ -16,8 +16,8 @@
 </script>
 
 <div
-	class="grid grid-cols-1 gap-2
-        lg:grid-cols-2"
+	class="grid grid-cols-1 gap-3 m-2
+        lg:grid-cols-2 lg:m-5"
 >
 	<Panel title={'Environments'}>
 		<Environments bind:selectedEnvironment footerContent={'Add new environment'} />

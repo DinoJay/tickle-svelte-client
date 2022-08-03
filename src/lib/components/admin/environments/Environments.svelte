@@ -2,18 +2,23 @@
 	import LightBox from '$lib/components/utils/LightBox.svelte';
 	import { loadCardEnvironments, store } from '/src/stores/index';
 	import AddButton from '../utils/AddButton.svelte';
-	import Environment from './Environment.svelte';
+	import Environment from './EditEnvironment.svelte';
 	import { doc } from 'firebase/firestore';
 	import { db } from '$lib/firebaseConfig/firebase';
 	import DeleteButton from '../utils/DeleteButton.svelte';
-	import Body from '../utils/Body.svelte';
+	import Body from '../utils/PanelBody.svelte';
 
 	export let footerContent = '';
 	export let selectedEnvironment = null;
 
 	loadCardEnvironments();
 	let environments = $store.envs;
-	let currentEnvironment = { id: 'null', name: '', description: '', img: { name: '', url: '' } };
+	let currentEnvironment = {
+		id: 'null',
+		title: '',
+		description: '',
+		img: { name: '', url: '' }
+	};
 	let isLightBoxOpen = false;
 
 	/**
@@ -55,7 +60,12 @@
 	{footerContent}
 	onClick={() => {
 		isLightBoxOpen = true;
-		currentEnvironment = { id: 'null', name: '', description: '', img: { name: '', url: '' } };
+		currentEnvironment = {
+			id: 'null',
+			title: '',
+			description: '',
+			img: { name: '', url: '' }
+		};
 	}}
 />
 
