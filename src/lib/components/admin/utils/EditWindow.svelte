@@ -90,7 +90,7 @@
 				<div class="flex flex-col h-auto w-[100%] ">
 					{#if currentElement[field.getter].url != ''}
 						<img
-							class="m-auto h-[150px] max-w-[100%]"
+							class="m-auto h-[150px] max-w-[100%] object-cover"
 							src={currentElement[field.getter].url}
 							alt={currentElement[field.getter].name}
 						/>

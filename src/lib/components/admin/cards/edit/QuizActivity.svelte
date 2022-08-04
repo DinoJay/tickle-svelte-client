@@ -31,7 +31,7 @@
 
 <div
 	class="flex flex-col h-[65%] w-full mt-auto overflow-y-auto
-				border border-c-gray"
+		border border-c-gray"
 >
 	{#each questions as question}
 		<div class="flex h-[3rem] w-full mb-1 bg-c-light-gray ">
@@ -51,7 +51,7 @@
 				<p
 					class="flex justify-center items-center m-auto h-8 w-8 
 							rounded-full bg-red-300 hover:bg-red-500 cursor-pointer"
-					on:click={() => removeQuestion(question)}
+					on:click|once={() => removeQuestion(question)}
 				>
 					-
 				</p>
