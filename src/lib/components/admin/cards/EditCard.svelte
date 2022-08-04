@@ -3,8 +3,8 @@
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { collection, doc } from 'firebase/firestore';
 	import EditWindow from '../utils/EditWindow.svelte';
-	import ActivityCard from './ActivityCard.svelte';
-	import TopicsCard from './TopicsCard.svelte';
+	import ActivityCard from './edit/ActivityCard.svelte';
+	import TopicsCard from './edit/TopicsCard.svelte';
 
 	export let selectedEnvironment = '';
 	export let currentCard = {

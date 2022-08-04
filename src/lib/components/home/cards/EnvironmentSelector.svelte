@@ -23,14 +23,14 @@
 		});
 
 		/**
-		 * Get the name of the environment from the id of the environment stored in the submission
+		 * Get the title of the environment from the id of the environment stored in the submission
 		 */
 		submissions.forEach(async (submission) => {
-			// Fill environments with the name of the environment
+			// Fill environments with the title of the environment
 			if (!environments[submission.envId]) {
 				let environment = $store.envs.find((env) => env.id == submission.envId);
 				environments[submission.envId] = [];
-				environments[submission.envId].push(environment.name);
+				environments[submission.envId].push(environment.title);
 			}
 
 			// Fill userCardsIdForEachEnv with all the cards collected from the user for each environment
