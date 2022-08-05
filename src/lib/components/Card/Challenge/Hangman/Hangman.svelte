@@ -7,7 +7,7 @@
 	export let activity;
 	export let activityInformation = {};
 
-	const word = activity.value.word;
+	const word = activity.value.word.toLowerCase();
 	const title = activity.value.title;
 
 	let wrongLetters = [];

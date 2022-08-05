@@ -32,24 +32,26 @@
 <EditWindow bind:currentElement={currentCard} {fields} bind:docRef {collectionRef}>
 	<button
 		class="h-[36px] w-[40%] mt-[5%] mx-auto 
-		border border-c-black 
-		text-white bg-c-black hover:bg-c-dark-gray"
+			border border-c-black 
+			text-white bg-c-black hover:bg-c-dark-gray"
 		on:click={() => (openTopics = true)}
 	>
 		Topics
 	</button>
-	<LightBox isOpen={openTopics} close={() => (openTopics = false)}>
-		<TopicsCard {selectedEnvironment} bind:currentCard {docRef} />
-	</LightBox>
 
 	<button
 		class="h-[36px] w-[40%] mt-[3%] mx-auto 
-	border border-c-black 
-	text-white bg-c-black hover:bg-c-dark-gray"
+			border border-c-black 
+			text-white bg-c-black hover:bg-c-dark-gray"
 		on:click={() => (openActivity = true)}
 	>
 		Activity
 	</button>
+
+	<LightBox isOpen={openTopics} close={() => (openTopics = false)}>
+		<TopicsCard {selectedEnvironment} bind:currentCard {docRef} />
+	</LightBox>
+
 	<LightBox isOpen={openActivity} close={() => (openActivity = false)}>
 		<ActivityCard {selectedEnvironment} bind:currentCard {docRef} />
 	</LightBox>

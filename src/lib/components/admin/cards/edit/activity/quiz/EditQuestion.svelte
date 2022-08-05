@@ -19,14 +19,14 @@
 
 <div class="flex flex-col bg-white overflow-y-auto" style="height: {height}px;width: {width}px;">
 	<EditText
-		labelName={'Title :'}
+		labelName={'Title'}
 		labelFor={'title'}
 		bind:bindValue={question.text}
 		onInput={() => saveActivity()}
 	/>
 
 	<EditImage
-		labelName={'Image :'}
+		labelName={'Image'}
 		labelFor={'image'}
 		bind:bindObject={question.img}
 		onInput={() => saveActivity()}

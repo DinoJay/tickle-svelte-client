@@ -65,7 +65,7 @@
 	</div>
 
 	<EditText
-		labelName={'Title :'}
+		labelName={'Title'}
 		labelFor={'title'}
 		bind:bindValue={currentActivity.value.title}
 		onInput={() => saveActivity()}

@@ -34,6 +34,7 @@
 			{title}
 		</h1>
 	</div>
+
 	<!-- Body's block -->
 	<div
 		class="h-[37rem] w-full 

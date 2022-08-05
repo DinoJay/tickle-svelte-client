@@ -20,15 +20,15 @@
         lg:grid-cols-2 lg:m-5"
 >
 	<Panel title={'Environments'}>
-		<Environments bind:selectedEnvironment footerContent={'Add new environment'} />
+		<Environments bind:selectedEnvironment addButtonContent={'Add new environment'} />
 	</Panel>
 
 	<Panel title={'Topics'} {selectedEnvironment}>
-		<Topics {selectedEnvironment} footerContent={'Add new topic'} />
+		<Topics {selectedEnvironment} addButtonContent={'Add new topic'} />
 	</Panel>
 
 	<Panel title={'Cards'} {selectedEnvironment}>
-		<Cards {selectedEnvironment} bind:selectedCard footerContent={'Add new card'} />
+		<Cards {selectedEnvironment} bind:selectedCard addButtonContent={'Add new card'} />
 	</Panel>
 
 	<Panel title={'Map'} selectedEnvironment={selectedCard}>

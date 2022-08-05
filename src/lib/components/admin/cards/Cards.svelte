@@ -1,15 +1,16 @@
 <script>
-	import LightBox from '$lib/components/utils/LightBox.svelte';
-	import AddButton from '../utils/AddButton.svelte';
 	import { collection, doc, getDocs } from 'firebase/firestore';
 	import { db } from '$lib/firebaseConfig/firebase';
-	import DeleteButton from '../utils/DeleteButton.svelte';
+	import LightBox from '$lib/components/utils/LightBox.svelte';
 	import Card from './EditCard.svelte';
-	import Body from '../utils/BodyPanel.svelte';
+	import AddButton from '$lib/components/admin/utils/AddButton.svelte';
+	import DeleteButton from '$lib/components/admin/utils/DeleteButton.svelte';
+	import Body from '$lib/components/admin/utils/BodyPanel.svelte';
 
-	export let footerContent = '';
+	export let addButtonContent = '';
 	export let selectedEnvironment = null;
 	export let selectedCard = null;
+
 	let cards = [];
 	let currentCard = {
 		id: 'null',
@@ -88,7 +89,7 @@
 </div>
 
 <AddButton
-	{footerContent}
+	{addButtonContent}
 	onClick={() => {
 		isLightBoxOpen = true;
 		currentCard = {

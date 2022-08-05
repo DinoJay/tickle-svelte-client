@@ -1,14 +1,14 @@
 <script>
-	import LightBox from '$lib/components/utils/LightBox.svelte';
 	import { loadCardEnvironments, store } from '/src/stores/index';
-	import AddButton from '../utils/AddButton.svelte';
-	import Environment from './EditEnvironment.svelte';
 	import { doc } from 'firebase/firestore';
 	import { db } from '$lib/firebaseConfig/firebase';
-	import DeleteButton from '../utils/DeleteButton.svelte';
-	import Body from '../utils/BodyPanel.svelte';
+	import LightBox from '$lib/components/utils/LightBox.svelte';
+	import Environment from './EditEnvironment.svelte';
+	import AddButton from '$lib/components/admin/utils/AddButton.svelte';
+	import DeleteButton from '$lib/components/admin/utils/DeleteButton.svelte';
+	import Body from '$lib/components/admin/utils/BodyPanel.svelte';
 
-	export let footerContent = '';
+	export let addButtonContent = '';
 	export let selectedEnvironment = null;
 
 	loadCardEnvironments();
@@ -22,7 +22,7 @@
 	let isLightBoxOpen = false;
 
 	/**
-	 * Each times the selectedEnvironment or the lightBox are updated we check for new environments
+	 * Each times the lightBox is updated we check for new environments
 	 */
 	$: if (isLightBoxOpen) {
 		loadCardEnvironments();
@@ -35,7 +35,7 @@
 		{#each environments as env}
 			<div
 				class="flex h-12 w-full
-				bg-white my-1"
+					bg-white my-1"
 			>
 				<Body
 					element={env}
@@ -57,7 +57,7 @@
 </div>
 
 <AddButton
-	{footerContent}
+	{addButtonContent}
 	onClick={() => {
 		isLightBoxOpen = true;
 		currentEnvironment = {

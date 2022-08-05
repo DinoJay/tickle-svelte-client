@@ -6,7 +6,7 @@
 </script>
 
 <EditText
-	labelName={'Choose a word :'}
+	labelName={'Choose a word'}
 	labelFor={'hangman'}
 	bind:bindValue={word}
 	onInput={() => saveActivity()}

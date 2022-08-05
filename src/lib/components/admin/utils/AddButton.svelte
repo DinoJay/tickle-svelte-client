@@ -1,5 +1,5 @@
 <script>
-	export let footerContent = '';
+	export let addButtonContent = '';
 	export let onClick = () => {};
 </script>
 
@@ -10,6 +10,6 @@
 	on:click={() => onClick()}
 >
 	<p class="m-auto">
-		{footerContent}
+		{addButtonContent}
 	</p>
 </button>

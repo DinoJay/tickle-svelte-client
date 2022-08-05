@@ -4,10 +4,10 @@
 	import LightBox from '$lib/components/utils/LightBox.svelte';
 	import Topic from '$lib/components/admin/topics/EditTopic.svelte';
 	import AddButton from '$lib/components/admin/utils/AddButton.svelte';
-	import DeleteButton from '../utils/DeleteButton.svelte';
-	import Body from '../utils/BodyPanel.svelte';
+	import DeleteButton from '$lib/components/admin/utils/DeleteButton.svelte';
+	import Body from '$lib/components/admin/utils/BodyPanel.svelte';
 
-	export let footerContent = '';
+	export let addButtonContent = '';
 	export let selectedEnvironment = null;
 
 	let isLightBoxOpen = false;
@@ -57,7 +57,7 @@
 	{:else}
 		<p
 			class="w-full mt-5 text-center
-			font-medium uppercase"
+				font-medium uppercase"
 		>
 			Empty
 		</p>
@@ -65,7 +65,7 @@
 </div>
 
 <AddButton
-	{footerContent}
+	{addButtonContent}
 	onClick={() => {
 		isLightBoxOpen = true;
 		currentTopic = { title: '', description: '', id: 'null', img: { name: '', url: '' } };

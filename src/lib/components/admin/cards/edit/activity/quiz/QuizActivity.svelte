@@ -1,5 +1,5 @@
 <script>
-	import EditQuestion from './activity/EditQuestion.svelte';
+	import EditQuestion from './EditQuestion.svelte';
 	import LightBox from '$lib/components/utils/LightBox.svelte';
 
 	export let height = 0;
