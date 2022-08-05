@@ -28,7 +28,7 @@
 	<EditImage
 		labelName={'Image'}
 		labelFor={'image'}
-		bind:bindObject={question.img}
+		bindObject={question.img}
 		onInput={() => saveActivity()}
 	/>
 

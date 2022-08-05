@@ -71,7 +71,7 @@
 				<EditImage
 					labelName={field.name}
 					labelFor={field.getter}
-					bind:bindObject={currentElement[field.getter]}
+					bindObject={currentElement[field.getter]}
 					onInput={() => saveElement()}
 				/>
 			{/if}
