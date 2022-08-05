@@ -2,9 +2,9 @@
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { doc, getDoc, updateDoc } from 'firebase/firestore';
 	import { onMount } from 'svelte';
-
-	import HangmanActivity from './HangmanActivity.svelte';
-	import QuizActivity from './QuizActivity.svelte';
+	import HangmanActivity from './hangman/HangmanActivity.svelte';
+	import QuizActivity from './quiz/QuizActivity.svelte';
+	import EditText from '$lib/components/admin/utils/editBlocks/EditText.svelte';
 
 	export let currentCard = {};
 	export let selectedEnvironment = '';
@@ -64,16 +64,11 @@
 		</select>
 	</div>
 
-	<label class="w-[90%] mt-[3%] mx-auto font-medium" for="title">Title : </label>
-
-	<input
-		class="w-[90%] mx-auto overflow-auto p-1
-			border border-c-gray"
-		type="text"
-		name="edit-field"
-		id="title"
-		bind:value={currentActivity.value.title}
-		on:input={() => saveActivity()}
+	<EditText
+		labelName={'Title :'}
+		labelFor={'title'}
+		bind:bindValue={currentActivity.value.title}
+		onInput={() => saveActivity()}
 	/>
 
 	{#if currentActivity.type == 'Hangman'}

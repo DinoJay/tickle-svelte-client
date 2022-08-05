@@ -1,6 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
-	import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
+	import { addDoc, updateDoc } from 'firebase/firestore';
+	import EditText from './editBlocks/EditText.svelte';
+	import EditTextArea from './editBlocks/EditTextArea.svelte';
+	import EditImage from './editBlocks/EditImage.svelte';
 
 	export let fields = [];
 	export let currentElement = {};
@@ -9,7 +12,6 @@
 
 	let height = 600;
 	let width = 400;
-	let fileInput;
 	let fieldImg = fields.find((field) => field.name == 'Image');
 
 	/**
@@ -19,20 +21,6 @@
 		if (window.innerWidth < width) width = window.innerWidth;
 		if (window.innerHeight < height) height = window.innerHeight;
 	});
-
-	/**
-	 * Read the file upload and convert it to a picture
-	 * @param e - event
-	 */
-	const onFileSelected = (e) => {
-		let image = e.target.files[0];
-		let reader = new FileReader();
-		reader.readAsDataURL(image);
-		reader.onload = (e) => {
-			currentElement[fieldImg.getter].url = e.target.result;
-			saveElement();
-		};
-	};
 
 	/**
 	 * If it's a new element we create it in Firebase
@@ -65,66 +53,27 @@
 			class="flex flex-col w-[90%]
             mx-auto mt-[3%]"
 		>
-			<label class="mr-auto font-medium" for={field.getter}> {field.name} : </label>
-
 			{#if field.type == 'text'}
-				<input
-					class="w-full overflow-auto p-1
-						border border-c-gray"
-					type="text"
-					name="edit-field"
-					id={field.getter}
-					bind:value={currentElement[field.getter]}
-					on:input={() => saveElement()}
+				<EditText
+					labelName={field.name}
+					labelFor={field.getter}
+					bind:bindValue={currentElement[field.getter]}
+					onInput={() => saveElement()}
 				/>
 			{:else if field.type == 'textarea'}
-				<textarea
-					class="w-full overflow-auto border border-c-gray p-1"
-					type="text"
-					name="edit-field"
-					id={field.getter}
-					bind:value={currentElement[field.getter]}
-					on:input={() => saveElement()}
+				<EditTextArea
+					labelName={field.name}
+					labelFor={field.getter}
+					bind:bindValue={currentElement[field.getter]}
+					onInput={() => saveElement()}
 				/>
 			{:else if field.type == 'img'}
-				<div class="flex flex-col h-auto w-[100%] ">
-					{#if currentElement[field.getter].url != ''}
-						<img
-							class="m-auto h-[150px] max-w-[100%] object-cover"
-							src={currentElement[field.getter].url}
-							alt={currentElement[field.getter].name}
-						/>
-					{:else}
-						<p
-							class="flex items-center 
-								h-[150px] max-w-[100%] 
-								m-auto italic text-c-gray"
-						>
-							No image found for this card
-						</p>
-					{/if}
-					<p class="mx-auto mt-auto cursor-pointer" on:click={() => fileInput.click()}>
-						Choose image
-					</p>
-					<input
-						type="file"
-						name="picture"
-						id="pictureFile"
-						class="invisible"
-						bind:this={fileInput}
-						on:change={(e) => onFileSelected(e)}
-					/>
-					<label for="pictureAlt" class="mr-auto font-medium">Image alt :</label>
-					<input
-						class="w-full p-1
-							border border-c-gray"
-						type="text"
-						name="pictureAlt"
-						id="pictureAlt"
-						bind:value={currentElement[field.getter].name}
-						on:input={() => saveElement()}
-					/>
-				</div>
+				<EditImage
+					labelName={field.name}
+					labelFor={field.getter}
+					bind:bindObject={currentElement[field.getter]}
+					onInput={() => saveElement()}
+				/>
 			{/if}
 		</div>
 	{/each}

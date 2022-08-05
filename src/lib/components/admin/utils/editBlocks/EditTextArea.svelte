@@ -1,0 +1,17 @@
+<script>
+	export let labelName = '';
+	export let labelFor = '';
+	export let bindValue = '';
+	export let onInput = () => {};
+</script>
+
+<label class="mr-auto font-medium" for={labelFor}> {labelName} : </label>
+<textarea
+	class="w-full overflow-auto p-1
+		border border-c-gray"
+	type="text"
+	name="edit-field"
+	id={labelFor}
+	bind:value={bindValue}
+	on:input={() => onInput()}
+/>
