@@ -1,7 +1,7 @@
 <script>
 	import { db } from '$lib/firebaseConfig/firebase';
 	import { addDoc, collection } from 'firebase/firestore';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import MobileKeyboard from './MobileKeyboard.svelte';
 
 	export let activity;
@@ -20,23 +20,34 @@
 
 	// Initialization
 	for (let letter of word) {
-		rightLetters = [...rightLetters, { value: letter, find: false }];
+		let find = false;
+		let value = letter;
+		if (letter == ' ') {
+			find = true;
+			value = '&nbsp';
+		}
+		rightLetters = [...rightLetters, { value, find }];
 	}
 
 	/**
 	 * Listener on keydown for computer
 	 */
 	onMount(() => {
-		window.addEventListener('keydown', (event) => {
-			game(event.keyCode);
-		});
+		window.addEventListener('keydown', game);
+	});
+
+	onDestroy(() => {
+		console.log('ok');
+		window.removeEventListener('keydown', game);
 	});
 
 	/**
 	 * Game algorithm
-	 * @param keyCode
+	 * @param event
 	 */
-	const game = (keyCode) => {
+	const game = (event) => {
+		console.log('hit');
+		var keyCode = event.keyCode;
 		let key = String.fromCharCode(keyCode).toLocaleLowerCase();
 
 		// Body guard
@@ -114,11 +125,11 @@
 		/>
 	</div>
 
-	<div class="mx-auto my-5 text-3xl">
+	<div class="mx-auto my-5 px-2 text-3xl">
 		{#each rightLetters as rLetter}
 			<span>
 				{#if rLetter.find}
-					{rLetter.value}
+					{@html rLetter.value}
 				{:else}
 					_
 				{/if}
