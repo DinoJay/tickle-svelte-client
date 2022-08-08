@@ -27,8 +27,8 @@
 >
 	{#if element?.img && isCard}
 		<p
-			class="h-[3rem] w-full
-				text-ellipsis text-center"
+			class="h-[3rem] w-[14rem] px-1
+			 	overflow-hidden text-ellipsis text-center"
 		>
 			{element.title}
 		</p>

@@ -86,7 +86,7 @@
 	</button>
 </div>
 
-{#if activity?.value}
+{#if activity?.type && activity?.type != 'default'}
 	<LightBox
 		{isOpen}
 		{width}

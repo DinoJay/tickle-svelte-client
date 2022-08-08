@@ -56,6 +56,6 @@
 		name="pictureAlt"
 		id="pictureAlt"
 		bind:value={bindObject.name}
-		on:input={() => onInput()}
+		on:change={() => onInput()}
 	/>
 </div>

@@ -55,7 +55,7 @@
 	{#each cards as card}
 		<div
 			class="flex flex-col h-[14rem] w-[14rem] 
-            mx-auto my-1 bg-white"
+           	 	mx-auto my-1 bg-white"
 		>
 			<Body
 				element={card}
@@ -81,7 +81,7 @@
 	{:else}
 		<p
 			class="w-full mt-5 text-center
-			font-medium uppercase"
+				font-medium uppercase"
 		>
 			Empty
 		</p>

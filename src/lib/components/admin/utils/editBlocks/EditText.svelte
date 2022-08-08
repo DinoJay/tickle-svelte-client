@@ -13,5 +13,5 @@
 	name="edit-field"
 	id={labelFor}
 	bind:value={bindValue}
-	on:input={() => onInput()}
+	on:change={() => onInput()}
 />
