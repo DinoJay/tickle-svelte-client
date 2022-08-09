@@ -37,7 +37,6 @@
 	});
 
 	onDestroy(() => {
-		console.log('ok');
 		window.removeEventListener('keydown', game);
 	});
 
@@ -46,7 +45,6 @@
 	 * @param event
 	 */
 	const game = (event) => {
-		console.log('hit');
 		var keyCode = event.keyCode;
 		let key = String.fromCharCode(keyCode).toLocaleLowerCase();
 

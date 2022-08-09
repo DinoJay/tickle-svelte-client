@@ -4,6 +4,7 @@
 	import EditText from './editBlocks/EditText.svelte';
 	import EditTextArea from './editBlocks/EditTextArea.svelte';
 	import EditImage from './editBlocks/EditImage.svelte';
+	import EditColor from './editBlocks/EditColor.svelte';
 
 	export let fields = [];
 	export let currentElement = {};
@@ -72,6 +73,13 @@
 					labelName={field.name}
 					labelFor={field.getter}
 					bindObject={currentElement[field.getter]}
+					onInput={() => saveElement()}
+				/>
+			{:else if field.type == 'col'}
+				<EditColor
+					labelName={field.name}
+					labelFor={field.getter}
+					bind:bindValue={currentElement[field.getter]}
 					onInput={() => saveElement()}
 				/>
 			{/if}

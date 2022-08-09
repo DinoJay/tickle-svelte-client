@@ -44,7 +44,8 @@
 	 * @param topic
 	 */
 	const addTopic = (topic) => {
-		if (selectedTopics.includes(topic)) return;
+		let exists = selectedTopics.find((t) => t.title == topic.title);
+		if (exists) return;
 		selectedTopics = [...selectedTopics, topic];
 		updateDoc(docRef, {
 			topics: selectedTopics

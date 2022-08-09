@@ -5,7 +5,7 @@
 	let errorMessage = 'Please make sure to turn on your geolocation';
 </script>
 
-{#if $store.currentUser.location != undefined}
+{#if $store?.currentUser?.location != undefined}
 	<slot />
 {:else}
 	<div

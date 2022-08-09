@@ -50,7 +50,7 @@
 			const updateUserLocation = (location) => {
 				store.update((obj) => {
 					const nextState = produce(obj, (draft) => {
-						draft.currentUser['location'] = location;
+						if (draft?.currentUser) draft.currentUser['location'] = location;
 					});
 					return nextState;
 				});

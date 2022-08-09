@@ -12,7 +12,13 @@
 
 	let isLightBoxOpen = false;
 	let topics = [];
-	let currentTopic = { title: '', description: '', id: 'null', img: { name: '', url: '' } };
+	let currentTopic = {
+		title: '',
+		description: '',
+		id: 'null',
+		img: { name: '', url: '' },
+		color: ''
+	};
 
 	/**
 	 * Function used to get all the topics of the selectedEnvironment from Firebase
@@ -32,11 +38,14 @@
 	}
 </script>
 
-<div class="h-[35rem] overflow-auto">
+<div
+	class="flex flex-wrap gap-2 
+		h-[35rem] overflow-auto"
+>
 	{#each topics as topic}
 		<div
-			class="flex h-12 w-full my-1
-			 	bg-white"
+			class="flex flex-col h-[14rem] w-[14rem] 
+           	 	mx-auto my-1 bg-white"
 		>
 			<Body
 				element={topic}
@@ -44,15 +53,21 @@
 					currentTopic = topic;
 					isLightBoxOpen = true;
 				}}
+				isCard={true}
 			/>
 
-			<DeleteButton
-				onClick={() => {
-					topics.splice(topics.indexOf(topic), 1);
-					topics = [...topics];
-				}}
-				ref={doc(db, 'card-envs', selectedEnvironment, 'topics', topic.id)}
-			/>
+			<div
+				class="flex h-[2rem] w-full
+                    justify-center items-center"
+			>
+				<DeleteButton
+					onClick={() => {
+						topics.splice(topics.indexOf(topic), 1);
+						topics = [...topics];
+					}}
+					ref={doc(db, 'card-envs', selectedEnvironment, 'topics', topic.id)}
+				/>
+			</div>
 		</div>
 	{:else}
 		<p
@@ -68,7 +83,13 @@
 	{addButtonContent}
 	onClick={() => {
 		isLightBoxOpen = true;
-		currentTopic = { title: '', description: '', id: 'null', img: { name: '', url: '' } };
+		currentTopic = {
+			title: '',
+			description: '',
+			id: 'null',
+			img: { name: '', url: '' },
+			color: ''
+		};
 	}}
 />
 
