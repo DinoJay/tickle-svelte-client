@@ -1,4 +1,5 @@
 <script>
+	import DeleteButton from '$lib/components/admin/utils/block/DeleteButton.svelte';
 	import EditImage from '$lib/components/admin/utils/edit/EditImage.svelte';
 	import EditText from '$lib/components/admin/utils/edit/EditText.svelte';
 
@@ -41,15 +42,7 @@
 					bind:value={answer.text}
 				/>
 				<input type="checkbox" class="h-auto w-[7%] mx-1" bind:checked={answer.correct} />
-				<div class="flex h-full w-[10%]">
-					<p
-						class="flex justify-center items-center m-auto h-8 w-8 
-                    		rounded-full bg-red-300 hover:bg-red-500 cursor-pointer"
-						on:click={() => removeAnswer(answer)}
-					>
-						-
-					</p>
-				</div>
+				<DeleteButton onClick={() => removeAnswer(answer)} />
 			</div>
 		{/each}
 	</div>

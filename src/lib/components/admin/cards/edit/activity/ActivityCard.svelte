@@ -64,15 +64,19 @@
 		</select>
 	</div>
 
-	<EditText
-		labelName={'Title'}
-		labelFor={'title'}
-		bind:bindValue={currentActivity.value.title}
-		onInput={() => saveActivity()}
-	/>
+	<div class="w-[90%] mx-auto mb-[3%]">
+		<EditText
+			labelName={'Title'}
+			labelFor={'title'}
+			bind:bindValue={currentActivity.value.title}
+			onInput={() => saveActivity()}
+		/>
+	</div>
 
 	{#if currentActivity.type == 'Hangman'}
-		<HangmanActivity bind:word={currentActivity.value.word} saveActivity={() => saveActivity()} />
+		<div class="w-[90%] mx-auto mb-[3%]">
+			<HangmanActivity bind:word={currentActivity.value.word} saveActivity={() => saveActivity()} />
+		</div>
 	{:else if currentActivity.type == 'Quiz'}
 		<QuizActivity
 			{height}

@@ -11,7 +11,7 @@
 	 * Function used to remove an object from Firebase
 	 */
 	async function removeObject(ref) {
-		await deleteDoc(ref);
+		if (ref) await deleteDoc(ref);
 	}
 </script>
 

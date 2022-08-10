@@ -1,6 +1,7 @@
 <script>
 	import EditQuestion from './EditQuestion.svelte';
 	import LightBox from '$lib/components/utils/LightBox.svelte';
+	import DeleteButton from '$lib/components/admin/utils/block/DeleteButton.svelte';
 
 	export let height = 0;
 	export let width = 0;
@@ -47,15 +48,7 @@
 					{question?.text}
 				</p>
 			</div>
-			<div class="flex h-full w-[10%]">
-				<p
-					class="flex justify-center items-center m-auto h-8 w-8 
-							rounded-full bg-red-300 hover:bg-red-500 cursor-pointer"
-					on:click|once={() => removeQuestion(question)}
-				>
-					-
-				</p>
-			</div>
+			<DeleteButton onClick={() => removeQuestion(question)} />
 		</div>
 	{:else}
 		<div class="m-auto font-medium">EMPTY</div>
