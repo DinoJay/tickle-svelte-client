@@ -8,8 +8,8 @@
 
 <div
 	class="flex 
-        {isCard ? 'flex-col h-[14rem] w-[14rem] mx-auto' : 'h-12 w-full'}
-        my-1 bg-white shadow-lg"
+        {isCard ? 'flex-col h-[14rem] w-[14rem] mx-auto border-2 border-black' : 'h-12 w-full'}
+        my-1 bg-white shadow-xl"
 >
 	<slot />
 

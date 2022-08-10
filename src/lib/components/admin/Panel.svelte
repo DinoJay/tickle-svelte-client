@@ -30,7 +30,7 @@
 			<ArrowRightDropCircleOutline size={24} />
 		</span>
 		<!-- Title content -->
-		<h1 class="my-auto text-xl">
+		<h1 class="my-auto text-xl font-medium">
 			{title}
 		</h1>
 	</div>

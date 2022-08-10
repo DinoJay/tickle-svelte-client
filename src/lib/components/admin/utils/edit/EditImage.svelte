@@ -1,4 +1,6 @@
 <script>
+	import ImageSearchOutline from 'svelte-material-icons/ImageSearchOutline.svelte';
+
 	export let labelName = '';
 	export let labelFor = '';
 	export let bindObject = {};
@@ -21,25 +23,32 @@
 	};
 </script>
 
-<label class="mr-auto font-medium" for={labelFor}> {labelName} : </label>
+<label class="mr-auto font-medium uppercase" for={labelFor}> {labelName} : </label>
 
-<div class="flex flex-col h-auto w-[100%] ">
-	{#if bindObject.url != ''}
-		<img
-			class="m-auto h-[150px] max-w-[100%] object-cover"
-			src={bindObject.url}
-			alt={bindObject.name}
-		/>
-	{:else}
-		<p
-			class="flex items-center 
-                h-[150px] max-w-[100%] 
-                m-auto italic text-c-gray"
-		>
-			No image found for this card
-		</p>
-	{/if}
-	<p class="mx-auto mt-auto cursor-pointer" on:click={() => fileInput.click()}>Choose image</p>
+<div class="flex flex-col h-auto w-full">
+	<div class="mx-auto" on:click={() => fileInput.click()}>
+		{#if bindObject.url != ''}
+			<img
+				class="m-auto h-[150px] max-w-full 
+					object-cover 
+					cursor-pointer hover:scale-105"
+				src={bindObject.url}
+				alt={bindObject.name}
+			/>
+		{:else}
+			<p
+				class="flex items-center 
+                h-[150px] max-w-full
+                m-auto italic text-center text-c-gray
+				cursor-pointer hover:scale-105"
+			>
+				No image found for this card
+				<br />
+				Click to add an image
+			</p>
+		{/if}
+	</div>
+
 	<input
 		type="file"
 		name="picture"
@@ -48,7 +57,7 @@
 		bind:this={fileInput}
 		on:change={(e) => onFileSelected(e)}
 	/>
-	<label for="pictureAlt" class="mr-auto font-medium">Image alt :</label>
+	<label for="pictureAlt" class="mr-auto font-medium uppercase">Image alt :</label>
 	<input
 		class="w-full p-1
 			border border-c-gray"

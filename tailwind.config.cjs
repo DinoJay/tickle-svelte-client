@@ -3,6 +3,9 @@ module.exports = {
 
 	theme: {
 		extend: {
+			fontFamily: {
+				sourcecodepro: ['sourceCodePro', 'sans-serif']
+			},
 			colors: {
 				'c-dark-blue': '#082A40',
 				'c-green': '#1C8C8C',

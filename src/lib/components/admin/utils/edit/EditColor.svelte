@@ -5,7 +5,7 @@
 	export let onInput = () => {};
 </script>
 
-<label class="mr-auto font-medium" for={labelFor}> {labelName} : </label>
+<label class="mr-auto font-medium uppercase" for={labelFor}> {labelName} : </label>
 <input
 	class="w-full overflow-auto p-1
 		border border-c-gray"

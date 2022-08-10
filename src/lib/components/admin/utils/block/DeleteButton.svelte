@@ -6,6 +6,7 @@
 	export let onClick = () => {};
 
 	let confirmDeletion = false;
+	let coordinates = { x: 0, y: 0 };
 
 	/**
 	 * Function used to remove an object from Firebase
@@ -18,6 +19,7 @@
 <p
 	class="flex justify-center items-center h-auto w-6 my-auto mx-2 
         text-center rounded-full cursor-pointer
+		transition-colors
         bg-red-300 hover:bg-red-500"
 	on:click={() => {
 		confirmDeletion = !confirmDeletion;
@@ -29,15 +31,16 @@
 </p>
 
 <div
-	class="fixed top-[calc(50%-4rem)] left-[calc(50%-6rem)] h-32 w-48
+	class="fixed h-32 w-48
 		bg-white border-2 border-c-black
 		{confirmDeletion ? 'visible' : 'invisible'}"
+	style="top:{coordinates.y};left:{coordinates.x};"
 >
 	<p class="w-full text-center underline">Confirm deletion</p>
 	<div class="flex w-full h-full">
 		<p
 			class="m-auto w-10 text-center border border-black
-				bg-c-light-green hover:bg-c-green cursor-pointer"
+				bg-c-light-green hover:bg-c-green cursor-pointer transition-colors"
 			on:click={() => {
 				removeObject(ref);
 				onClick();
@@ -48,7 +51,7 @@
 		</p>
 		<p
 			class="m-auto w-10 text-center border border-black
-				bg-red-400 hover:bg-red-500 cursor-pointer"
+				bg-red-400 hover:bg-red-500 cursor-pointer transition-colors"
 			on:click={() => {
 				confirmDeletion = false;
 			}}

@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: sourceCodePro;
+	src: url('/fonts/SourceCodePro-Regular.ttf');
+}
+
 .shadow {
 	box-shadow: 3px 5px 3px black;
 }
