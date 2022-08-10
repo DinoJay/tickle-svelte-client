@@ -83,7 +83,7 @@
 				transition:fly={{ x: mobileNavWidth, duration: 500, opacity: 1 }}
 				class="flex flex-col h-auto sm:w-[40%] w-full  
 				 	absolute top-[4rem] right-0 z-20
-					bg-c-dark-grey "
+					bg-c-dark-gray "
 			>
 				{#each sections as section}
 					<button

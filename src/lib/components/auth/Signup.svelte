@@ -69,7 +69,7 @@
 	<form class="flex flex-col my-auto" action="" method="post" on:submit={(e) => submit(e)}>
 		<input
 			class="w-[90%] lg:w-2/5 m-auto py-2 px-3 mb-3
-				outline-c-dark-grey
+				outline-c-dark-gray
 				border-black border-2 custom-shadow"
 			bind:value={email}
 			type="text"
@@ -78,7 +78,7 @@
 		/>
 		<input
 			class="w-[90%] lg:w-2/5 m-auto py-2 px-3 mb-3
-				outline-c-dark-grey
+				outline-c-dark-gray
 				border-black border-2 custom-shadow"
 			bind:value={pwd}
 			type="password"
@@ -87,7 +87,7 @@
 		/>
 		<input
 			class="w-[90%] lg:w-2/5 m-auto py-2 px-3 mb-3
-				outline-c-dark-grey
+				outline-c-dark-gray
 				border-black border-2 custom-shadow"
 			bind:value={pwdConfirmation}
 			type="password"
@@ -103,7 +103,7 @@
 			class="w-[90%] lg:w-2/5 m-auto mb-1 px-3 py-3 
 				font-bold uppercase btn 
 			 	border-2 border-black custom-shadow 
-				bg-white hover:bg-c-light-grey"
+				bg-white hover:bg-c-light-gray"
 			type="submit">Sign up</button
 		>
 		<p class="mx-auto">

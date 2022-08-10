@@ -21,7 +21,7 @@
 <div
 	class="flex h-full w-full justify-center items-center
 		whitespace-nowrap text-ellipsis cursor-pointer
-		{selectedElement == element.id ? 'bg-green-200 hover:bg-green-400' : 'hover:bg-c-grey'}
+		{selectedElement == element.id ? 'bg-green-200 hover:bg-green-400' : 'hover:bg-c-gray'}
 		{isCard ? 'flex-col' : ''}"
 	on:click={() => onClick()}
 >

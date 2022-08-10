@@ -10,7 +10,7 @@
 	let icons = ['cards', 'friends', 'progress', 'avatar'];
 </script>
 
-<div class="flex justify-center h-auto w-full bg-c-grey">
+<div class="flex justify-center h-auto w-full bg-c-gray">
 	{#each icons as icon}
 		<div
 			class="flex h-[5rem] w-[5rem] sm:mx-4 mx-1 my-2 bg-white hover:scale-110 cursor-pointer

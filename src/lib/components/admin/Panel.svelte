@@ -17,7 +17,7 @@
 	<!-- Title container -->
 	<div
 		class="flex h-[3rem] w-full justify-center
-		{selectedEnvironment ? 'bg-c-light-green cursor-pointer' : 'bg-c-light-grey cursor-not-allowed'}"
+		{selectedEnvironment ? 'bg-c-light-green cursor-pointer' : 'bg-c-light-gray cursor-not-allowed'}"
 		on:click={() => {
 			if (selectedEnvironment) expanded = !expanded;
 		}}
@@ -38,7 +38,7 @@
 	<!-- Body's block -->
 	<div
 		class="h-[37rem] w-full 
-			bg-c-light-grey"
+			bg-c-light-gray"
 	>
 		<slot />
 	</div>

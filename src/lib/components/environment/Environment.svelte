@@ -31,7 +31,7 @@
 				</p>
 				<button
 					class="w-full p-2 text-xl
-						hover:bg-c-light-grey
+						hover:bg-c-light-gray
 						border border-black border-3"
 					on:click={() => {
 						goto(`/cardview/environment/${id}`);
