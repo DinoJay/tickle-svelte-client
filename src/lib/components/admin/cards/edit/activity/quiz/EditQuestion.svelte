@@ -1,6 +1,6 @@
 <script>
-	import EditImage from '$lib/components/admin/utils/editBlocks/EditImage.svelte';
-	import EditText from '$lib/components/admin/utils/editBlocks/EditText.svelte';
+	import EditImage from '$lib/components/admin/utils/edit/EditImage.svelte';
+	import EditText from '$lib/components/admin/utils/edit/EditText.svelte';
 
 	export let height = 0;
 	export let width = 0;

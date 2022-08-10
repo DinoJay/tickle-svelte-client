@@ -18,7 +18,7 @@
 	};
 </script>
 
-<p
+<div
 	class="flex h-full w-full justify-center items-center
 		whitespace-nowrap text-ellipsis cursor-pointer
 		{selectedElement == element.id ? 'bg-green-200 hover:bg-green-400' : 'hover:bg-c-grey'}
@@ -26,19 +26,18 @@
 	on:click={() => onClick()}
 >
 	{#if element?.img && isCard}
-		<p
-			class="h-[3rem] w-[14rem] px-1
-			 	overflow-hidden text-ellipsis text-center"
-		>
-			{element.title}
-		</p>
+		<div class="flex justify-center items-center h-[3rem] w-[14rem] px-1">
+			<p class="overflow-hidden text-ellipsis text-center">
+				{element.title}
+			</p>
+		</div>
 		<img
-			class="h-[9rem] w-full"
+			class="h-[9rem] w-full mt-auto"
 			src={element?.img.url}
 			alt={element?.img.name}
 			style="object-fit: cover;"
 		/>
 	{:else}
-		{element?.name || element?.title}
+		<p>{element?.name || element?.title}</p>
 	{/if}
-</p>
+</div>

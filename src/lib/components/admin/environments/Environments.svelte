@@ -5,8 +5,8 @@
 	import LightBox from '$lib/components/utils/LightBox.svelte';
 	import Environment from './EditEnvironment.svelte';
 	import AddButton from '$lib/components/admin/utils/AddButton.svelte';
-	import DeleteButton from '$lib/components/admin/utils/DeleteButton.svelte';
-	import Body from '$lib/components/admin/utils/BodyPanel.svelte';
+	import Content from '$lib/components/admin/utils/block/BlockContent.svelte';
+	import Block from '$lib/components/admin/utils/block/Block.svelte';
 
 	export let addButtonContent = '';
 	export let selectedEnvironment = null;
@@ -33,25 +33,20 @@
 <div class="h-[35rem] overflow-auto">
 	{#if $store.envs}
 		{#each environments as env}
-			<div
-				class="flex h-12 w-full
-					bg-white my-1"
+			<Block
+				onClick={() => {
+					environments.splice(environments.indexOf(env), 1);
+					environments = [...environments];
+				}}
+				ref={doc(db, 'card-envs', env.id)}
 			>
-				<Body
+				<Content
 					element={env}
 					bind:selectedElement={selectedEnvironment}
 					bind:currentElement={currentEnvironment}
 					bind:isLightBoxOpen
 				/>
-
-				<DeleteButton
-					onClick={() => {
-						environments.splice(environments.indexOf(env), 1);
-						environments = [...environments];
-					}}
-					ref={doc(db, 'card-envs', env.id)}
-				/>
-			</div>
+			</Block>
 		{/each}
 	{/if}
 </div>

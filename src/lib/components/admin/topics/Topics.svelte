@@ -4,8 +4,8 @@
 	import LightBox from '$lib/components/utils/LightBox.svelte';
 	import Topic from '$lib/components/admin/topics/EditTopic.svelte';
 	import AddButton from '$lib/components/admin/utils/AddButton.svelte';
-	import DeleteButton from '$lib/components/admin/utils/DeleteButton.svelte';
-	import Body from '$lib/components/admin/utils/BodyPanel.svelte';
+	import Content from '$lib/components/admin/utils/block/BlockContent.svelte';
+	import Block from '$lib/components/admin/utils/block/Block.svelte';
 
 	export let addButtonContent = '';
 	export let selectedEnvironment = null;
@@ -43,11 +43,15 @@
 		h-[35rem] overflow-auto"
 >
 	{#each topics as topic}
-		<div
-			class="flex flex-col h-[14rem] w-[14rem] 
-           	 	mx-auto my-1 bg-white"
+		<Block
+			onClick={() => {
+				topics.splice(topics.indexOf(topic), 1);
+				topics = [...topics];
+			}}
+			ref={doc(db, 'card-envs', selectedEnvironment, 'topics', topic.id)}
+			isCard={true}
 		>
-			<Body
+			<Content
 				element={topic}
 				onClick={() => {
 					currentTopic = topic;
@@ -55,20 +59,7 @@
 				}}
 				isCard={true}
 			/>
-
-			<div
-				class="flex h-[2rem] w-full
-                    justify-center items-center"
-			>
-				<DeleteButton
-					onClick={() => {
-						topics.splice(topics.indexOf(topic), 1);
-						topics = [...topics];
-					}}
-					ref={doc(db, 'card-envs', selectedEnvironment, 'topics', topic.id)}
-				/>
-			</div>
-		</div>
+		</Block>
 	{:else}
 		<p
 			class="w-full mt-5 text-center

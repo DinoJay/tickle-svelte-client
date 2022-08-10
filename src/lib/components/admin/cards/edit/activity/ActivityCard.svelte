@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 	import HangmanActivity from './hangman/HangmanActivity.svelte';
 	import QuizActivity from './quiz/QuizActivity.svelte';
-	import EditText from '$lib/components/admin/utils/editBlocks/EditText.svelte';
+	import EditText from '$lib/components/admin/utils/edit/EditText.svelte';
 
 	export let currentCard = {};
 	export let selectedEnvironment = '';

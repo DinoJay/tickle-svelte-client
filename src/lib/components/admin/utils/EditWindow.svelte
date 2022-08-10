@@ -1,10 +1,10 @@
 <script>
 	import { onMount } from 'svelte';
 	import { addDoc, updateDoc } from 'firebase/firestore';
-	import EditText from './editBlocks/EditText.svelte';
-	import EditTextArea from './editBlocks/EditTextArea.svelte';
-	import EditImage from './editBlocks/EditImage.svelte';
-	import EditColor from './editBlocks/EditColor.svelte';
+	import EditText from './edit/EditText.svelte';
+	import EditTextArea from './edit/EditTextArea.svelte';
+	import EditImage from './edit/EditImage.svelte';
+	import EditColor from './edit/EditColor.svelte';
 
 	export let fields = [];
 	export let currentElement = {};

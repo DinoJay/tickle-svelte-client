@@ -1,5 +1,5 @@
 <script>
-	import EditText from '$lib/components/admin/utils/editBlocks/EditText.svelte';
+	import EditText from '$lib/components/admin/utils/edit/EditText.svelte';
 
 	export let word = '';
 	export let saveActivity = () => {};

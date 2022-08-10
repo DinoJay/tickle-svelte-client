@@ -4,8 +4,8 @@
 	import LightBox from '$lib/components/utils/LightBox.svelte';
 	import Card from './EditCard.svelte';
 	import AddButton from '$lib/components/admin/utils/AddButton.svelte';
-	import DeleteButton from '$lib/components/admin/utils/DeleteButton.svelte';
-	import Body from '$lib/components/admin/utils/BodyPanel.svelte';
+	import Block from '$lib/components/admin/utils/block/Block.svelte';
+	import Content from '$lib/components/admin/utils/block/BlockContent.svelte';
 
 	export let addButtonContent = '';
 	export let selectedEnvironment = null;
@@ -53,31 +53,22 @@
         h-[35rem] overflow-auto"
 >
 	{#each cards as card}
-		<div
-			class="flex flex-col h-[14rem] w-[14rem] 
-           	 	mx-auto my-1 bg-white"
+		<Block
+			onClick={() => {
+				cards.splice(cards.indexOf(card), 1);
+				cards = [...cards];
+			}}
+			ref={doc(db, 'card-envs', selectedEnvironment, 'cards', card.id)}
+			isCard={true}
 		>
-			<Body
+			<Content
 				element={card}
 				bind:selectedElement={selectedCard}
 				bind:currentElement={currentCard}
 				bind:isLightBoxOpen
 				isCard={true}
 			/>
-
-			<div
-				class="flex h-[2rem] w-full
-                    justify-center items-center"
-			>
-				<DeleteButton
-					onClick={() => {
-						cards.splice(cards.indexOf(card), 1);
-						cards = [...cards];
-					}}
-					ref={doc(db, 'card-envs', selectedEnvironment, 'cards', card.id)}
-				/>
-			</div>
-		</div>
+		</Block>
 	{:else}
 		<p
 			class="w-full mt-5 text-center
