@@ -16,7 +16,7 @@
 </script>
 
 <p
-	class="h-auto w-6 my-auto mx-2 
+	class="flex justify-center items-center h-auto w-6 my-auto mx-2 
         text-center rounded-full cursor-pointer
         bg-red-300 hover:bg-red-500"
 	on:click={() => {

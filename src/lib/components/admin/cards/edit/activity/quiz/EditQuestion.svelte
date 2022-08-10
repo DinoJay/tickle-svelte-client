@@ -44,7 +44,7 @@
 				<div class="flex h-full w-[10%]">
 					<p
 						class="flex justify-center items-center m-auto h-8 w-8 
-                    rounded-full bg-red-300 hover:bg-red-500 cursor-pointer"
+                    		rounded-full bg-red-300 hover:bg-red-500 cursor-pointer"
 						on:click={() => removeAnswer(answer)}
 					>
 						-

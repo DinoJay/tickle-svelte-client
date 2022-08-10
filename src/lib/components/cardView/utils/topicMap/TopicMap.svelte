@@ -33,13 +33,15 @@
 				topics.forEach((topic) => {
 					if (!colors.includes(topic.color)) colors[topic.title] = topic.color;
 				});
+				return topics;
 			})
-			.then(() => {
-				getTopicValues();
+			.then((topics) => {
+				getTopicValues(topics);
 			});
 	}
 
-	const getTopicValues = () => {
+	const getTopicValues = (topics) => {
+		console.log(topics);
 		if (cards.length == 0) return;
 
 		const sort = (ar, acc = (a) => a.title) => {
@@ -84,8 +86,12 @@
 		};
 
 		const nodeData = cards.map((d) => {
-			const sets = sort(d.topics).map((d) => d.title);
-			const setsStr = getSetsStr(d.topics);
+			let cardTopics = [];
+			topics.forEach((topic) => {
+				if (d.topics.includes(topic.id)) cardTopics.push(topic);
+			});
+			const sets = sort(cardTopics).map((d) => d.title);
+			const setsStr = getSetsStr(cardTopics);
 			return { ...d, sets, setsStr };
 		});
 
