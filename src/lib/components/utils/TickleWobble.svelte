@@ -1,10 +1,9 @@
-<div class="flex h-full w-full absolute">
+<div class="flex top-0 h-full w-full fixed bg-transparent">
 	<img class="wobble m-auto" src="/alt_tickle_icon.svg" alt="loader" />
 </div>
 
 <style>
 	.wobble {
-		@apply m-auto;
 		animation-duration: 1s;
 		animation-name: wob;
 		animation-iteration-count: infinite;

@@ -22,7 +22,12 @@
 		<Slider {cards} {selectedEnvironment} {selectedCard} onClick={(id) => (selectedCard = id)} />
 
 		<div class={!map ? 'visible' : 'invisible'}>
-			<TopicMap {cards} {selectedCard} onClick={(id) => (selectedCard = id)} />
+			<TopicMap
+				{cards}
+				{selectedCard}
+				{selectedEnvironment}
+				onClick={(id) => (selectedCard = id)}
+			/>
 		</div>
 
 		<div class="absolute h-full w-full  {map ? 'visible' : 'invisible'}">

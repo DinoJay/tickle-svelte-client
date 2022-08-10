@@ -35,7 +35,18 @@
 	 */
 	if (currentCard.id) {
 		getDoc(doc(db, 'card-envs', selectedEnvironment, 'cards', currentCard.id)).then((snap) => {
-			if (snap.data()?.topics.length > 0) selectedTopics = snap.data()?.topics;
+			if (snap.data()?.topics.length > 0) {
+				let topicsId = snap.data()?.topics;
+				// Get all the topics from the topics id of the card
+				getDocs(collection(db, 'card-envs', selectedEnvironment, 'topics')).then((snap) => {
+					const topics = snap.docs.map((doc) => {
+						return doc.data();
+					});
+					topics.forEach((topic) => {
+						if (topicsId.includes(topic.id)) selectedTopics = [...selectedTopics, topic];
+					});
+				});
+			}
 		});
 	}
 
@@ -44,11 +55,13 @@
 	 * @param topic
 	 */
 	const addTopic = (topic) => {
-		let exists = selectedTopics.find((t) => t.title == topic.title);
+		let exists = selectedTopics.find((t) => t.id == topic.id);
 		if (exists) return;
 		selectedTopics = [...selectedTopics, topic];
+		let topicsId = selectedTopics.map((topic) => topic.id);
+
 		updateDoc(docRef, {
-			topics: selectedTopics
+			topics: topicsId
 		});
 	};
 
@@ -59,8 +72,10 @@
 	const removeTopic = (topic) => {
 		selectedTopics.splice(selectedTopics.indexOf(topic), 1);
 		selectedTopics = [...selectedTopics];
+		let topicsId = selectedTopics.map((topic) => topic.id);
+
 		updateDoc(docRef, {
-			topics: selectedTopics
+			topics: topicsId
 		});
 	};
 </script>
