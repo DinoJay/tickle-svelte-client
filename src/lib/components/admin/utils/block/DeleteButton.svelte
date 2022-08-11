@@ -26,11 +26,12 @@
 		let offsetX = 0;
 		let offsetY = 0;
 
-		console.log(e);
 		if (e.x + 200 > window.innerWidth) {
+			// popup width
 			offsetX = 192;
 		}
 		if (e.y + 200 > window.innerHeight) {
+			// popup height
 			offsetY = 128;
 		}
 

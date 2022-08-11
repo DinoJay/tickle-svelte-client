@@ -1,6 +1,4 @@
 <script>
-	import ImageSearchOutline from 'svelte-material-icons/ImageSearchOutline.svelte';
-
 	export let labelName = '';
 	export let labelFor = '';
 	export let bindObject = {};
@@ -17,8 +15,24 @@
 		let reader = new FileReader();
 		reader.readAsDataURL(image);
 		reader.onload = (e) => {
-			bindObject.url = e.target.result;
-			onInput();
+			const img = new Image();
+			img.src = e.target.result;
+
+			img.onload = () => {
+				let ratio = img.naturalHeight / 1000;
+				ratio = ratio.toFixed(0);
+				if (ratio == 0) ratio = 1;
+
+				const elem = document.createElement('canvas');
+				elem.height = img.naturalHeight / ratio;
+				elem.width = img.naturalWidth / ratio;
+
+				const ctx = elem.getContext('2d');
+				ctx.drawImage(img, 0, 0, elem.width, elem.height);
+
+				bindObject.url = elem.toDataURL('image/jpeg', 0.1);
+				onInput();
+			};
 		};
 	};
 </script>
