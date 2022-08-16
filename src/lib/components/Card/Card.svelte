@@ -6,6 +6,7 @@
 	import LightBox from '$lib/components/utils/LightBox.svelte';
 	import Quiz from '$lib/components/card/challenge/quiz/Quiz.svelte';
 	import Hangman from '$lib/components/card/challenge/hangman/Hangman.svelte';
+	import GeoCatching from './challenge/geoCatching/geoCatching.svelte';
 
 	export let title = '';
 	export let description = '';
@@ -29,7 +30,8 @@
 		type: activity?.type,
 		succeeded: false,
 		uid: $store.currentUser.uid,
-		score: 0
+		score: 0,
+		maxScore: 0
 	};
 
 	/**
@@ -55,8 +57,12 @@
 		submissions.forEach((submission) => {
 			if (submission.cardId == id) {
 				allowed = false;
-				challengeButtonContent =
-					'Completed - score : ' + submission.score + '/' + submission.maxScore;
+				if (submission.completed) {
+					challengeButtonContent =
+						'Completed - score : ' + submission.score + '/' + submission.maxScore;
+				} else {
+					challengeButtonContent = 'Pending...';
+				}
 			}
 		});
 
@@ -67,7 +73,7 @@
 </script>
 
 <div class="flex flex-col p-3 bg-white" style="width:{width}px;height:{height}px">
-	<h1 class="text-xl">
+	<h1 class="text-xl max-w-[80%]">
 		{title}
 	</h1>
 	<img src={img} alt={title} class="w-full mb-3 object-contain " style="height:300px" />
@@ -97,10 +103,12 @@
 			isUserAllowed();
 		}}
 	>
-		{#if activity.type == 'Quiz'}
+		{#if activity?.type == 'Quiz'}
 			<Quiz {activity} {activityInformation} />
-		{:else if activity.type == 'Hangman'}
+		{:else if activity?.type == 'Hangman'}
 			<Hangman {activity} {activityInformation} />
+		{:else if activity?.type == 'GeoCatching'}
+			<GeoCatching {activity} {activityInformation} />
 		{/if}
 	</LightBox>
 {/if}

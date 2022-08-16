@@ -169,7 +169,6 @@
 
 {#await loadTopicMap()}
 	<TickleWobble />
-	<div class="h-full w-full bg-black" />
 {:then _}
 	<div class="flex w-full h-[calc(100vh-20rem)]">
 		<div class="m-auto relative overflow-auto" style="height:{height}px;width:{width}px;">

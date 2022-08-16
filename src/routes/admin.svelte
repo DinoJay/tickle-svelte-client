@@ -4,6 +4,7 @@
 	import Topics from '$lib/components/admin/topics/Topics.svelte';
 	import Cards from '$lib/components/admin/cards/Cards.svelte';
 	import Map from '$lib/components/admin/map/Map.svelte';
+	import GeoCatchingValidation from '$lib/components/admin/geoCatching/GeoCatchingValidation.svelte';
 
 	// uploads images : https://svelte.dev/repl/b17c13d4f1bb40799ccf09e0841ddd90?version=3.49.0
 
@@ -33,5 +34,9 @@
 
 	<Panel title={'Map'} selectedEnvironment={selectedCard}>
 		<Map {selectedEnvironment} {selectedCard} />
+	</Panel>
+
+	<Panel title={'GeoCatching'}>
+		<GeoCatchingValidation />
 	</Panel>
 </div>

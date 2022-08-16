@@ -34,6 +34,8 @@
 			}
 
 			// Fill userCardsIdForEachEnv with all the cards collected from the user for each environment
+			if (!submission.completed) return;
+
 			if (!userCardsIdForEachEnv[submission.envId]) {
 				userCardsIdForEachEnv[submission.envId] = [];
 			}

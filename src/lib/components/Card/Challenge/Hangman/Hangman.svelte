@@ -1,6 +1,6 @@
 <script>
 	import { db } from '$lib/firebaseConfig/firebase';
-	import { addDoc, collection } from 'firebase/firestore';
+	import { addDoc, collection, updateDoc } from 'firebase/firestore';
 	import { onDestroy, onMount } from 'svelte';
 	import MobileKeyboard from './MobileKeyboard.svelte';
 
@@ -93,7 +93,10 @@
 		addDoc(
 			collection(db, 'users', activityInformation.uid, 'activitySubmissions'),
 			activityInformation
-		).then(() => {
+		).then((next) => {
+			updateDoc(next, {
+				id: next.id
+			});
 			status = 'We have received your results ✓';
 		});
 	};

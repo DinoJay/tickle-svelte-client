@@ -13,7 +13,7 @@
 	let height = 600;
 	let width = 400;
 
-	let activities = ['Quiz', 'Hangman'];
+	let activities = ['Quiz', 'Hangman', 'GeoCatching'];
 	let currentActivity = { type: 'default', value: { title: '', word: '', questions: [] } };
 
 	/**

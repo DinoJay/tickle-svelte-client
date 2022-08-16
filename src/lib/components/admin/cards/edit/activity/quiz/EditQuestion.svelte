@@ -9,7 +9,8 @@
 	export let saveActivity = () => {};
 
 	const addAnswer = () => {
-		question.answers = [...question.answers, { text: 'none', correct: false }];
+		let id = Math.random().toString(16).slice(2);
+		question.answers = [...question.answers, { text: 'none', correct: false, id: id }];
 	};
 
 	const removeAnswer = (answer) => {

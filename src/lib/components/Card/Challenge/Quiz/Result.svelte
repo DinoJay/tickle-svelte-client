@@ -1,6 +1,6 @@
 <script>
 	import { db } from '$lib/firebaseConfig/firebase';
-	import { collection, addDoc } from 'firebase/firestore';
+	import { collection, addDoc, updateDoc } from 'firebase/firestore';
 
 	export let questions = [];
 	export let title = '';
@@ -45,7 +45,10 @@
 		addDoc(
 			collection(db, 'users', activityInformation.uid, 'activitySubmissions'),
 			activityInformation
-		).then(() => {
+		).then((next) => {
+			updateDoc(next, {
+				id: next.id
+			});
 			status = 'We have received your results ✓';
 		});
 	};

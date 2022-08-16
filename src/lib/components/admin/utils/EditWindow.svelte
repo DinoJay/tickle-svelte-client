@@ -13,7 +13,6 @@
 
 	let height = 600;
 	let width = 400;
-	let fieldImg = fields.find((field) => field.name == 'Image');
 
 	/**
 	 * LightBox height width for mobile
