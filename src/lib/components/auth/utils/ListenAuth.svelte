@@ -35,6 +35,7 @@
 				let userObj = {};
 				userObj.avatar = doc.data().avatar;
 				userObj.uid = user.uid;
+				if (doc.data()?.admin) userObj.admin = true;
 				store.update((obj) => ({ ...obj, currentUser: userObj }));
 			});
 		};

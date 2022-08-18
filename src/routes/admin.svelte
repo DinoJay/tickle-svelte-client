@@ -1,4 +1,5 @@
 <script>
+	import { store } from '/src/stores/index';
 	import Panel from '$lib/components/admin/Panel.svelte';
 	import Environments from '$lib/components/admin/environments/Environments.svelte';
 	import Topics from '$lib/components/admin/topics/Topics.svelte';
@@ -16,27 +17,33 @@
 	let selectedCard = null;
 </script>
 
-<div
-	class="grid grid-cols-1 gap-3 m-2
+{#if $store?.currentUser?.admin}
+	<div
+		class="grid grid-cols-1 gap-3 m-2
         lg:grid-cols-2 lg:m-5"
->
-	<Panel title={'Environments'}>
-		<Environments bind:selectedEnvironment addButtonContent={'Add new environment'} />
-	</Panel>
+	>
+		<Panel title={'Environments'}>
+			<Environments bind:selectedEnvironment addButtonContent={'Add new environment'} />
+		</Panel>
 
-	<Panel title={'Topics'} {selectedEnvironment}>
-		<Topics {selectedEnvironment} addButtonContent={'Add new topic'} />
-	</Panel>
+		<Panel title={'Topics'} {selectedEnvironment}>
+			<Topics {selectedEnvironment} addButtonContent={'Add new topic'} />
+		</Panel>
 
-	<Panel title={'Cards'} {selectedEnvironment}>
-		<Cards {selectedEnvironment} bind:selectedCard addButtonContent={'Add new card'} />
-	</Panel>
+		<Panel title={'Cards'} {selectedEnvironment}>
+			<Cards {selectedEnvironment} bind:selectedCard addButtonContent={'Add new card'} />
+		</Panel>
 
-	<Panel title={'Map'} selectedEnvironment={selectedCard}>
-		<Map {selectedEnvironment} {selectedCard} />
-	</Panel>
+		<Panel title={'Map'} selectedEnvironment={selectedCard}>
+			<Map {selectedEnvironment} {selectedCard} />
+		</Panel>
 
-	<Panel title={'GeoCatching'}>
-		<GeoCatchingValidation />
-	</Panel>
-</div>
+		<Panel title={'GeoCatching'}>
+			<GeoCatchingValidation />
+		</Panel>
+	</div>
+{:else}
+	<div class="absolute top-[50%] left-[calc(50%-8rem)] h-12 w-64 text-center">
+		You do not have the permission to acces this page.
+	</div>
+{/if}

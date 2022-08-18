@@ -26,9 +26,13 @@
 			}
 		},
 		{ name: 'Home', foo: () => goto('/home') },
-		{ name: 'Admin', foo: () => goto('/admin') },
 		{ name: 'Sign out', foo: () => logOut() }
 	];
+
+	$: if ($store?.currentUser?.admin) {
+		if (!sections.find((obj) => obj.name == 'Admin'))
+			sections = [...sections, { name: 'Admin', foo: () => goto('/admin') }];
+	}
 
 	/**
 	 * Dynamic method to catch the size of the screen

@@ -11,14 +11,12 @@
 	let showPicture = false;
 	let activityDone = false;
 
-	// video: {
-	// 				facingMode: { exact: 'environment' }
-	// 			},
-
 	const loadCamera = () => {
 		navigator.mediaDevices
 			.getUserMedia({
-				video: true,
+				video: {
+					facingMode: { exact: 'environment' }
+				},
 				audio: false
 			})
 			.then((stream) => {
@@ -49,7 +47,7 @@
 				<track kind="captions" />
 			</video>
 		{:else}
-			<p class="m-auto">Camera is not working</p>
+			<p class="m-auto">Environment camera is not available.</p>
 		{/if}
 	</div>
 
