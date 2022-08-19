@@ -6,7 +6,7 @@
 	import LightBox from '$lib/components/utils/LightBox.svelte';
 	import Quiz from '$lib/components/card/challenge/quiz/Quiz.svelte';
 	import Hangman from '$lib/components/card/challenge/hangman/Hangman.svelte';
-	import GeoCatching from './challenge/geoCatching/geoCatching.svelte';
+	import GeoCatching from './challenge/geoCaching/geoCaching.svelte';
 
 	export let title = '';
 	export let description = '';

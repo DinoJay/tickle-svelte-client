@@ -18,7 +18,7 @@
 			collection(db, 'users', activityInformation.uid, 'activitySubmissions'),
 			activityInformation
 		).then((next) => {
-			addDoc(collection(db, 'geoCatching'), { uid: activityInformation.uid, subid: next.id });
+			addDoc(collection(db, 'geoCaching'), { uid: activityInformation.uid, subid: next.id });
 
 			updateDoc(next, {
 				id: next.id

@@ -31,6 +31,7 @@
 					return doc.data();
 				});
 				topics.forEach((topic) => {
+					topic.title = topic.title.charAt(0).toUpperCase() + topic.title.slice(1);
 					if (!colors.includes(topic.color)) colors[topic.title] = topic.color;
 				});
 				return topics;
@@ -41,7 +42,6 @@
 	}
 
 	const getTopicValues = (topics) => {
-		console.log(topics);
 		if (cards.length == 0) return;
 
 		const sort = (ar, acc = (a) => a.title) => {
@@ -68,12 +68,12 @@
 					}
 				}
 			}
-
 			return res;
 		};
 
 		const isSubset = (a, b) => {
 			const len = a.filter((d) => b.includes(d)).length;
+			console.log(a, b);
 			return a.length === len;
 		};
 
@@ -155,6 +155,7 @@
 		});
 
 		newNodes = setNodes.flatMap((d) => d.nodes);
+		console.log(newNodes);
 	};
 
 	const getColor = (title) => {

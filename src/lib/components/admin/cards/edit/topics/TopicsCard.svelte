@@ -85,13 +85,15 @@
 		<p class="mr-auto font-medium">Topics :</p>
 		<div class="h-[200px] w-full overflow-y-auto border border-c-black">
 			{#each topics as topic}
-				<div
-					class="h-auto w-full py-1 mb-1 text-center text-ellipsis whitespace-nowrap
+				{#if topic?.title}
+					<div
+						class="h-auto w-full py-1 mb-1 text-center text-ellipsis whitespace-nowrap
 						bg-c-gray hover:bg-c-light-green cursor-pointer"
-					on:click={() => addTopic(topic)}
-				>
-					{topic.title}
-				</div>
+						on:click={() => addTopic(topic)}
+					>
+						{topic.title}
+					</div>
+				{/if}
 			{/each}
 		</div>
 		<p class="mr-auto font-medium">Selected Topics :</p>
